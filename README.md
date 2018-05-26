@@ -1,2 +1,5 @@
 # PriManager
-Open Pri Ticket Manager 4 Myself
+Pri Ticket Manager.
+
+フォロワーの管理とコーデ管理を行うためのアプリを作っています。
+
