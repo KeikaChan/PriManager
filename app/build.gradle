@@ -35,4 +35,9 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation project(':zxing-android-embedded')
+    // Anko SQLite
+    implementation "org.jetbrains.anko:anko-sqlite:$anko_version"
+    // Anko Commons
+    implementation "org.jetbrains.anko:anko-commons:$anko_version"
+
 }
