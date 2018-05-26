@@ -76,7 +76,7 @@ class QRUtil {
     /**
      * when Pri☆Chan (1st release) QR, QR header is 0x50A203
      * 第一弾時点ではフォロチケ/コーデのQRのヘッダがすべて0x50A203から始まる
-     * プリパラはヘッダもランダム
+     * プリパラはヘッダもランダムなので別途解析が必要。khromはプリパラ住民じゃなかったのでわからん。
      * また，データサイズは26か122。これはプリパラと同様。
      */
     fun isPriChanQR(data: ByteArray): Boolean {
