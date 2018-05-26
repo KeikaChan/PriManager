@@ -72,4 +72,46 @@ class QRUtil {
         }
         return bmp
     }
+
+    /**
+     * when Pri☆Chan (1st release) QR, QR header is 0x50A203
+     * 第一弾時点ではフォロチケ/コーデのQRのヘッダがすべて0x50A203から始まる
+     * プリパラはヘッダもランダム
+     * また，データサイズは26か122。これはプリパラと同様。
+     */
+    fun isPriChanQR(data: ByteArray): Boolean {
+        return isPriChanFollowTicket(data) && isPriChanCodeTicket(data)
+    }
+
+    /**
+     * フォロチケ判別
+     */
+    fun isPriChanFollowTicket(data: ByteArray): Boolean {
+        if (!data.isNotEmpty()) return false
+        return data[0].toInt() == 0x50
+                && data[1].toInt() == 0xA2
+                && data[2].toInt() == 0x03
+                && data.size == 122
+    }
+
+    /**
+     * コーデチケット判別
+     * 会員証も同様
+     */
+    fun isPriChanCodeTicket(data: ByteArray): Boolean {
+        if (!data.isNotEmpty()) return false
+        return data[0].toInt() == 0x50
+                && data[1].toInt() == 0xA2
+                && data[2].toInt() == 0x03
+                && data.size == 26
+    }
+
+    fun getUserID(data: ByteArray): String? {
+        if (data.size != 122) return null
+        val userId = StringBuilder()
+        for (index in 105..120) {
+            userId.append(String.format("%02X ", data[index]))
+        }
+        return userId.toString()
+    }
 }
