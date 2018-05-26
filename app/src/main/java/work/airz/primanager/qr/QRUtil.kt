@@ -106,8 +106,13 @@ class QRUtil {
                 && data.size == 26
     }
 
-    fun getUserID(data: ByteArray): String? {
-        if (data.size != 122) return null
+    /**
+     * フォロチケのユーザIDを返す
+     * 会員証とはバイナリデータが異なるので注意!!
+     *  詳細は解析が必要
+     */
+    fun getFollowUserID(data: ByteArray): String? {
+        if (data.size != 122 || !isPriChanFollowTicket(data)) return null
         val userId = StringBuilder()
         for (index in 105..120) {
             userId.append(String.format("%02X ", data[index]))
