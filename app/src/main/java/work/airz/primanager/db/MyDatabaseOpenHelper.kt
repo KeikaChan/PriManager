@@ -5,8 +5,8 @@ import android.database.sqlite.SQLiteDatabase
 import org.jetbrains.anko.db.*
 
 class MyDatabaseOpenHelper(context: Context) : ManagedSQLiteOpenHelper(context, "pri.db", null, 1) {
-    val FOLLOW_TICKET_TABLE = "Follow"
-    val CODE_TICKET_TABLE = "Code"
+    val FOLLOW_TICKET_TABLE = "follow"
+    val COORD_TICKET_TABLE = "coordinate"
 
     companion object {
         private var instance: MyDatabaseOpenHelper? = null
@@ -21,10 +21,10 @@ class MyDatabaseOpenHelper(context: Context) : ManagedSQLiteOpenHelper(context, 
     }
 
     override fun onCreate(p0: SQLiteDatabase) {
-        p0.createTable(CODE_TICKET_TABLE, true,
+        p0.createTable(COORD_TICKET_TABLE, true,
                 "raw" to TEXT + PRIMARY_KEY,
-                "code_id" to TEXT,
-                "code_name" to TEXT,
+                "coord_id" to TEXT,
+                "coord_name" to TEXT,
                 "rarity" to TEXT,
                 "brand" to TEXT,
                 "color" to TEXT,
