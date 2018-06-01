@@ -5,8 +5,7 @@ import android.database.sqlite.SQLiteDatabase
 import org.jetbrains.anko.db.*
 
 class MyDatabaseOpenHelper(context: Context) : ManagedSQLiteOpenHelper(context, "pri.db", null, 1) {
-    val FOLLOW_TICKET_TABLE = "follow"
-    val COORD_TICKET_TABLE = "coordinate"
+
 
     companion object {
         private var instance: MyDatabaseOpenHelper? = null
@@ -21,30 +20,30 @@ class MyDatabaseOpenHelper(context: Context) : ManagedSQLiteOpenHelper(context, 
     }
 
     override fun onCreate(p0: SQLiteDatabase) {
-        p0.createTable(COORD_TICKET_TABLE, true,
-                "raw" to TEXT + PRIMARY_KEY,
-                "coord_id" to TEXT,
-                "coord_name" to TEXT,
-                "rarity" to TEXT,
-                "brand" to TEXT,
-                "color" to TEXT,
-                "arcade_series" to TEXT,
-                "date" to TEXT,
-                "which_account" to TEXT,
-                "image" to BLOB,
-                "memo" to TEXT)
-        p0.createTable(FOLLOW_TICKET_TABLE, true,
-                "raw" to TEXT + PRIMARY_KEY,
-                "user_id" to TEXT,
-                "name" to TEXT,
-                "date" to TEXT,
-                "follow" to INTEGER,
-                "follower" to INTEGER,
-                "coordinate" to TEXT,
-                "arcade_series" to TEXT,
-                "which_account" to TEXT,
-                "image" to BLOB,
-                "memo" to TEXT)
+        p0.createTable(DBConstants.COORD_TICKET_TABLE, true,
+                DBConstants.RAW to TEXT + PRIMARY_KEY,
+                DBConstants.COORD_ID to TEXT,
+                DBConstants.COORD_NAME to TEXT,
+                DBConstants.RARITY to TEXT,
+                DBConstants.BRAND to TEXT,
+                DBConstants.COLOR to TEXT,
+                DBConstants.ARCADE_SERIES to TEXT,
+                DBConstants.DATE to TEXT,
+                DBConstants.WHICH_ACCOUNT to TEXT,
+                DBConstants.IMAGE to BLOB,
+                DBConstants.MEMO to TEXT)
+        p0.createTable(DBConstants.FOLLOW_TICKET_TABLE, true,
+                DBConstants.RAW to TEXT + PRIMARY_KEY,
+                DBConstants.USER_ID to TEXT,
+                DBConstants.USER_NAME to TEXT,
+                DBConstants.DATE to TEXT,
+                DBConstants.FOLLOW to INTEGER,
+                DBConstants.FOLLOWER to INTEGER,
+                DBConstants.COORDINATE to TEXT,
+                DBConstants.ARCADE_SERIES to TEXT,
+                DBConstants.WHICH_ACCOUNT to TEXT,
+                DBConstants.IMAGE to BLOB,
+                DBConstants.MEMO to TEXT)
     }
 
     override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) {
