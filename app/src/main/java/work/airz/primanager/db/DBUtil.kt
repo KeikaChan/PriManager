@@ -2,10 +2,12 @@ package work.airz.primanager.db
 
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import org.jetbrains.anko.db.replace
 import org.jetbrains.anko.db.parseList
 import org.jetbrains.anko.db.rowParser
 import org.jetbrains.anko.db.select
+import java.io.*
 
 class DBUtil(private val context: Context) {
     private val database: MyDatabaseOpenHelper
@@ -18,8 +20,8 @@ class DBUtil(private val context: Context) {
     fun getFollowTicketList(): List<FollowTicket> {
         return database.use {
             select(DBConstants.FOLLOW_TICKET_TABLE).exec {
-                parseList(rowParser { raw: String, userId: String, userName: String, date: String, follow: Int, follower: Int, coordinate: String, arcade_series: String, whichAccount: String, image: Bitmap, memo: String ->
-                    FollowTicket(raw, userId, userName, date, follow, follower, coordinate, arcade_series, whichAccount, image, memo)
+                parseList(rowParser { raw: String, userId: String, userName: String, date: String, follow: Int, follower: Int, coordinate: String, arcade_series: String, image: ByteArray, memo: String ->
+                    FollowTicket(raw, userId, userName, date, follow, follower, coordinate, arcade_series, byteArrayToBitmap(image), memo)
                 })
             }
         }
@@ -39,12 +41,20 @@ class DBUtil(private val context: Context) {
                     DBConstants.FOLLOWER to followTicket.follower,
                     DBConstants.COORDINATE to followTicket.coordinate,
                     DBConstants.ARCADE_SERIES to followTicket.arcade_series,
-                    DBConstants.IMAGE to followTicket.image,
+                    DBConstants.IMAGE to bitmapToByteArray(followTicket.image),
                     DBConstants.MEMO to followTicket.memo)
         }
     }
 
+    fun bitmapToByteArray(bitmap: Bitmap): ByteArray {
+        val bos = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, bos)
+        return bos.toByteArray()
+    }
 
+    fun byteArrayToBitmap(byteArray: ByteArray): Bitmap {
+        return BitmapFactory.decodeByteArray(byteArray,0,byteArray.size)
+    }
 
     /**
      * コーデチケットのリスト取得用
@@ -53,8 +63,8 @@ class DBUtil(private val context: Context) {
     fun getCoordTicketList(): List<CoordTicket> {
         return database.use {
             select(DBConstants.COORD_TICKET_TABLE).exec {
-                parseList(rowParser { raw: String, coordId: String, coordName: String, rarity: String, brand: String, color: String, arcadeSeries: String, date: String, whichAccount: String, image: Bitmap, memo: String ->
-                    CoordTicket(raw, coordId, coordName, rarity, brand, color, arcadeSeries, date, whichAccount, image, memo)
+                parseList(rowParser { raw: String, coordId: String, coordName: String, rarity: String, brand: String, color: String, arcadeSeries: String, date: String, whichAccount: String, image: ByteArray, memo: String ->
+                    CoordTicket(raw, coordId, coordName, rarity, brand, color, arcadeSeries, date, whichAccount, byteArrayToBitmap(image), memo)
                 })
             }
         }
@@ -63,7 +73,7 @@ class DBUtil(private val context: Context) {
     /**
      * コーデチケット追加
      */
-    fun putCoordTicketData(coodTicket: CoordTicket){
+    fun putCoordTicketData(coodTicket: CoordTicket) {
         database.use {
             replace(DBConstants.COORD_TICKET_TABLE,
                     DBConstants.RAW to coodTicket.raw,
@@ -75,10 +85,12 @@ class DBUtil(private val context: Context) {
                     DBConstants.ARCADE_SERIES to coodTicket.arcadeSeries,
                     DBConstants.DATE to coodTicket.date,
                     DBConstants.WHICH_ACCOUNT to coodTicket.whichAccount,
-                    DBConstants.IMAGE to coodTicket.image,
+                    DBConstants.IMAGE to bitmapToByteArray(coodTicket.image),
                     DBConstants.MEMO to coodTicket.memo)
         }
     }
+
+
     /**
      * ユーザ一覧を返す
      */
@@ -97,7 +109,7 @@ class DBUtil(private val context: Context) {
      */
     fun isFollowed(myUserRawData: String, targetUserId: String): Boolean {
         return database.use {
-            select(DBConstants.USER_TABLE, DBConstants.RAW, DBConstants.WHICH_ACCOUNT).whereArgs("${DBConstants.RAW} = ${myUserRawData}").exec {
+            select(DBConstants.USER_TABLE, DBConstants.RAW, DBConstants.WHICH_ACCOUNT).whereArgs("${DBConstants.RAW} = {arg}", "arg" to myUserRawData).exec {
                 parseList(rowParser { _: String, whichAccount: String ->
                     whichAccount.split(",").any { it == targetUserId } //一回しか処理が通らないはず
                 })
@@ -111,25 +123,12 @@ class DBUtil(private val context: Context) {
      */
     fun isDuplicate(table: String, primaryKeyData: String): Boolean {
         return database.use {
-            select(table, DBConstants.RAW).whereArgs("${DBConstants.RAW} = ${primaryKeyData}").exec {
+            select(table, DBConstants.RAW).whereArgs("${DBConstants.RAW} = {arg}", "arg" to primaryKeyData).exec {
                 parseList(rowParser { _: String -> })
             }.isNotEmpty()
         }
     }
 
-
-    class CoordTicket(
-            val raw: String,
-            val coordId: String,
-            val coordName: String,
-            val rarity: String,
-            val brand: String,
-            val color: String,
-            val arcadeSeries: String,
-            val date: String,
-            val whichAccount: String,
-            val image: Bitmap,
-            val memo: String)
 
     class FollowTicket(
             val raw: String,
@@ -140,6 +139,18 @@ class DBUtil(private val context: Context) {
             val follower: Int,
             val coordinate: String,
             val arcade_series: String,
+            val image: Bitmap,
+            val memo: String)
+
+    class CoordTicket(
+            val raw: String,
+            val coordId: String,
+            val coordName: String,
+            val rarity: String,
+            val brand: String,
+            val color: String,
+            val arcadeSeries: String,
+            val date: String,
             val whichAccount: String,
             val image: Bitmap,
             val memo: String)
