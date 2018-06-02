@@ -4,7 +4,7 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import org.jetbrains.anko.db.*
 
-class MyDatabaseOpenHelper(context: Context) : ManagedSQLiteOpenHelper(context, "pri.db", null, 1) {
+class MyDatabaseOpenHelper(val context: Context) : ManagedSQLiteOpenHelper(context, "pri.db", null, 1) {
 
 
     companion object {
@@ -13,7 +13,7 @@ class MyDatabaseOpenHelper(context: Context) : ManagedSQLiteOpenHelper(context, 
         @Synchronized
         fun getInstance(ctx: Context): MyDatabaseOpenHelper {
             if (instance == null) {
-                instance = MyDatabaseOpenHelper(ctx.getApplicationContext())
+                instance = MyDatabaseOpenHelper(ctx.applicationContext)
             }
             return instance!!
         }
@@ -50,6 +50,4 @@ class MyDatabaseOpenHelper(context: Context) : ManagedSQLiteOpenHelper(context, 
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    val Context.database: MyDatabaseOpenHelper
-        get() = MyDatabaseOpenHelper.getInstance(applicationContext)
 }
