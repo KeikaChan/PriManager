@@ -20,18 +20,6 @@ class MyDatabaseOpenHelper(context: Context) : ManagedSQLiteOpenHelper(context, 
     }
 
     override fun onCreate(p0: SQLiteDatabase) {
-        p0.createTable(DBConstants.COORD_TICKET_TABLE, true,
-                DBConstants.RAW to TEXT + PRIMARY_KEY,
-                DBConstants.COORD_ID to TEXT,
-                DBConstants.COORD_NAME to TEXT,
-                DBConstants.RARITY to TEXT,
-                DBConstants.BRAND to TEXT,
-                DBConstants.COLOR to TEXT,
-                DBConstants.ARCADE_SERIES to TEXT,
-                DBConstants.DATE to TEXT,
-                DBConstants.WHICH_ACCOUNT to TEXT,
-                DBConstants.IMAGE to BLOB,
-                DBConstants.MEMO to TEXT)
         p0.createTable(DBConstants.FOLLOW_TICKET_TABLE, true,
                 DBConstants.RAW to TEXT + PRIMARY_KEY,
                 DBConstants.USER_ID to TEXT,
@@ -44,6 +32,19 @@ class MyDatabaseOpenHelper(context: Context) : ManagedSQLiteOpenHelper(context, 
                 DBConstants.IMAGE to BLOB,
                 DBConstants.MEMO to TEXT)
 
+        p0.createTable(DBConstants.COORD_TICKET_TABLE, true,
+                DBConstants.RAW to TEXT + PRIMARY_KEY,
+                DBConstants.COORD_ID to TEXT,
+                DBConstants.COORD_NAME to TEXT,
+                DBConstants.RARITY to TEXT,
+                DBConstants.BRAND to TEXT,
+                DBConstants.COLOR to TEXT,
+                DBConstants.ARCADE_SERIES to TEXT,
+                DBConstants.DATE to TEXT,
+                DBConstants.WHICH_ACCOUNT to TEXT,
+                DBConstants.IMAGE to BLOB,
+                DBConstants.MEMO to TEXT)
+        
         p0.createTable(DBConstants.USER_TABLE, true,
                 DBConstants.RAW to TEXT + PRIMARY_KEY,
                 DBConstants.USER_NAME to TEXT,
