@@ -41,7 +41,7 @@ class MyDatabaseOpenHelper(val context: Context) : ManagedSQLiteOpenHelper(conte
                 DBConstants.FOLLOWER to INTEGER,
                 DBConstants.COORDINATE to TEXT,
                 DBConstants.ARCADE_SERIES to TEXT,
-                DBConstants.WHICH_ACCOUNT to TEXT,
+//                DBConstants.WHICH_ACCOUNT to TEXT, // → ユーザデータに保持する ユーザ:フォローしている垢の一覧、みたいな
                 DBConstants.IMAGE to BLOB,
                 DBConstants.MEMO to TEXT)
     }
