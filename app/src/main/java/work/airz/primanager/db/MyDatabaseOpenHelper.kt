@@ -48,7 +48,7 @@ class MyDatabaseOpenHelper(context: Context) : ManagedSQLiteOpenHelper(context, 
                 DBConstants.RAW to TEXT + PRIMARY_KEY,
                 DBConstants.USER_NAME to TEXT,
                 DBConstants.USER_CARD_ID to TEXT,
-                DBConstants.WHICH_ACCOUNT to TEXT)
+                DBConstants.FOLLOWS to TEXT)
     }
 
     override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) {
