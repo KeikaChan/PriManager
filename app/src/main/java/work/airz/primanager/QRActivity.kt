@@ -18,9 +18,13 @@ import java.nio.charset.Charset
 import java.util.*
 import android.support.v4.app.ActivityCompat
 import android.content.pm.PackageManager
+import android.graphics.BitmapFactory
 import android.os.Environment
 import android.view.LayoutInflater
 import android.widget.EditText
+import android.widget.Toast
+import work.airz.primanager.db.DBConstants
+import work.airz.primanager.db.DBUtil
 import work.airz.primanager.qr.QRUtil
 import java.io.File
 import java.io.FileOutputStream
@@ -38,6 +42,12 @@ class QRActivity : AppCompatActivity() {
         readQR()
     }
 
+    /**
+     * QRコードの読み取り部分の処理
+     * 読み取って詳細データまで取得する
+     * TODO: 読み取りデータの重複チェックをした後にユーザチェックとか色々入れる
+     * TODO: DBとのデータ一致を確認する部分を作る
+     */
     fun readQR() {
         qrReaderView = findViewById(R.id.decoratedBarcodeView)
         qrReaderView.decodeContinuous(object : BarcodeCallback {
@@ -57,8 +67,23 @@ class QRActivity : AppCompatActivity() {
                 Log.d("maskIndex", result.result.maskIndex.toString())
                 Log.d("QRのサイズ", result.rawBytes.size.toString())
                 val qrBitmap = QRUtil.createQR(data, result.result.maskIndex, result.sourceData.isInverted, QRUtil.detectVersionM(result.rawBytes.size))
-                qrReaderView.pause()
-                saveAlert(qrBitmap, qrReaderView)
+                val dbUtil = DBUtil(applicationContext)
+                if (QRUtil.isPriChanFollowTicket(data)) {
+                    Log.d("test","プリチャンチケット処理")
+                    val raw = QRUtil.byteToString(data)
+                    if(!dbUtil.isDuplicate(DBConstants.FOLLOW_TICKET_TABLE, raw)){
+                        Toast.makeText(applicationContext, "QR被ってない", Toast.LENGTH_SHORT).show()
+                        dbUtil.putFollowTicketData(DBUtil.FollowTicket(raw,"test","neko","1111",10000,111,"nekosan","prichan", BitmapFactory.decodeResource(resources,R.drawable.ic_qr),"test"))
+                    }else{
+                        saveAlert(dbUtil.getFollowTicketList().first().image,qrReaderView)
+                        Toast.makeText(applicationContext, "QR被ってるよ！！", Toast.LENGTH_SHORT).show()
+                    }
+                }else{
+                    Log.d("test","フォロチケじゃないっぽい")
+                }
+                Thread.sleep(1000)
+//                qrReaderView.pause()
+//                saveAlert(qrBitmap, qrReaderView)
             }
         })
         qrReaderView.resume()
