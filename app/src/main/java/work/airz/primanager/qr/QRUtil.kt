@@ -90,10 +90,16 @@ class QRUtil {
          */
         fun isPriChanFollowTicket(data: ByteArray): Boolean {
             if (!data.isNotEmpty()) return false
-            return data[0].toInt() == 0x50
-                    && data[1].toInt() == 0xA2
-                    && data[2].toInt() == 0x03
+            return isPriChanHeader(data)
                     && data.size == 122
+        }
+
+        fun isPriChanHeader(data: ByteArray): Boolean {
+            val strb = StringBuilder()
+            for (index in 0..2) {
+                strb.append(String.format("%02X", data[index]))
+            }
+            return strb.toString() == "50A203"
         }
 
         /**
@@ -102,9 +108,7 @@ class QRUtil {
          */
         fun isPriChanCodeTicket(data: ByteArray): Boolean {
             if (!data.isNotEmpty()) return false
-            return data[0].toInt() == 0x50
-                    && data[1].toInt() == 0xA2
-                    && data[2].toInt() == 0x03
+            return isPriChanHeader(data)
                     && data.size == 26
         }
 
@@ -117,9 +121,15 @@ class QRUtil {
             if (data.size != 122 || !isPriChanFollowTicket(data)) return null
             val userId = StringBuilder()
             for (index in 105..120) {
-                userId.append(String.format("%02X ", data[index]))
+                userId.append(String.format("%02X", data[index]))
             }
             return userId.toString()
+        }
+
+        fun byteToString(data: ByteArray): String {
+            val strb = StringBuilder()
+            data.forEach { strb.append(String.format("%02X", it)) }
+            return strb.toString()
         }
     }
 }
