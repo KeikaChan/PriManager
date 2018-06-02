@@ -6,8 +6,10 @@ class DBConstants {
         //table name
         const val FOLLOW_TICKET_TABLE = "follow"
         const val COORD_TICKET_TABLE = "coordinate"
+        const val USER_TABLE = "user"
 
         //column name
+        //共通
         const val RAW = "raw"
         const val ARCADE_SERIES = "arcade_series"
         const val DATE = "date"
@@ -15,16 +17,21 @@ class DBConstants {
         const val IMAGE = "image"
         const val MEMO = "memo"
 
+        //コーデ用
         const val COORD_ID = "coord_id"
         const val COORD_NAME = "coord_name"
         const val RARITY = "rarity"
         const val BRAND = "brand"
         const val COLOR = "color"
 
+        //フォロチケ用
         const val USER_ID = "user_id"
         const val USER_NAME = "user_name"
-        const val FOLLOW="follow"
-        const val FOLLOWER="follower"
-        const val COORDINATE="coordinate"
+        const val FOLLOW = "follow"
+        const val FOLLOWER = "follower"
+        const val COORDINATE = "coordinate"
+
+        //ユーザ用
+        const val USER_CARD_ID = "user_card_id"
     }
 }

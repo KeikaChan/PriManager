@@ -4,7 +4,7 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import org.jetbrains.anko.db.*
 
-class MyDatabaseOpenHelper(val context: Context) : ManagedSQLiteOpenHelper(context, "pri.db", null, 1) {
+class MyDatabaseOpenHelper(context: Context) : ManagedSQLiteOpenHelper(context, "pri.db", null, 1) {
 
 
     companion object {
@@ -41,9 +41,14 @@ class MyDatabaseOpenHelper(val context: Context) : ManagedSQLiteOpenHelper(conte
                 DBConstants.FOLLOWER to INTEGER,
                 DBConstants.COORDINATE to TEXT,
                 DBConstants.ARCADE_SERIES to TEXT,
-//                DBConstants.WHICH_ACCOUNT to TEXT, // → ユーザデータに保持する ユーザ:フォローしている垢の一覧、みたいな
                 DBConstants.IMAGE to BLOB,
                 DBConstants.MEMO to TEXT)
+
+        p0.createTable(DBConstants.USER_TABLE, true,
+                DBConstants.RAW to TEXT + PRIMARY_KEY,
+                DBConstants.USER_NAME to TEXT,
+                DBConstants.USER_CARD_ID to TEXT,
+                DBConstants.WHICH_ACCOUNT to TEXT)
     }
 
     override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) {
