@@ -7,6 +7,9 @@ import org.jetbrains.anko.db.*
 import java.io.*
 import java.util.*
 
+/**
+ * TODO: 関数の整理
+ */
 class DBUtil(private val context: Context) {
     private val database: MyDatabaseOpenHelper
         get() = MyDatabaseOpenHelper.getInstance(context)
@@ -137,7 +140,7 @@ class DBUtil(private val context: Context) {
         }
     }
 
-    fun getUserTableName(myUserRawData: String): String {
+    private fun getUserTableName(myUserRawData: String): String {
         val tableName = database.use {
             select(DBConstants.USER_TABLE, DBConstants.RAW, DBConstants.FOLLOWS_TABLE_NAME)
                     .whereArgs("${DBConstants.RAW} = {arg}", "arg" to myUserRawData).exec {
@@ -189,6 +192,12 @@ class DBUtil(private val context: Context) {
         }
     }
 
+    /**
+     * ユーザ数のカウント。
+     * ユーザとの重複を避けるために作ったけど、よく考えたらユーザ削除対応したときに被る可能性が出てくるじゃん。
+     * なんかハッシュ値で生成するものを作るかな。
+     * TODO: ユーザ削除対策を実装する
+     */
     fun countUsers(): Int {
         return database.use {
             select(DBConstants.USER_TABLE).column("count(${DBConstants.RAW})").exec {
