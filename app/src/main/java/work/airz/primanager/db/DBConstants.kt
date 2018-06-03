@@ -33,6 +33,6 @@ class DBConstants {
 
         //ユーザ用
         const val USER_CARD_ID = "user_card_id" //会員証に印刷されているID　フォロチケや会員証データとは別
-        const val FOLLOWS = "follows" // フォローしているユーザのIDの一覧、カンマ区切り
+        const val FOLLOWS_TABLE_NAME = "follow_table_name" // フォローしているユーザのIDの一覧、カンマ区切り
     }
 }

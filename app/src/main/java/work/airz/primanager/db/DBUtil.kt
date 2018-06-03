@@ -3,11 +3,9 @@ package work.airz.primanager.db
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import org.jetbrains.anko.db.replace
-import org.jetbrains.anko.db.parseList
-import org.jetbrains.anko.db.rowParser
-import org.jetbrains.anko.db.select
+import org.jetbrains.anko.db.*
 import java.io.*
+import java.util.*
 
 class DBUtil(private val context: Context) {
     private val database: MyDatabaseOpenHelper
@@ -29,6 +27,7 @@ class DBUtil(private val context: Context) {
 
     /**
      * フォロチケデータ追加
+     * 更新も同様にできる
      */
     fun putFollowTicketData(followTicket: FollowTicket) {
         database.use {
@@ -46,14 +45,33 @@ class DBUtil(private val context: Context) {
         }
     }
 
-    fun bitmapToByteArray(bitmap: Bitmap): ByteArray {
-        val bos = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, bos)
-        return bos.toByteArray()
+    fun addUser(user: User) {
+        checkEnpty(user.raw, user.followTableName)
+
+        database.use {
+            replace(DBConstants.USER_TABLE,
+                    DBConstants.RAW to user.raw,
+                    DBConstants.USER_NAME to user.userName,
+                    DBConstants.USER_CARD_ID to user.userCardId,
+                    DBConstants.FOLLOWS_TABLE_NAME to user.followTableName)
+
+            //動的にフォローユーザのテーブルを作る
+            createTable(user.followTableName, true,
+                    DBConstants.USER_ID to TEXT + PRIMARY_KEY,
+                    DBConstants.USER_NAME to TEXT,
+                    DBConstants.DATE to TEXT,
+                    DBConstants.MEMO to TEXT)
+        }
     }
 
-    fun byteArrayToBitmap(byteArray: ByteArray): Bitmap {
-        return BitmapFactory.decodeByteArray(byteArray,0,byteArray.size)
+    private fun countUsers(): Int {
+        return database.use {
+            select(DBConstants.USER_TABLE).column("count(${DBConstants.RAW})").exec {
+                parseSingle(rowParser { count: Int ->
+                    count
+                })
+            }
+        }
     }
 
     /**
@@ -72,6 +90,7 @@ class DBUtil(private val context: Context) {
 
     /**
      * コーデチケット追加
+     * 更新も同様にできる
      */
     fun putCoordTicketData(coodTicket: CoordTicket) {
         database.use {
@@ -106,6 +125,7 @@ class DBUtil(private val context: Context) {
 
     /**
      * ユーザデータを参照して対象の会員を既にフォローしているかチェックする
+     * TODO:DBデータ変更後の修正
      */
     fun isFollowed(myUserRawData: String, targetUserId: String): Boolean {
         return database.use {
@@ -127,6 +147,37 @@ class DBUtil(private val context: Context) {
                 parseList(rowParser { _: String -> })
             }.isNotEmpty()
         }
+    }
+
+
+    /**
+     * 画像をByteArrayへ変換
+     * DB保存用
+     * @param bitmap サムネイル画像
+     * @return 変換済みデータ
+     */
+    private fun bitmapToByteArray(bitmap: Bitmap): ByteArray {
+        val bos = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, bos)
+        return bos.toByteArray()
+    }
+
+    /**
+     * ByteArray形式になっている画像データをBitmapに直す
+     * DB読み込み用
+     * @param byteArray 画像データ
+     * @return 変換済みデータ
+     */
+    private fun byteArrayToBitmap(byteArray: ByteArray): Bitmap {
+        return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
+    }
+
+    /**
+     * 値の空白チェック用
+     */
+    private fun checkEnpty(vararg checkString: String): Boolean {
+        if (checkString.any { it.isEmpty() }) throw IllegalArgumentException("should set values.")
+        return true
     }
 
 
@@ -159,5 +210,11 @@ class DBUtil(private val context: Context) {
             val raw: String,
             val userName: String,
             val userCardId: String,
-            val follows: String)
+            val followTableName: String)
+
+    class UserFollow(
+            val userId: String,
+            val userName: String,
+            val date: String,
+            val memo: String)
 }
