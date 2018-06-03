@@ -1,23 +1,17 @@
 package work.airz.primanager
 
-import android.Manifest
 import android.content.DialogInterface
 import android.graphics.Bitmap
-import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.util.Log
 import android.widget.ImageView
 import com.google.zxing.*
-import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel
 import com.journeyapps.barcodescanner.BarcodeCallback
 import com.journeyapps.barcodescanner.BarcodeResult
 import com.journeyapps.barcodescanner.DecoratedBarcodeView
-import java.nio.charset.Charset
 import java.util.*
-import android.support.v4.app.ActivityCompat
-import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
 import android.os.Environment
 import android.view.LayoutInflater
@@ -67,19 +61,30 @@ class QRActivity : AppCompatActivity() {
                 Log.d("maskIndex", result.result.maskIndex.toString())
                 Log.d("QRのサイズ", result.rawBytes.size.toString())
                 val qrBitmap = QRUtil.createQR(data, result.result.maskIndex, result.sourceData.isInverted, QRUtil.detectVersionM(result.rawBytes.size))
+
                 val dbUtil = DBUtil(applicationContext)
                 if (QRUtil.isPriChanFollowTicket(data)) {
-                    Log.d("test","プリチャンチケット処理")
+                    Log.d("test", "プリチャンチケット処理")
                     val raw = QRUtil.byteToString(data)
-                    if(!dbUtil.isDuplicate(DBConstants.FOLLOW_TICKET_TABLE, raw)){
-                        Toast.makeText(applicationContext, "QR被ってない", Toast.LENGTH_SHORT).show()
-                        dbUtil.putFollowTicketData(DBUtil.FollowTicket(raw,"test","neko","1111",10000,111,"nekosan","prichan", BitmapFactory.decodeResource(resources,R.drawable.ic_qr),"test"))
-                    }else{
-                        saveAlert(dbUtil.getFollowTicketList().first().image,qrReaderView)
-                        Toast.makeText(applicationContext, "QR被ってるよ！！", Toast.LENGTH_SHORT).show()
+                    if (!dbUtil.isDuplicate(DBConstants.FOLLOW_TICKET_TABLE, raw)) {
+                        Log.d("test", "QR被ってない")
+                        dbUtil.addFollowTicketData(DBUtil.FollowTicket(raw, "test", "neko", "1111", 10000, 111, "nekosan", "prichan", BitmapFactory.decodeResource(resources, R.drawable.ic_qr), "test"))
+                    } else {
+                        Log.d("test", "QR被ってる！！")
+//                        saveAlert(dbUtil.getFollowTicketList().first().image,qrReaderView)
                     }
-                }else{
-                    Log.d("test","フォロチケじゃないっぽい")
+                    Log.d("db カウント",(dbUtil.countUsers() + 1).toString())
+                    dbUtil.addUser(DBUtil.User("rawdatas", "くろむ", "", "user" + (dbUtil.countUsers() + 1).toString()))
+                    if(dbUtil.isFollowed("rawdatas","test2")) {
+                        Log.d("フォロー","フォロー済みだよ")
+                    }else{
+                        Log.d("フォロー","新規フォロー")
+                        dbUtil.followUser("rawdatas", DBUtil.UserFollow("test2","くろむ","",""))
+                        Toast.makeText(applicationContext,"follow ${dbUtil.getFollowList("rawdatas").first().userName}",Toast.LENGTH_SHORT).show()
+                    }
+
+                } else {
+                    Log.d("test", "フォロチケじゃないっぽい")
                 }
                 Thread.sleep(1000)
 //                qrReaderView.pause()

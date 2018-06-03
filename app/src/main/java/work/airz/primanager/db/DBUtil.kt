@@ -29,7 +29,7 @@ class DBUtil(private val context: Context) {
      * フォロチケデータ追加
      * 更新も同様にできる
      */
-    fun putFollowTicketData(followTicket: FollowTicket) {
+    fun addFollowTicketData(followTicket: FollowTicket) {
         database.use {
             replace(DBConstants.FOLLOW_TICKET_TABLE,
                     DBConstants.RAW to followTicket.raw,
@@ -64,16 +64,6 @@ class DBUtil(private val context: Context) {
         }
     }
 
-    private fun countUsers(): Int {
-        return database.use {
-            select(DBConstants.USER_TABLE).column("count(${DBConstants.RAW})").exec {
-                parseSingle(rowParser { count: Int ->
-                    count
-                })
-            }
-        }
-    }
-
     /**
      * コーデチケットのリスト取得用
      * @return コーデチケットのリスト
@@ -92,7 +82,7 @@ class DBUtil(private val context: Context) {
      * コーデチケット追加
      * 更新も同様にできる
      */
-    fun putCoordTicketData(coodTicket: CoordTicket) {
+    fun addCoordTicketData(coodTicket: CoordTicket) {
         database.use {
             replace(DBConstants.COORD_TICKET_TABLE,
                     DBConstants.RAW to coodTicket.raw,
@@ -109,6 +99,20 @@ class DBUtil(private val context: Context) {
         }
     }
 
+    /**
+     * テーブルが存在するかの確認
+     */
+    fun isTableExists(tableName: String): Boolean {
+        return database.use {
+            select("sqlite_master", "name")
+                    .whereArgs("type = {argtype} AND name = {argname}", "argtype" to "table", "argname" to tableName).exec {
+                        parseList(rowParser { _: String ->
+                            true
+                        })
+                    }
+        }.isNotEmpty()
+    }
+
 
     /**
      * ユーザ一覧を返す
@@ -123,18 +127,54 @@ class DBUtil(private val context: Context) {
         }
     }
 
+    fun getFollowList(myUserRawData: String): List<UserFollow> {
+        return database.use {
+            select(getUserTableName(myUserRawData)).exec {
+                parseList(rowParser { userId: String, userName: String, date: String, memo: String ->
+                    UserFollow(userId, userName, date, memo)
+                })
+            }
+        }
+    }
+
+    fun getUserTableName(myUserRawData: String): String {
+        val tableName = database.use {
+            select(DBConstants.USER_TABLE, DBConstants.RAW, DBConstants.FOLLOWS_TABLE_NAME)
+                    .whereArgs("${DBConstants.RAW} = {arg}", "arg" to myUserRawData).exec {
+                        parseSingle(rowParser { _: String, tableName: String ->
+                            tableName
+                        })
+                    }
+
+        }
+        if (tableName.isEmpty()) throw IllegalArgumentException("user not found!!")
+        return tableName
+    }
+
+    fun followUser(myUserRawData: String, target: UserFollow) {
+//        if (isFollowed(myUserRawData, target.userId)) return
+        database.use {
+            replace(getUserTableName(myUserRawData),
+                    DBConstants.USER_ID to target.userId,
+                    DBConstants.USER_NAME to target.userName,
+                    DBConstants.DATE to target.date,
+                    DBConstants.MEMO to target.memo)
+        }
+    }
+
     /**
      * ユーザデータを参照して対象の会員を既にフォローしているかチェックする
-     * TODO:DBデータ変更後の修正
+     *
      */
     fun isFollowed(myUserRawData: String, targetUserId: String): Boolean {
         return database.use {
-            select(DBConstants.USER_TABLE, DBConstants.RAW, DBConstants.WHICH_ACCOUNT).whereArgs("${DBConstants.RAW} = {arg}", "arg" to myUserRawData).exec {
-                parseList(rowParser { _: String, whichAccount: String ->
-                    whichAccount.split(",").any { it == targetUserId } //一回しか処理が通らないはず
-                })
-            }.first()
-        }
+                val tableName = getUserTableName(myUserRawData)
+                select(tableName, DBConstants.USER_ID).whereArgs("${DBConstants.USER_ID} = {arg}", "arg" to targetUserId).exec {
+                    parseList(rowParser { _: String ->
+                        true
+                    })
+                }.isNotEmpty()
+            }
     }
 
     /**
@@ -146,6 +186,16 @@ class DBUtil(private val context: Context) {
             select(table, DBConstants.RAW).whereArgs("${DBConstants.RAW} = {arg}", "arg" to primaryKeyData).exec {
                 parseList(rowParser { _: String -> })
             }.isNotEmpty()
+        }
+    }
+
+    fun countUsers(): Int {
+        return database.use {
+            select(DBConstants.USER_TABLE).column("count(${DBConstants.RAW})").exec {
+                parseSingle(rowParser { count: Int ->
+                    count
+                })
+            }
         }
     }
 
