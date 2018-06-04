@@ -48,6 +48,12 @@ class DBUtil(private val context: Context) {
         }
     }
 
+    fun removeFollowTicketData(followTicket: FollowTicket) {
+        database.use {
+            delete(DBConstants.FOLLOW_TICKET_TABLE, "${DBConstants.RAW} = {arg}", "arg" to followTicket.raw)
+        }
+    }
+
     fun addUser(user: User) {
         checkEnpty(user.raw, user.followTableName)
 
@@ -64,6 +70,13 @@ class DBUtil(private val context: Context) {
                     DBConstants.USER_NAME to TEXT,
                     DBConstants.DATE to TEXT,
                     DBConstants.MEMO to TEXT)
+        }
+    }
+
+    fun removeUser(user: User) {
+        database.use {
+            delete(DBConstants.USER_TABLE, "${DBConstants.RAW} = {arg}", "arg" to user.raw)
+            delete(user.followTableName)
         }
     }
 
@@ -99,6 +112,12 @@ class DBUtil(private val context: Context) {
                     DBConstants.WHICH_ACCOUNT to coodTicket.whichAccount,
                     DBConstants.IMAGE to bitmapToByteArray(coodTicket.image),
                     DBConstants.MEMO to coodTicket.memo)
+        }
+    }
+
+    fun removeCoordTicketData(coordTicket: CoordTicket) {
+        database.use {
+            delete(DBConstants.COORD_TICKET_TABLE, "${DBConstants.RAW} = {arg}", "arg" to coordTicket.raw)
         }
     }
 
@@ -171,13 +190,13 @@ class DBUtil(private val context: Context) {
      */
     fun isFollowed(myUserRawData: String, targetUserId: String): Boolean {
         return database.use {
-                val tableName = getUserTableName(myUserRawData)
-                select(tableName, DBConstants.USER_ID).whereArgs("${DBConstants.USER_ID} = {arg}", "arg" to targetUserId).exec {
-                    parseList(rowParser { _: String ->
-                        true
-                    })
-                }.isNotEmpty()
-            }
+            val tableName = getUserTableName(myUserRawData)
+            select(tableName, DBConstants.USER_ID).whereArgs("${DBConstants.USER_ID} = {arg}", "arg" to targetUserId).exec {
+                parseList(rowParser { _: String ->
+                    true
+                })
+            }.isNotEmpty()
+        }
     }
 
     /**
