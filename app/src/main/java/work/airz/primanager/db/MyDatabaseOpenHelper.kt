@@ -8,14 +8,14 @@ class MyDatabaseOpenHelper(context: Context) : ManagedSQLiteOpenHelper(context, 
 
 
     companion object {
-        private var instance: MyDatabaseOpenHelper? = null
+        private lateinit var instance: MyDatabaseOpenHelper
 
         @Synchronized
         fun getInstance(ctx: Context): MyDatabaseOpenHelper {
             if (instance == null) {
                 instance = MyDatabaseOpenHelper(ctx.applicationContext)
             }
-            return instance!!
+            return instance
         }
     }
 
@@ -44,7 +44,7 @@ class MyDatabaseOpenHelper(context: Context) : ManagedSQLiteOpenHelper(context, 
                 DBConstants.WHICH_ACCOUNT to TEXT,
                 DBConstants.IMAGE to BLOB,
                 DBConstants.MEMO to TEXT)
-        
+
         p0.createTable(DBConstants.USER_TABLE, true,
                 DBConstants.RAW to TEXT + PRIMARY_KEY,
                 DBConstants.USER_NAME to TEXT,
