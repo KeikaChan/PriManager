@@ -11,7 +11,7 @@ import kotlin.math.absoluteValue
  * TODO: 関数の整理
  * TODO: 会員証の作り直しでQRのみ変わる場合の関数を作る
  */
-private class DBUtil(private val context: Context) {
+class DBUtil(private val context: Context) {
     private val database: MyDatabaseOpenHelper
         get() = MyDatabaseOpenHelper.getInstance(context)
 
