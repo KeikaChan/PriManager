@@ -82,15 +82,17 @@ class QRActivity : AppCompatActivity() {
                 if (followedUsers.isNotEmpty()) followedAlert(rawData, followedUsers, followUserID)
                 else if (dbUtil.isDuplicate(DBConstants.FOLLOW_TICKET_TABLE, followUserID)) duplicateDataAlert(rawData, QRUtil.QRFormat.PRICHAN_FOLLOW)
                 //TODO: フォローにintent
+                qrReaderView.resume()
             }
             QRUtil.QRFormat.PRICHAN_COORD -> {
                 if (dbUtil.isDuplicate(DBConstants.COORD_TICKET_TABLE, rawData)) duplicateDataAlert(rawData, QRUtil.QRFormat.PRICHAN_COORD)
                 //TODO: コーデ画面にintent
+                qrReaderView.resume()
             }
             QRUtil.QRFormat.OTHERS -> { //基本的にプリパラのトモチケは来ない前提で考える
                 if (dbUtil.isDuplicate(DBConstants.COORD_TICKET_TABLE, rawData)) duplicateDataAlert(rawData, QRUtil.QRFormat.OTHERS)
                 else nazoDataAlert(rawData, QRUtil.QRFormat.OTHERS)//謎データであることを告知する
-
+                
             }
         }
 
