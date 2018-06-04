@@ -93,6 +93,7 @@ class QRActivity : AppCompatActivity() {
 
             }
         }
+
     }
 
     /**
@@ -105,10 +106,13 @@ class QRActivity : AppCompatActivity() {
         builder.setMessage("コーデ保存に飛びます。よろしいですか？")
         builder.setPositiveButton("はい", { _, _ ->
             //TODO: Intentでコーデに飛ぶ
+            qrReaderView.resume()
         })
         builder.setNegativeButton("いいえ", { dialog, _ ->
             dialog.dismiss()
+            qrReaderView.resume()
         })
+        builder.show()
     }
 
     /**
@@ -121,10 +125,13 @@ class QRActivity : AppCompatActivity() {
         builder.setMessage("データを編集しますか？")
         builder.setPositiveButton("はい", { _, _ ->
             //TODO: Intentでフォロー/コーデに飛ぶ
+            qrReaderView.resume()
         })
         builder.setNegativeButton("いいえ", { dialog, _ ->
             dialog.dismiss()
+            qrReaderView.resume()
         })
+        builder.show()
     }
 
     /**
@@ -139,10 +146,13 @@ class QRActivity : AppCompatActivity() {
         builder.setMessage(strb.toString())
         builder.setPositiveButton("進む", { _, _ ->
             //TODO: Intentでフォローに飛ぶ
+            qrReaderView.resume()
         })
         builder.setNegativeButton("戻る", { dialog, _ ->
             dialog.dismiss()
+            qrReaderView.resume()
         })
+        builder.show()
     }
 
 
