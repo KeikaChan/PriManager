@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import org.jetbrains.anko.db.*
+import work.airz.primanager.db.DBFormat.*
 import java.io.*
 import kotlin.math.absoluteValue
 
@@ -222,19 +223,6 @@ class DBUtil(private val context: Context) {
     }
 
     /**
-     * ユーザ数のカウント。
-     */
-    fun countUsers(): Int {
-        return database.use {
-            select(DBConstants.USER_TABLE).column("count(${DBConstants.RAW})").exec {
-                parseSingle(rowParser { count: Int ->
-                    count
-                })
-            }
-        }
-    }
-
-    /**
      * テーブル名作成用。
      * ユーザのQR情報からハッシュ値を作成してそれをテーブル名にする
      * "-"文字が入る関係で正の数のみ
@@ -312,42 +300,4 @@ class DBUtil(private val context: Context) {
     private fun updateUsers() {
         userList = getUsers()
     }
-
-
-    class FollowTicket(
-            val raw: String,
-            val userId: String,
-            val userName: String,
-            val date: String,
-            val follow: Int,
-            val follower: Int,
-            val coordinate: String,
-            val arcade_series: String,
-            val image: Bitmap,
-            val memo: String)
-
-    class CoordTicket(
-            val raw: String,
-            val coordId: String,
-            val coordName: String,
-            val rarity: String,
-            val brand: String,
-            val color: String,
-            val arcadeSeries: String,
-            val date: String,
-            val whichAccount: String,
-            val image: Bitmap,
-            val memo: String)
-
-    class User(
-            val raw: String,
-            val userName: String,
-            val userCardId: String,
-            val followTableName: String)
-
-    class UserFollow(
-            val userId: String,
-            val userName: String,
-            val date: String,
-            val memo: String)
 }

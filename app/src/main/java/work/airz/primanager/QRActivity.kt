@@ -18,6 +18,7 @@ import android.view.LayoutInflater
 import android.widget.EditText
 import android.widget.Toast
 import work.airz.primanager.db.DBConstants
+import work.airz.primanager.db.DBFormat.*
 import work.airz.primanager.db.DBUtil
 import work.airz.primanager.qr.QRUtil
 import java.io.File
@@ -68,18 +69,18 @@ class QRActivity : AppCompatActivity() {
                     val raw = QRUtil.byteToString(data)
                     if (!dbUtil.isDuplicate(DBConstants.FOLLOW_TICKET_TABLE, raw)) {
                         Log.d("test", "QR被ってない")
-                        dbUtil.addFollowTicketData(DBUtil.FollowTicket(raw, "test", "neko", "1111", 10000, 111, "nekosan", "prichan", BitmapFactory.decodeResource(resources, R.drawable.ic_qr), "test"))
+                        dbUtil.addFollowTicketData(FollowTicket(raw, "test", "neko", "1111", 10000, 111, "nekosan", "prichan", BitmapFactory.decodeResource(resources, R.drawable.ic_qr), "test"))
                     } else {
                         Log.d("test", "QR被ってる！！")
 //                        saveAlert(dbUtil.getFollowTicketList().first().image,qrReaderView)
                     }
-                    Log.d("db カウント",(dbUtil.countUsers() + 1).toString())
-                    dbUtil.addUser(DBUtil.User("rawdatas", "くろむ", "", "user" + (dbUtil.countUsers() + 1).toString()))
-                    if(dbUtil.isFollowed("rawdatas","test2")) {
+                    Log.d("db カウント",(dbUtil.getUserList().size + 1).toString())
+                    dbUtil.addUser(User("rawdatas", "くろむ", "", "user" + (dbUtil.getUserList().size + 1).toString()))
+                    if(dbUtil.isFollowed(User("rawdatas", "くろむ", "", "user" + (dbUtil.getUserList().size + 1).toString()),"test2")) {
                         Log.d("フォロー","フォロー済みだよ")
                     }else{
                         Log.d("フォロー","新規フォロー")
-                        dbUtil.followUser("rawdatas", DBUtil.UserFollow("test2","くろむ","",""))
+                        dbUtil.followUser(User("rawdatas", "くろむ", "", "user" + (dbUtil.getUserList().size + 1).toString()), UserFollow("test2","くろむ","",""))
                         Toast.makeText(applicationContext,"follow ${dbUtil.getFollowList("rawdatas").first().userName}",Toast.LENGTH_SHORT).show()
                     }
 
