@@ -76,50 +76,90 @@ class QRUtil {
         }
 
         /**
+         * QRコードのフォーマット形式を調べる
+         * 追加で解析情報がわかったらここで処理を付け足す
+         * @param data QRコードデータ
+         * @return QRコードの形式
+         */
+        fun detectQRFormat(data: ByteArray): QRFormat {
+            return when {
+                isPriChanFollowTicket(data) -> QRFormat.PRICHAN_FOLLOW
+                isPriChanCodeTicket(data) -> QRFormat.PRICHAN_COORD
+                else -> QRFormat.OTHERS
+            }
+        }
+
+        /**
          * when Pri☆Chan (1st release) QR, QR header is 0x50A203
          * 第一弾時点ではフォロチケ/コーデのQRのヘッダがすべて0x50A203から始まる
          * プリパラはヘッダもランダムなので別途解析が必要。khromはプリパラ住民じゃなかったのでわからん。
          * また，データサイズは26か122。これはプリパラと同様。
          */
-        fun isPriChanQR(data: ByteArray): Boolean {
+        private fun isPriChanQR(data: ByteArray): Boolean {
             return isPriChanFollowTicket(data) && isPriChanCodeTicket(data)
         }
 
         /**
          * フォロチケ判別
+         * @param data QRコードデータ
+         * @return true:フォロチケ false:その他
          */
-        fun isPriChanFollowTicket(data: ByteArray): Boolean {
+        private fun isPriChanFollowTicket(data: ByteArray): Boolean {
             if (!data.isNotEmpty()) return false
-            return data[0].toInt() == 0x50
-                    && data[1].toInt() == 0xA2
-                    && data[2].toInt() == 0x03
+            return isPriChanHeader(data)
                     && data.size == 122
         }
 
         /**
          * コーデチケット判別
          * 会員証も同様
+         * @param data QRコードデータ
+         * @return true:コーデチケット false:その他
          */
-        fun isPriChanCodeTicket(data: ByteArray): Boolean {
+        private fun isPriChanCodeTicket(data: ByteArray): Boolean {
             if (!data.isNotEmpty()) return false
-            return data[0].toInt() == 0x50
-                    && data[1].toInt() == 0xA2
-                    && data[2].toInt() == 0x03
+            return isPriChanHeader(data)
                     && data.size == 26
         }
+
+        /**
+         * プリちゃん形式のヘッダになっているか
+         * @param data QRコードデータ
+         * @return true:プリチャン形式 false:それ以外
+         */
+        private fun isPriChanHeader(data: ByteArray): Boolean {
+            val strb = StringBuilder()
+            for (index in 0..2) {
+                strb.append(String.format("%02X", data[index]))
+            }
+            return strb.toString() == "50A203"
+        }
+
 
         /**
          * フォロチケのユーザIDを返す
          * 会員証とはバイナリデータが異なるので注意!!
          *  詳細は解析が必要
          */
-        fun getFollowUserID(data: ByteArray): String? {
-            if (data.size != 122 || !isPriChanFollowTicket(data)) return null
+        fun getFollowUserID(data: ByteArray): String {
+            if (data.size != 122 || !isPriChanFollowTicket(data)) throw  IllegalArgumentException("data format is not correct.")
             val userId = StringBuilder()
             for (index in 105..120) {
-                userId.append(String.format("%02X ", data[index]))
+                userId.append(String.format("%02X", data[index]))
             }
             return userId.toString()
         }
+
+        fun byteToString(data: ByteArray): String {
+            val strb = StringBuilder()
+            data.forEach { strb.append(String.format("%02X", it)) }
+            return strb.toString()
+        }
+    }
+
+
+    enum class QRFormat {
+        PRICHAN_FOLLOW, PRICHAN_COORD, OTHERS //OTHERS にはプリパラの他、映画特典のプリチャンのチケットも含むよ。現状ではここまでしかわからない。
+
     }
 }
