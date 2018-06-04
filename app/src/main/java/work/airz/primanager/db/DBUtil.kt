@@ -5,7 +5,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import org.jetbrains.anko.db.*
 import java.io.*
-import java.util.*
+import kotlin.math.absoluteValue
 
 /**
  * TODO: 関数の整理
@@ -48,12 +48,20 @@ class DBUtil(private val context: Context) {
         }
     }
 
+    /**
+     * フォロチケデータの削除
+     * @param followTicket 削除するフォロチケ
+     */
     fun removeFollowTicketData(followTicket: FollowTicket) {
         database.use {
             delete(DBConstants.FOLLOW_TICKET_TABLE, "${DBConstants.RAW} = {arg}", "arg" to followTicket.raw)
         }
     }
 
+    /**
+     * ユーザの追加
+     * @param user 追加するユーザ
+     */
     fun addUser(user: User) {
         checkEnpty(user.raw, user.followTableName)
 
@@ -73,6 +81,10 @@ class DBUtil(private val context: Context) {
         }
     }
 
+    /**
+     * ユーザ削除
+     * @param user 削除するユーザ
+     */
     fun removeUser(user: User) {
         database.use {
             delete(DBConstants.USER_TABLE, "${DBConstants.RAW} = {arg}", "arg" to user.raw)
@@ -115,6 +127,9 @@ class DBUtil(private val context: Context) {
         }
     }
 
+    /**
+     * コーデデータの削除
+     */
     fun removeCoordTicketData(coordTicket: CoordTicket) {
         database.use {
             delete(DBConstants.COORD_TICKET_TABLE, "${DBConstants.RAW} = {arg}", "arg" to coordTicket.raw)
@@ -159,20 +174,12 @@ class DBUtil(private val context: Context) {
         }
     }
 
-    private fun getUserTableName(myUserRawData: String): String {
-        val tableName = database.use {
-            select(DBConstants.USER_TABLE, DBConstants.RAW, DBConstants.FOLLOWS_TABLE_NAME)
-                    .whereArgs("${DBConstants.RAW} = {arg}", "arg" to myUserRawData).exec {
-                        parseSingle(rowParser { _: String, tableName: String ->
-                            tableName
-                        })
-                    }
-
-        }
-        if (tableName.isEmpty()) throw IllegalArgumentException("user not found!!")
-        return tableName
-    }
-
+    /**
+     * ユーザのフォロー用
+     * ユーザの更新も同時にします
+     * @param myUserRawData 対象ユーザの会員証のQRデータ
+     * @param target フォローするユーザデータ
+     */
     fun followUser(myUserRawData: String, target: UserFollow) {
 //        if (isFollowed(myUserRawData, target.userId)) return
         database.use {
@@ -186,7 +193,7 @@ class DBUtil(private val context: Context) {
 
     /**
      * ユーザデータを参照して対象の会員を既にフォローしているかチェックする
-     *
+     * @param myUserRawData 会員証のQRデータ
      */
     fun isFollowed(myUserRawData: String, targetUserId: String): Boolean {
         return database.use {
@@ -213,9 +220,6 @@ class DBUtil(private val context: Context) {
 
     /**
      * ユーザ数のカウント。
-     * ユーザとの重複を避けるために作ったけど、よく考えたらユーザ削除対応したときに被る可能性が出てくるじゃん。
-     * なんかハッシュ値で生成するものを作るかな。
-     * TODO: ユーザ削除対策を実装する
      */
     fun countUsers(): Int {
         return database.use {
@@ -226,6 +230,34 @@ class DBUtil(private val context: Context) {
             }
         }
     }
+
+    /**
+     * テーブル名作成用。
+     * ユーザのQR情報からハッシュ値を作成してそれをテーブル名にする
+     * "-"文字が入る関係で正の数のみ
+     */
+    fun getUserHashString(user: User): String {
+        return user.raw.hashCode().absoluteValue.toString()
+    }
+
+    /**
+     * ユーザのテーブル名を取得するやつ
+     * ユーザ登録とかで色々使うかも
+     */
+    private fun getUserTableName(myUserRawData: String): String {
+        val tableName = database.use {
+            select(DBConstants.USER_TABLE, DBConstants.RAW, DBConstants.FOLLOWS_TABLE_NAME)
+                    .whereArgs("${DBConstants.RAW} = {arg}", "arg" to myUserRawData).exec {
+                        parseSingle(rowParser { _: String, tableName: String ->
+                            tableName
+                        })
+                    }
+
+        }
+        if (tableName.isEmpty()) throw IllegalArgumentException("user not found!!")
+        return tableName
+    }
+
 
 
     /**
