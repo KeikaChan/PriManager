@@ -43,7 +43,7 @@ class QRActivity : AppCompatActivity() {
      * TODO: 読み取りデータの重複チェックをした後にユーザチェックとか色々入れる
      * TODO: DBとのデータ一致を確認する部分を作る
      */
-    fun readQR() {
+    private fun readQR() {
         qrReaderView = findViewById(R.id.decoratedBarcodeView)
         qrReaderView.decodeContinuous(object : BarcodeCallback {
             override fun possibleResultPoints(resultPoints: MutableList<ResultPoint>?) {
@@ -61,38 +61,88 @@ class QRActivity : AppCompatActivity() {
 
                 Log.d("maskIndex", result.result.maskIndex.toString())
                 Log.d("QRのサイズ", result.rawBytes.size.toString())
-                val qrBitmap = QRUtil.createQR(data, result.result.maskIndex, result.sourceData.isInverted, QRUtil.detectVersionM(result.rawBytes.size))
 
-                val dbUtil = DBUtil(applicationContext)
-                if (QRUtil.isPriChanFollowTicket(data)) {
-                    Log.d("test", "プリチャンチケット処理")
-                    val raw = QRUtil.byteToString(data)
-                    if (!dbUtil.isDuplicate(DBConstants.FOLLOW_TICKET_TABLE, raw)) {
-                        Log.d("test", "QR被ってない")
-                        dbUtil.addFollowTicketData(FollowTicket(raw, "test", "neko", "1111", 10000, 111, "nekosan", "prichan", BitmapFactory.decodeResource(resources, R.drawable.ic_qr), "test"))
-                    } else {
-                        Log.d("test", "QR被ってる！！")
-//                        saveAlert(dbUtil.getFollowTicketList().first().image,qrReaderView)
-                    }
-                    Log.d("db カウント",(dbUtil.getUserList().size + 1).toString())
-                    dbUtil.addUser(User("rawdatas", "くろむ", "", "user" + (dbUtil.getUserList().size + 1).toString()))
-                    if(dbUtil.isFollowed(User("rawdatas", "くろむ", "", "user" + (dbUtil.getUserList().size + 1).toString()),"test2")) {
-                        Log.d("フォロー","フォロー済みだよ")
-                    }else{
-                        Log.d("フォロー","新規フォロー")
-                        dbUtil.followUser(User("rawdatas", "くろむ", "", "user" + (dbUtil.getUserList().size + 1).toString()), UserFollow("test2","くろむ","",""))
-                        Toast.makeText(applicationContext,"follow ${dbUtil.getFollowList("rawdatas").first().userName}",Toast.LENGTH_SHORT).show()
-                    }
-
-                } else {
-                    Log.d("test", "フォロチケじゃないっぽい")
-                }
-                Thread.sleep(1000)
-//                qrReaderView.pause()
-//                saveAlert(qrBitmap, qrReaderView)
+                analyzeQR(data, result)
             }
         })
         qrReaderView.resume()
+    }
+
+    fun analyzeQR(data: ByteArray, result: BarcodeResult) {
+        qrReaderView.pause()
+
+        val qrBitmap = QRUtil.createQR(data, result.result.maskIndex, result.sourceData.isInverted, QRUtil.detectVersionM(result.rawBytes.size))
+
+        val dbUtil = DBUtil(applicationContext)
+        val rawData = QRUtil.byteToString(data)
+        when (QRUtil.detectQRFormat(data)) {
+            QRUtil.QRFormat.PRICHAN_FOLLOW -> {
+                val followUserID = QRUtil.getFollowUserID(data)
+                val followedUsers = dbUtil.getUserList().filter { dbUtil.isFollowed(it, followUserID) }
+                if (followedUsers.isNotEmpty()) followedAlert(rawData, followedUsers, followUserID)
+                else if (dbUtil.isDuplicate(DBConstants.FOLLOW_TICKET_TABLE, followUserID)) duplicateDataAlert(rawData, QRUtil.QRFormat.PRICHAN_FOLLOW)
+                //TODO: フォローにintent
+            }
+            QRUtil.QRFormat.PRICHAN_COORD -> {
+                if (dbUtil.isDuplicate(DBConstants.COORD_TICKET_TABLE, rawData)) duplicateDataAlert(rawData, QRUtil.QRFormat.PRICHAN_COORD)
+                //TODO: コーデ画面にintent
+            }
+            QRUtil.QRFormat.OTHERS -> { //基本的にプリパラのトモチケは来ない前提で考える
+                if (dbUtil.isDuplicate(DBConstants.COORD_TICKET_TABLE, rawData)) duplicateDataAlert(rawData, QRUtil.QRFormat.OTHERS)
+                else nazoDataAlert(rawData, QRUtil.QRFormat.OTHERS)//謎データであることを告知する
+
+            }
+        }
+    }
+
+    /**
+     * 謎データが来たときのアラート
+     */
+    fun nazoDataAlert(rawData: String, format: QRUtil.QRFormat) {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("プリチャン以外のデータ形式")
+        builder.setCancelable(false)
+        builder.setMessage("コーデ保存に飛びます。よろしいですか？")
+        builder.setPositiveButton("はい", { _, _ ->
+            //TODO: Intentでコーデに飛ぶ
+        })
+        builder.setNegativeButton("いいえ", { dialog, _ ->
+            dialog.dismiss()
+        })
+    }
+
+    /**
+     * データ重複時のアラート
+     */
+    fun duplicateDataAlert(rawData: String, format: QRUtil.QRFormat) {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("既にデータが存在します")
+        builder.setCancelable(false)
+        builder.setMessage("データを編集しますか？")
+        builder.setPositiveButton("はい", { _, _ ->
+            //TODO: Intentでフォロー/コーデに飛ぶ
+        })
+        builder.setNegativeButton("いいえ", { dialog, _ ->
+            dialog.dismiss()
+        })
+    }
+
+    /**
+     * フォロー済みのときのアラート
+     */
+    fun followedAlert(rawData: String, followdList: List<User>, followUserID: String) {
+        val strb = StringBuilder("以下のユーザにフォローされています。続けますか？\n")
+        followdList.forEach { strb.append("${it.userName}\n") }
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("既にフォローされています")
+        builder.setCancelable(false)
+        builder.setMessage(strb.toString())
+        builder.setPositiveButton("進む", { _, _ ->
+            //TODO: Intentでフォローに飛ぶ
+        })
+        builder.setNegativeButton("戻る", { dialog, _ ->
+            dialog.dismiss()
+        })
     }
 
 
