@@ -8,14 +8,14 @@ class MyDatabaseOpenHelper(context: Context) : ManagedSQLiteOpenHelper(context, 
 
 
     companion object {
-        private lateinit var instance: MyDatabaseOpenHelper
+        private var instance: MyDatabaseOpenHelper? = null
 
         @Synchronized
         fun getInstance(ctx: Context): MyDatabaseOpenHelper {
             if (instance == null) {
                 instance = MyDatabaseOpenHelper(ctx.applicationContext)
             }
-            return instance
+            return instance!!
         }
     }
 

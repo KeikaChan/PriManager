@@ -21,7 +21,7 @@ class DBUtil(private val context: Context) {
     }
 
     init {
-        userList = getUserList()
+        userList = getUsers()
     }
 
     /**
