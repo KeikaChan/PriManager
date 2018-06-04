@@ -9,10 +9,26 @@ import kotlin.math.absoluteValue
 
 /**
  * TODO: 関数の整理
+ * TODO: 会員証の作り直しでQRのみ変わる場合の関数を作る
  */
-class DBUtil(private val context: Context) {
+private class DBUtil(private val context: Context) {
     private val database: MyDatabaseOpenHelper
         get() = MyDatabaseOpenHelper.getInstance(context)
+
+    companion object {
+        private lateinit var userList: List<User> //毎回アクセスすると時間がかかるのでインスタンス化したときにRAM上に保持する
+    }
+
+    init {
+        userList = getUserList()
+    }
+
+    /**
+     * ユーザリストの取得のみで他クラスで書き換え不可にする
+     */
+    fun getUserList(): List<User> {
+        return userList.toList()
+    }
 
     /**
      * フォローデータのリスト取得用
@@ -78,6 +94,7 @@ class DBUtil(private val context: Context) {
                     DBConstants.USER_NAME to TEXT,
                     DBConstants.DATE to TEXT,
                     DBConstants.MEMO to TEXT)
+            updateUsers() // thread safe
         }
     }
 
@@ -89,6 +106,7 @@ class DBUtil(private val context: Context) {
         database.use {
             delete(DBConstants.USER_TABLE, "${DBConstants.RAW} = {arg}", "arg" to user.raw)
             delete(user.followTableName)
+            updateUsers() // thread safe
         }
     }
 
@@ -150,20 +168,6 @@ class DBUtil(private val context: Context) {
         }.isNotEmpty()
     }
 
-
-    /**
-     * ユーザ一覧を返す
-     */
-    fun getUsers(): List<User> {
-        return database.use {
-            select(DBConstants.USER_TABLE).exec {
-                parseList(rowParser { raw: String, userName: String, userCardId: String, follows: String ->
-                    User(raw, userName, userCardId, follows)
-                })
-            }
-        }
-    }
-
     fun getFollowList(myUserRawData: String): List<UserFollow> {
         return database.use {
             select(getUserTableName(myUserRawData)).exec {
@@ -177,13 +181,13 @@ class DBUtil(private val context: Context) {
     /**
      * ユーザのフォロー用
      * ユーザの更新も同時にします
-     * @param myUserRawData 対象ユーザの会員証のQRデータ
+     * @param my フォローするユーザのデータ
      * @param target フォローするユーザデータ
      */
-    fun followUser(myUserRawData: String, target: UserFollow) {
+    fun followUser(my: User, target: UserFollow) {
 //        if (isFollowed(myUserRawData, target.userId)) return
         database.use {
-            replace(getUserTableName(myUserRawData),
+            replace(my.followTableName,
                     DBConstants.USER_ID to target.userId,
                     DBConstants.USER_NAME to target.userName,
                     DBConstants.DATE to target.date,
@@ -193,12 +197,11 @@ class DBUtil(private val context: Context) {
 
     /**
      * ユーザデータを参照して対象の会員を既にフォローしているかチェックする
-     * @param myUserRawData 会員証のQRデータ
+     * @param my ユーザデータ
      */
-    fun isFollowed(myUserRawData: String, targetUserId: String): Boolean {
+    fun isFollowed(my: User, targetUserId: String): Boolean {
         return database.use {
-            val tableName = getUserTableName(myUserRawData)
-            select(tableName, DBConstants.USER_ID).whereArgs("${DBConstants.USER_ID} = {arg}", "arg" to targetUserId).exec {
+            select(my.followTableName, DBConstants.USER_ID).whereArgs("${DBConstants.USER_ID} = {arg}", "arg" to targetUserId).exec {
                 parseList(rowParser { _: String ->
                     true
                 })
@@ -259,7 +262,6 @@ class DBUtil(private val context: Context) {
     }
 
 
-
     /**
      * 画像をByteArrayへ変換
      * DB保存用
@@ -288,6 +290,27 @@ class DBUtil(private val context: Context) {
     private fun checkEnpty(vararg checkString: String): Boolean {
         if (checkString.any { it.isEmpty() }) throw IllegalArgumentException("should set values.")
         return true
+    }
+
+    /**
+     * ユーザ一覧を返す
+     */
+    private fun getUsers(): List<User> {
+        return database.use {
+            select(DBConstants.USER_TABLE).exec {
+                parseList(rowParser { raw: String, userName: String, userCardId: String, follows: String ->
+                    User(raw, userName, userCardId, follows)
+                })
+            }
+        }
+    }
+
+    /**
+     * ユーザデータの更新
+     */
+    @Synchronized
+    private fun updateUsers() {
+        userList = getUsers()
     }
 
 
