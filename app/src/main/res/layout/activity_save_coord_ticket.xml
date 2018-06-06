@@ -18,7 +18,24 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/coord_name"
+        android:id="@+id/rarity"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="rarity"
+        android:ems="10"
+        android:hint="KR"
+        android:inputType="textPersonName"
+        android:textSize="8pt"
+        app:layout_constraintBottom_toBottomOf="@+id/name"
+        app:layout_constraintEnd_toStartOf="@+id/name"
+        app:layout_constraintStart_toEndOf="@+id/thumbnail"
+        app:layout_constraintTop_toTopOf="@+id/name" />
+
+    <EditText
+        android:id="@+id/name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
@@ -27,6 +44,7 @@
         android:ems="10"
         android:hint="Name Of Coordinate"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/rarity"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
@@ -41,11 +59,11 @@
         android:inputType="date"
         android:textSize="6pt"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/coord_id"
-        app:layout_constraintTop_toBottomOf="@+id/coord_name" />
+        app:layout_constraintStart_toEndOf="@+id/id"
+        app:layout_constraintTop_toBottomOf="@+id/name" />
 
     <EditText
-        android:id="@+id/coord_id"
+        android:id="@+id/id"
         android:layout_width="110dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -53,11 +71,11 @@
         android:hint="id"
         android:inputType="textPersonName"
         android:textSize="6pt"
-        app:layout_constraintStart_toStartOf="@+id/coord_name"
-        app:layout_constraintTop_toBottomOf="@+id/coord_name" />
+        app:layout_constraintStart_toStartOf="@+id/name"
+        app:layout_constraintTop_toBottomOf="@+id/name" />
 
     <EditText
-        android:id="@+id/coord_id2"
+        android:id="@+id/color"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -65,19 +83,20 @@
         android:hint="color"
         android:inputType="textPersonName"
         android:textSize="6pt"
-        app:layout_constraintEnd_toEndOf="@+id/editText6"
-        app:layout_constraintStart_toStartOf="@+id/editText6"
-        app:layout_constraintTop_toBottomOf="@+id/coord_name" />
+        app:layout_constraintEnd_toEndOf="@+id/rarity"
+        app:layout_constraintStart_toStartOf="@+id/rarity"
+        app:layout_constraintTop_toBottomOf="@+id/name" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/get_data"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
         android:text="データ取得"
         android:textSize="5pt"
         app:layout_constraintEnd_toEndOf="@+id/thumbnail"
-        app:layout_constraintStart_toStartOf="@+id/thumbnail"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/thumbnail" />
 
     <TextView
@@ -85,12 +104,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:contentDescription="brand"
         android:gravity="center"
         android:text="ブランド"
         app:layout_constraintBottom_toBottomOf="@+id/arcade_series"
-        app:layout_constraintStart_toStartOf="@+id/coord_name"
+        app:layout_constraintStart_toStartOf="@+id/rarity"
         app:layout_constraintTop_toTopOf="@+id/arcade_series" />
 
     <EditText
@@ -103,26 +123,9 @@
         android:ems="10"
         android:hint="SweetHoney"
         android:textSize="6pt"
-        app:layout_constraintEnd_toEndOf="@+id/coord_name"
+        app:layout_constraintEnd_toEndOf="@+id/name"
         app:layout_constraintStart_toEndOf="@+id/brand"
         app:layout_constraintTop_toBottomOf="@+id/date" />
-
-    <EditText
-        android:id="@+id/editText6"
-        android:layout_width="40dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:contentDescription="rarity"
-        android:ems="10"
-        android:hint="KR"
-        android:inputType="textPersonName"
-        android:textSize="8pt"
-        app:layout_constraintBottom_toBottomOf="@+id/coord_name"
-        app:layout_constraintEnd_toStartOf="@+id/coord_name"
-        app:layout_constraintStart_toEndOf="@+id/thumbnail"
-        app:layout_constraintTop_toTopOf="@+id/coord_name" />
 
     <EditText
         android:id="@+id/Memo"
@@ -131,40 +134,52 @@
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="24dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="メモ用"
         android:inputType="textMultiLine"
-        app:layout_constraintBottom_toTopOf="@+id/button7"
+        app:layout_constraintBottom_toTopOf="@+id/continuation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button4" />
+        app:layout_constraintTop_toBottomOf="@+id/display_qr" />
 
     <Button
-        android:id="@+id/button6"
+        android:id="@+id/display_qr"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:text="QR表示"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/thumbnail"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/get_data" />
+
+    <Button
+        android:id="@+id/destruction"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
         android:text="破棄"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/button7"
+        app:layout_constraintEnd_toStartOf="@+id/continuation"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/button7" />
+        app:layout_constraintTop_toTopOf="@+id/continuation" />
 
     <Button
-        android:id="@+id/button7"
+        android:id="@+id/continuation"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
         android:text="続けて撮る"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/button8"
-        app:layout_constraintStart_toEndOf="@+id/button6" />
+        app:layout_constraintEnd_toStartOf="@+id/save"
+        app:layout_constraintStart_toEndOf="@+id/destruction" />
 
     <Button
-        android:id="@+id/button8"
+        android:id="@+id/save"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -173,7 +188,7 @@
         android:text="保存"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button7"
-        app:layout_constraintTop_toTopOf="@+id/button7" />
+        app:layout_constraintStart_toEndOf="@+id/continuation"
+        app:layout_constraintTop_toTopOf="@+id/continuation" />
 
 </android.support.constraint.ConstraintLayout>
