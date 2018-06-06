@@ -24,7 +24,6 @@ class DBFormat {
             val color: String,
             val arcadeSeries: String,
             val date: String,
-            val whichAccount: String,
             val image: Bitmap,
             val memo: String)
 

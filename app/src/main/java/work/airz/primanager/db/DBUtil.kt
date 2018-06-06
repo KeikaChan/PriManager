@@ -118,8 +118,8 @@ class DBUtil(private val context: Context) {
     fun getCoordTicketList(): List<CoordTicket> {
         return database.use {
             select(DBConstants.COORD_TICKET_TABLE).exec {
-                parseList(rowParser { raw: String, coordId: String, coordName: String, rarity: String, brand: String, color: String, arcadeSeries: String, date: String, whichAccount: String, image: ByteArray, memo: String ->
-                    CoordTicket(raw, coordId, coordName, rarity, brand, color, arcadeSeries, date, whichAccount, byteArrayToBitmap(image), memo)
+                parseList(rowParser { raw: String, coordId: String, coordName: String, rarity: String, brand: String, color: String, arcadeSeries: String, date: String, image: ByteArray, memo: String ->
+                    CoordTicket(raw, coordId, coordName, rarity, brand, color, arcadeSeries, date, byteArrayToBitmap(image), memo)
                 })
             }
         }
@@ -140,7 +140,6 @@ class DBUtil(private val context: Context) {
                     DBConstants.COLOR to coodTicket.color,
                     DBConstants.ARCADE_SERIES to coodTicket.arcadeSeries,
                     DBConstants.DATE to coodTicket.date,
-                    DBConstants.WHICH_ACCOUNT to coodTicket.whichAccount,
                     DBConstants.IMAGE to bitmapToByteArray(coodTicket.image),
                     DBConstants.MEMO to coodTicket.memo)
         }
