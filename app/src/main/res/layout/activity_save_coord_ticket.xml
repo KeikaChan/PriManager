@@ -88,7 +88,7 @@
         app:layout_constraintTop_toBottomOf="@+id/name" />
 
     <Button
-        android:id="@+id/get_data"
+        android:id="@+id/select_follow"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -100,7 +100,7 @@
         app:layout_constraintTop_toBottomOf="@+id/thumbnail" />
 
     <TextView
-        android:id="@+id/brand"
+        android:id="@+id/fw"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -109,12 +109,26 @@
         android:contentDescription="brand"
         android:gravity="center"
         android:text="ブランド"
+        app:layout_constraintBottom_toBottomOf="@+id/coord"
+        app:layout_constraintStart_toStartOf="@+id/rarity"
+        app:layout_constraintTop_toTopOf="@+id/coord" />
+
+    <TextView
+        android:id="@+id/arcade_series_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:contentDescription="brand"
+        android:gravity="center"
+        android:text="ゲーム種別"
         app:layout_constraintBottom_toBottomOf="@+id/arcade_series"
+        app:layout_constraintEnd_toStartOf="@+id/arcade_series"
         app:layout_constraintStart_toStartOf="@+id/rarity"
         app:layout_constraintTop_toTopOf="@+id/arcade_series" />
 
     <EditText
-        android:id="@+id/arcade_series"
+        android:id="@+id/coord"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -124,8 +138,22 @@
         android:hint="SweetHoney"
         android:textSize="6pt"
         app:layout_constraintEnd_toEndOf="@+id/name"
-        app:layout_constraintStart_toEndOf="@+id/brand"
+        app:layout_constraintStart_toEndOf="@+id/fw"
         app:layout_constraintTop_toBottomOf="@+id/date" />
+
+    <EditText
+        android:id="@+id/arcade_series"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="brand name"
+        android:ems="10"
+        android:hint="プリチャン"
+        android:textSize="6pt"
+        app:layout_constraintEnd_toEndOf="@+id/name"
+        app:layout_constraintStart_toEndOf="@+id/arcade_series_label"
+        app:layout_constraintTop_toBottomOf="@+id/coord" />
 
     <EditText
         android:id="@+id/Memo"
@@ -141,7 +169,7 @@
         app:layout_constraintBottom_toTopOf="@+id/continuation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/display_qr" />
+        app:layout_constraintTop_toBottomOf="@+id/arcade_series" />
 
     <Button
         android:id="@+id/display_qr"
@@ -153,7 +181,7 @@
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@+id/thumbnail"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/get_data" />
+        app:layout_constraintTop_toBottomOf="@+id/select_follow" />
 
     <Button
         android:id="@+id/destruction"
