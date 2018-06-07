@@ -1,27 +1,19 @@
 package work.airz.primanager
 
-import android.content.DialogInterface
-import android.graphics.Bitmap
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.util.Log
-import android.widget.ImageView
 import com.google.zxing.*
 import com.journeyapps.barcodescanner.BarcodeCallback
 import com.journeyapps.barcodescanner.BarcodeResult
 import com.journeyapps.barcodescanner.DecoratedBarcodeView
-import java.util.*
-import android.os.Environment
-import android.view.LayoutInflater
-import android.widget.EditText
+import kotlinx.android.synthetic.main.activity_qr.*
 import work.airz.primanager.db.DBConstants
 import work.airz.primanager.db.DBFormat.*
 import work.airz.primanager.db.DBUtil
 import work.airz.primanager.qr.QRUtil
-import java.io.File
-import java.io.FileOutputStream
-import java.text.SimpleDateFormat
 
 
 class QRActivity : AppCompatActivity() {
@@ -31,7 +23,6 @@ class QRActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_qr)
-
         readQR()
     }
 
@@ -42,7 +33,7 @@ class QRActivity : AppCompatActivity() {
      * TODO: DBとのデータ一致を確認する部分を作る
      */
     private fun readQR() {
-        qrReaderView = findViewById(R.id.decoratedBarcodeView)
+        qrReaderView = decoratedBarcodeView
         qrReaderView.decodeContinuous(object : BarcodeCallback {
             override fun possibleResultPoints(resultPoints: MutableList<ResultPoint>?) {
 
@@ -73,40 +64,68 @@ class QRActivity : AppCompatActivity() {
 
         val dbUtil = DBUtil(applicationContext)
         val rawData = QRUtil.byteToString(data)
+
+        val qrFormat = QRUtil.QRFormat(QRUtil.QRFormat().getStringToErrorCorrectionLevel(result.resultMetadata[ResultMetadataType.ERROR_CORRECTION_LEVEL] as String),
+                result.result.maskIndex,
+                result.sourceData.isInverted, QRUtil.detectVersionM(result.rawBytes.size))
+        Log.d("qrformat", qrFormat.toString())
+
         when (QRUtil.detectQRFormat(data)) {
             QRUtil.QRType.PRICHAN_FOLLOW -> {
                 val followUserID = QRUtil.getFollowUserID(data)
                 val followedUsers = dbUtil.getUserList().filter { dbUtil.isFollowed(it, followUserID) }
-                if (followedUsers.isNotEmpty()) followedAlert(rawData, followedUsers, followUserID)
-                else if (dbUtil.isDuplicate(DBConstants.FOLLOW_TICKET_TABLE, followUserID)) duplicateDataAlert(rawData, QRUtil.QRType.PRICHAN_FOLLOW)
-                //TODO: フォローにintent
-                qrReaderView.resume()
+                if (followedUsers.isNotEmpty()) followedAlert(rawData, qrFormat, followedUsers)
+                else if (dbUtil.isDuplicate(DBConstants.FOLLOW_TICKET_TABLE, followUserID)) duplicateDataAlert(rawData, qrFormat, QRUtil.QRType.PRICHAN_FOLLOW)
+                saveAlert(rawData, qrFormat, QRUtil.QRType.PRICHAN_FOLLOW)
             }
             QRUtil.QRType.PRICHAN_COORD -> {
-                if (dbUtil.isDuplicate(DBConstants.COORD_TICKET_TABLE, rawData)) duplicateDataAlert(rawData, QRUtil.QRType.PRICHAN_COORD)
-                //TODO: コーデ画面にintent
-                qrReaderView.resume()
+                if (dbUtil.isDuplicate(DBConstants.COORD_TICKET_TABLE, rawData)) duplicateDataAlert(rawData, qrFormat, QRUtil.QRType.PRICHAN_COORD)
+                saveAlert(rawData, qrFormat, QRUtil.QRType.PRICHAN_COORD)
             }
             QRUtil.QRType.OTHERS -> { //基本的にプリパラのトモチケは来ない前提で考える
-                if (dbUtil.isDuplicate(DBConstants.COORD_TICKET_TABLE, rawData)) duplicateDataAlert(rawData, QRUtil.QRType.OTHERS)
-                else nazoDataAlert(rawData, QRUtil.QRType.OTHERS)//謎データであることを告知する
-                
+                if (dbUtil.isDuplicate(DBConstants.COORD_TICKET_TABLE, rawData)) duplicateDataAlert(rawData, qrFormat, QRUtil.QRType.OTHERS)
+                else nazoDataAlert(rawData, qrFormat, QRUtil.QRType.OTHERS)//謎データであることを告知する
+
             }
         }
 
     }
 
+    private fun saveAlert(rawData: String, qrFormat: QRUtil.QRFormat, type: QRUtil.QRType) {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("新データ")
+        builder.setCancelable(false)
+        builder.setMessage("まだ保存されていない物のようです。保存しますか？")
+        builder.setPositiveButton("はい", { _, _ ->
+            when (type) {
+                QRUtil.QRType.PRICHAN_FOLLOW ->
+                    startActivity(Intent(this, SaveFollowTicket::class.java).apply { flags = Intent.FLAG_ACTIVITY_SINGLE_TOP })
+                QRUtil.QRType.PRICHAN_COORD ->
+                    startActivity(Intent(this, SaveCoordTicket::class.java).apply { flags = Intent.FLAG_ACTIVITY_SINGLE_TOP })
+                else ->
+                    startActivity(Intent(this, SaveCoordTicket::class.java).apply { flags = Intent.FLAG_ACTIVITY_SINGLE_TOP })
+            }
+            finish()
+        })
+        builder.setNegativeButton("いいえ", { dialog, _ ->
+            dialog.dismiss()
+            qrReaderView.resume()
+        })
+        builder.show()
+    }
+
     /**
      * 謎データが来たときのアラート
      */
-    fun nazoDataAlert(rawData: String, type: QRUtil.QRType) {
+    private fun nazoDataAlert(rawData: String, qrFormat: QRUtil.QRFormat, type: QRUtil.QRType) {
         val builder = AlertDialog.Builder(this)
-        builder.setTitle("プリチャン以外のデータ形式")
+        builder.setTitle("未知のデータ形式")
         builder.setCancelable(false)
         builder.setMessage("コーデ保存に飛びます。よろしいですか？")
         builder.setPositiveButton("はい", { _, _ ->
             //TODO: Intentでコーデに飛ぶ
-            qrReaderView.resume()
+            startActivity(Intent(this, SaveCoordTicket::class.java).apply { flags = Intent.FLAG_ACTIVITY_SINGLE_TOP })
+            finish()
         })
         builder.setNegativeButton("いいえ", { dialog, _ ->
             dialog.dismiss()
@@ -118,7 +137,7 @@ class QRActivity : AppCompatActivity() {
     /**
      * データ重複時のアラート
      */
-    fun duplicateDataAlert(rawData: String, type: QRUtil.QRType) {
+    private fun duplicateDataAlert(rawData: String, qrFormat: QRUtil.QRFormat, type: QRUtil.QRType) {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("既にデータが存在します")
         builder.setCancelable(false)
@@ -137,8 +156,8 @@ class QRActivity : AppCompatActivity() {
     /**
      * フォロー済みのときのアラート
      */
-    fun followedAlert(rawData: String, followdList: List<User>, followUserID: String) {
-        val strb = StringBuilder("以下のユーザにフォローされています。続けますか？\n")
+    private fun followedAlert(rawData: String, qrFormat: QRUtil.QRFormat, followdList: List<User>) {
+        val strb = StringBuilder("以下のユーザにフォローされています。データを編集しますか？\n")
         followdList.forEach { strb.append("${it.userName}\n") }
         val builder = AlertDialog.Builder(this)
         builder.setTitle("既にフォローされています")
@@ -156,51 +175,51 @@ class QRActivity : AppCompatActivity() {
     }
 
 
-    fun saveAlert(qrImage: Bitmap, readerView: DecoratedBarcodeView) {
-
-        val inflater = LayoutInflater.from(applicationContext)
-        var dialogRoot = inflater.inflate(R.layout.save_dialog, null)
-
-        var imageView = dialogRoot.findViewById<ImageView>(R.id.qrimage)
-        imageView.scaleType = ImageView.ScaleType.FIT_XY
-        imageView.adjustViewBounds = true
-        imageView.setImageBitmap(qrImage)
-        var editText = dialogRoot.findViewById<EditText>(R.id.filename)
-
-        var builder = AlertDialog.Builder(this)
-        builder.setView(dialogRoot)
-        builder.setCancelable(false)
-        builder.setNegativeButton("Cancel", DialogInterface.OnClickListener { dialogInterface, _ ->
-            dialogInterface.dismiss()
-            readerView.resume()
-        })
-        builder.setPositiveButton("Save", DialogInterface.OnClickListener { dialogInterface, _ ->
-            val outDir = File(Environment.getExternalStorageDirectory().absolutePath, "priQR")
-            if (!outDir.exists()) outDir.mkdirs()
-
-            var outputName: String
-            outputName = if (editText.text.toString() != "") {
-                editText.text.toString()
-            } else {
-                SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
-            }
-            if (File(outDir.absolutePath, "${outputName}.png").exists()) {
-                var count = 1
-                while (File(outDir.absolutePath, "${outputName}-${count}.png").exists()) {
-                    count++
-                }
-                FileOutputStream(File(outDir.absolutePath, "${outputName}-${count}.png")).use {
-                    qrImage.compress(Bitmap.CompressFormat.PNG, 100, it)
-                }
-            } else {
-                FileOutputStream(File(outDir.absolutePath, "${outputName}.png")).use {
-                    qrImage.compress(Bitmap.CompressFormat.PNG, 100, it)
-                }
-            }
-            readerView.resume()
-        })
-        builder.show()
-    }
+//    fun saveAlert(qrImage: Bitmap, readerView: DecoratedBarcodeView) {
+//
+//        val inflater = LayoutInflater.from(applicationContext)
+//        var dialogRoot = inflater.inflate(R.layout.save_dialog, null)
+//
+//        var imageView = dialogRoot.findViewById<ImageView>(R.id.qrimage)
+//        imageView.scaleType = ImageView.ScaleType.FIT_XY
+//        imageView.adjustViewBounds = true
+//        imageView.setImageBitmap(qrImage)
+//        var editText = dialogRoot.findViewById<EditText>(R.id.filename)
+//
+//        var builder = AlertDialog.Builder(this)
+//        builder.setView(dialogRoot)
+//        builder.setCancelable(false)
+//        builder.setNegativeButton("Cancel", DialogInterface.OnClickListener { dialogInterface, _ ->
+//            dialogInterface.dismiss()
+//            readerView.resume()
+//        })
+//        builder.setPositiveButton("Save", DialogInterface.OnClickListener { dialogInterface, _ ->
+//            val outDir = File(Environment.getExternalStorageDirectory().absolutePath, "priQR")
+//            if (!outDir.exists()) outDir.mkdirs()
+//
+//            var outputName: String
+//            outputName = if (editText.text.toString() != "") {
+//                editText.text.toString()
+//            } else {
+//                SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+//            }
+//            if (File(outDir.absolutePath, "${outputName}.png").exists()) {
+//                var count = 1
+//                while (File(outDir.absolutePath, "${outputName}-${count}.png").exists()) {
+//                    count++
+//                }
+//                FileOutputStream(File(outDir.absolutePath, "${outputName}-${count}.png")).use {
+//                    qrImage.compress(Bitmap.CompressFormat.PNG, 100, it)
+//                }
+//            } else {
+//                FileOutputStream(File(outDir.absolutePath, "${outputName}.png")).use {
+//                    qrImage.compress(Bitmap.CompressFormat.PNG, 100, it)
+//                }
+//            }
+//            readerView.resume()
+//        })
+//        builder.show()
+//    }
 
     override fun onResume() {
         super.onResume()
