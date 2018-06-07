@@ -88,7 +88,7 @@
         app:layout_constraintTop_toBottomOf="@+id/name" />
 
     <Button
-        android:id="@+id/select_follow"
+        android:id="@+id/get_data"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -181,7 +181,7 @@
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@+id/thumbnail"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/select_follow" />
+        app:layout_constraintTop_toBottomOf="@+id/get_data" />
 
     <Button
         android:id="@+id/destruction"
