@@ -189,7 +189,7 @@ class QRUtil {
          * @param errorCorrectionLevel エラーレベル
          * @return Stringに変換したデータ
          */
-        private fun getErrorCorrectionString(errorCorrectionLevel: ErrorCorrectionLevel): String {
+        fun getErrorCorrectionString(errorCorrectionLevel: ErrorCorrectionLevel): String {
             return when (errorCorrectionLevel) {
                 ErrorCorrectionLevel.M -> "M"
                 ErrorCorrectionLevel.L -> "L"
@@ -204,7 +204,7 @@ class QRUtil {
          * @param errorCorrectionString エラーレベル
          * @return エラーレベルのenum
          */
-        private fun getStringToErrorCorrectionLevel(errorCorrectionString: String): ErrorCorrectionLevel {
+        fun getStringToErrorCorrectionLevel(errorCorrectionString: String): ErrorCorrectionLevel {
             return when (errorCorrectionString) {
                 "M" -> ErrorCorrectionLevel.M
                 "L" -> ErrorCorrectionLevel.L
