@@ -22,7 +22,9 @@ class DBConstants {
         const val RARITY = "rarity" //レア度 KR とか
         const val BRAND = "brand" //ブランド名 Sweet Honey とか
         const val COLOR = "color" //色　みどり とか
-        const val WHICH_ACCOUNT = "which_account" //どのアカウントで取得したか
+        const val CATEGORY ="category" //ワンピースとかシューズとかヘアアクセとか
+        const val GENRE ="genre" //ラブリーとかポップとかクールとか
+        const val LIKE="like" //いいね数
 
         //フォロチケ用
         const val USER_ID = "user_id" //ユーザID フォロチケの後ろにある固有値のこと
