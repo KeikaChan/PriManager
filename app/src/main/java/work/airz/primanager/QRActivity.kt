@@ -12,11 +12,9 @@ import com.journeyapps.barcodescanner.BarcodeCallback
 import com.journeyapps.barcodescanner.BarcodeResult
 import com.journeyapps.barcodescanner.DecoratedBarcodeView
 import java.util.*
-import android.graphics.BitmapFactory
 import android.os.Environment
 import android.view.LayoutInflater
 import android.widget.EditText
-import android.widget.Toast
 import work.airz.primanager.db.DBConstants
 import work.airz.primanager.db.DBFormat.*
 import work.airz.primanager.db.DBUtil
@@ -76,22 +74,22 @@ class QRActivity : AppCompatActivity() {
         val dbUtil = DBUtil(applicationContext)
         val rawData = QRUtil.byteToString(data)
         when (QRUtil.detectQRFormat(data)) {
-            QRUtil.QRFormat.PRICHAN_FOLLOW -> {
+            QRUtil.QRType.PRICHAN_FOLLOW -> {
                 val followUserID = QRUtil.getFollowUserID(data)
                 val followedUsers = dbUtil.getUserList().filter { dbUtil.isFollowed(it, followUserID) }
                 if (followedUsers.isNotEmpty()) followedAlert(rawData, followedUsers, followUserID)
-                else if (dbUtil.isDuplicate(DBConstants.FOLLOW_TICKET_TABLE, followUserID)) duplicateDataAlert(rawData, QRUtil.QRFormat.PRICHAN_FOLLOW)
+                else if (dbUtil.isDuplicate(DBConstants.FOLLOW_TICKET_TABLE, followUserID)) duplicateDataAlert(rawData, QRUtil.QRType.PRICHAN_FOLLOW)
                 //TODO: フォローにintent
                 qrReaderView.resume()
             }
-            QRUtil.QRFormat.PRICHAN_COORD -> {
-                if (dbUtil.isDuplicate(DBConstants.COORD_TICKET_TABLE, rawData)) duplicateDataAlert(rawData, QRUtil.QRFormat.PRICHAN_COORD)
+            QRUtil.QRType.PRICHAN_COORD -> {
+                if (dbUtil.isDuplicate(DBConstants.COORD_TICKET_TABLE, rawData)) duplicateDataAlert(rawData, QRUtil.QRType.PRICHAN_COORD)
                 //TODO: コーデ画面にintent
                 qrReaderView.resume()
             }
-            QRUtil.QRFormat.OTHERS -> { //基本的にプリパラのトモチケは来ない前提で考える
-                if (dbUtil.isDuplicate(DBConstants.COORD_TICKET_TABLE, rawData)) duplicateDataAlert(rawData, QRUtil.QRFormat.OTHERS)
-                else nazoDataAlert(rawData, QRUtil.QRFormat.OTHERS)//謎データであることを告知する
+            QRUtil.QRType.OTHERS -> { //基本的にプリパラのトモチケは来ない前提で考える
+                if (dbUtil.isDuplicate(DBConstants.COORD_TICKET_TABLE, rawData)) duplicateDataAlert(rawData, QRUtil.QRType.OTHERS)
+                else nazoDataAlert(rawData, QRUtil.QRType.OTHERS)//謎データであることを告知する
                 
             }
         }
@@ -101,7 +99,7 @@ class QRActivity : AppCompatActivity() {
     /**
      * 謎データが来たときのアラート
      */
-    fun nazoDataAlert(rawData: String, format: QRUtil.QRFormat) {
+    fun nazoDataAlert(rawData: String, type: QRUtil.QRType) {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("プリチャン以外のデータ形式")
         builder.setCancelable(false)
@@ -120,7 +118,7 @@ class QRActivity : AppCompatActivity() {
     /**
      * データ重複時のアラート
      */
-    fun duplicateDataAlert(rawData: String, format: QRUtil.QRFormat) {
+    fun duplicateDataAlert(rawData: String, type: QRUtil.QRType) {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("既にデータが存在します")
         builder.setCancelable(false)

@@ -8,6 +8,7 @@ import com.google.zxing.MultiFormatWriter
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel
 import java.nio.charset.Charset
 import java.util.*
+import kotlin.math.E
 
 
 class QRUtil {
@@ -39,14 +40,14 @@ class QRUtil {
         /**
          * QRコードを作成します
          * @param data qr data
-         * @param maskindex mask index (it can get BarcodeResult.result.maskIndex)
+         * @param maskIndex mask index (it can get BarcodeResult.result.maskIndex)
          * @param isInverted PriChan/PriPara format
          * @param version version of QR Code
          */
-        fun createQR(data: ByteArray, maskindex: Int, isInverted: Boolean, version: Int): Bitmap {
+        fun createQR(data: ByteArray, maskIndex: Int, isInverted: Boolean, version: Int): Bitmap {
             var hints = EnumMap<EncodeHintType, Object>(EncodeHintType::class.java)
             hints[EncodeHintType.ERROR_CORRECTION] = ErrorCorrectionLevel.M as Object
-            hints[EncodeHintType.MASK_INDEX] = maskindex as Object
+            hints[EncodeHintType.MASK_INDEX] = maskIndex as Object
             hints[EncodeHintType.QR_VERSION] = version as Object
 
             val image = MultiFormatWriter().encode(String(data, Charset.forName("ISO-8859-1")), BarcodeFormat.QR_CODE, 256, 256, hints)
@@ -81,11 +82,11 @@ class QRUtil {
          * @param data QRコードデータ
          * @return QRコードの形式
          */
-        fun detectQRFormat(data: ByteArray): QRFormat {
+        fun detectQRFormat(data: ByteArray): QRType {
             return when {
-                isPriChanFollowTicket(data) -> QRFormat.PRICHAN_FOLLOW
-                isPriChanCodeTicket(data) -> QRFormat.PRICHAN_COORD
-                else -> QRFormat.OTHERS
+                isPriChanFollowTicket(data) -> QRType.PRICHAN_FOLLOW
+                isPriChanCodeTicket(data) -> QRType.PRICHAN_COORD
+                else -> QRType.OTHERS
             }
         }
 
@@ -158,7 +159,63 @@ class QRUtil {
     }
 
 
-    enum class QRFormat {
+    class QRFormat(val errorCorrectionLevel: ErrorCorrectionLevel = ErrorCorrectionLevel.M, val maskIndex: Int = 1, val isInverted: Boolean = false, val version: Int = 2) {
+
+        /**
+         * データ形式のテキスト化
+         */
+        override fun toString(): String {
+            val stringBuilder = StringBuilder()
+            stringBuilder.append("${getErrorCorrectionString(errorCorrectionLevel)},")
+            stringBuilder.append("${maskIndex},")
+            stringBuilder.append("$isInverted,")
+            stringBuilder.append("$version,")
+            return stringBuilder.toString()
+        }
+
+        /**
+         * String形式で送られてきたデータのパース
+         * @param qrformat qrコードのフォーマットデータ
+         * @return 整形済みデータ
+         */
+        fun parseString(qrformat: String): QRFormat {
+            val split = qrformat.split(",")
+            return QRFormat(getStringToErrorCorrectionLevel(split[0]), split[1].toInt(), split[2].toBoolean(), split[3].toInt())
+
+        }
+
+        /**
+         * Emumのエラーレベルを文字列に変換
+         * @param errorCorrectionLevel エラーレベル
+         * @return Stringに変換したデータ
+         */
+        private fun getErrorCorrectionString(errorCorrectionLevel: ErrorCorrectionLevel): String {
+            return when (errorCorrectionLevel) {
+                ErrorCorrectionLevel.M -> "M"
+                ErrorCorrectionLevel.L -> "L"
+                ErrorCorrectionLevel.H -> "H"
+                ErrorCorrectionLevel.Q -> "Q"
+                else -> "M"
+            }
+        }
+
+        /**
+         * 文字列からエラーレベルを起こす
+         * @param errorCorrectionString エラーレベル
+         * @return エラーレベルのenum
+         */
+        private fun getStringToErrorCorrectionLevel(errorCorrectionString: String): ErrorCorrectionLevel {
+            return when (errorCorrectionString) {
+                "M" -> ErrorCorrectionLevel.M
+                "L" -> ErrorCorrectionLevel.L
+                "H" -> ErrorCorrectionLevel.H
+                "Q" -> ErrorCorrectionLevel.Q
+                else -> ErrorCorrectionLevel.M
+            }
+        }
+    }
+
+    enum class QRType {
         PRICHAN_FOLLOW, PRICHAN_COORD, OTHERS //OTHERS にはプリパラの他、映画特典のプリチャンのチケットも含むよ。現状ではここまでしかわからない。
 
     }
