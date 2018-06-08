@@ -75,9 +75,11 @@ class QRActivity : AppCompatActivity() {
             QRUtil.QRType.PRICHAN_FOLLOW -> {
                 val followUserID = QRUtil.getFollowUserID(data)
                 val followedUsers = dbUtil.getUserList().filter { dbUtil.isFollowed(it, followUserID) }
-                if (followedUsers.isNotEmpty()) followedAlert(data, qrFormat, followedUsers, QRUtil.QRType.PRICHAN_FOLLOW)
-                else if (dbUtil.isDuplicate(DBConstants.FOLLOW_TICKET_TABLE, rawString)) duplicateDataAlert(data, qrFormat, QRUtil.QRType.PRICHAN_FOLLOW)
-                saveAlert(data, qrFormat, QRUtil.QRType.PRICHAN_FOLLOW)
+                when {
+                    followedUsers.isNotEmpty() -> followedAlert(data, qrFormat, followedUsers, QRUtil.QRType.PRICHAN_FOLLOW)
+                    dbUtil.isDuplicate(DBConstants.FOLLOW_TICKET_TABLE, rawString) -> duplicateDataAlert(data, qrFormat, QRUtil.QRType.PRICHAN_FOLLOW)
+                    else -> saveAlert(data, qrFormat, QRUtil.QRType.PRICHAN_FOLLOW)
+                }
             }
             QRUtil.QRType.PRICHAN_COORD -> {
                 if (dbUtil.isDuplicate(DBConstants.COORD_TICKET_TABLE, rawString)) duplicateDataAlert(data, qrFormat, QRUtil.QRType.PRICHAN_COORD)
@@ -145,7 +147,7 @@ class QRActivity : AppCompatActivity() {
                 QRUtil.QRType.PRICHAN_COORD -> intentCoord(rawData, qrFormat, type, true)
                 QRUtil.QRType.OTHERS -> intentCoord(rawData, qrFormat, type, true)
             }
-            qrReaderView.resume()
+            finish()
         })
         builder.setNegativeButton("いいえ", { dialog, _ ->
             dialog.dismiss()
