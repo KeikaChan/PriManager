@@ -31,6 +31,21 @@ class DBUtil(private val context: Context) {
         return userList.toList()
     }
 
+
+    /**
+     * フォローデータ取得用
+     * @return フォローチケット
+     */
+    fun getFollowTicket(rawData: String): FollowTicket {
+        return database.use {
+            select(DBConstants.FOLLOW_TICKET_TABLE).whereArgs("${DBConstants.RAW} = {arg}", "arg" to rawData).exec {
+                parseSingle(rowParser { raw: String, userId: String, userName: String, date: String, follow: Int, follower: Int, coordinate: String, arcade_series: String, image: ByteArray, memo: String ->
+                    FollowTicket(raw, userId, userName, date, follow, follower, coordinate, arcade_series, byteArrayToBitmap(image), memo)
+                })
+            }
+        }
+    }
+
     /**
      * フォローデータのリスト取得用
      * @return フォローチケットのリスト
@@ -112,6 +127,21 @@ class DBUtil(private val context: Context) {
     }
 
     /**
+     * コーデチケット取得用
+     * @return コーデチケット
+     */
+    fun getCoordTicket(rawData: String): CoordTicket {
+        return database.use {
+            select(DBConstants.COORD_TICKET_TABLE).whereArgs("${DBConstants.RAW} = {arg}", "arg" to rawData).exec {
+                parseSingle(rowParser { raw: String, coordId: String, coordName: String, rarity: String, brand: String, color: String, category: String, genre: String, like: Int, arcadeSeries: String, date: String, image: ByteArray, memo: String ->
+                    CoordTicket(raw, coordId, coordName, rarity, brand, color, category, genre, like, arcadeSeries, date, byteArrayToBitmap(image), memo)
+                })
+            }
+        }
+    }
+
+
+    /**
      * コーデチケットのリスト取得用
      * @return コーデチケットのリスト
      */
@@ -171,9 +201,12 @@ class DBUtil(private val context: Context) {
         }.isNotEmpty()
     }
 
-    fun getFollowList(myUserRawData: String): List<UserFollow> {
+    /**
+     * 指定したユーザがフォローしているデータの一覧を返してくれる
+     */
+    fun getUserFollowList(rawData: String): List<UserFollow> {
         return database.use {
-            select(getUserTableName(myUserRawData)).exec {
+            select(getUserTableName(rawData)).exec {
                 parseList(rowParser { userId: String, userName: String, date: String, memo: String ->
                     UserFollow(userId, userName, date, memo)
                 })
@@ -188,7 +221,6 @@ class DBUtil(private val context: Context) {
      * @param target フォローするユーザデータ
      */
     fun followUser(my: User, target: UserFollow) {
-//        if (isFollowed(myUserRawData, target.userId)) return
         database.use {
             replace(my.followTableName,
                     DBConstants.USER_ID to target.userId,
@@ -237,10 +269,10 @@ class DBUtil(private val context: Context) {
      * ユーザのテーブル名を取得するやつ
      * ユーザ登録とかで色々使うかも
      */
-    private fun getUserTableName(myUserRawData: String): String {
+    private fun getUserTableName(rawData: String): String {
         val tableName = database.use {
             select(DBConstants.USER_TABLE, DBConstants.RAW, DBConstants.FOLLOWS_TABLE_NAME)
-                    .whereArgs("${DBConstants.RAW} = {arg}", "arg" to myUserRawData).exec {
+                    .whereArgs("${DBConstants.RAW} = {arg}", "arg" to rawData).exec {
                         parseSingle(rowParser { _: String, tableName: String ->
                             tableName
                         })
