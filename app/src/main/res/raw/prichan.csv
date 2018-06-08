@@ -1,266 +1,266 @@
 item_id,name,image_url,category,color,brand,genre,rarity,like,note
-PCH1-01,スイートハニー キラッとワンピ,https://prichan.jp/resources/images/items/details/70000.jpg,ワンピース,ピンク,sweethoney,love,KR,1900,
-PCH1-05,フラワーショップ フリージアスカート,https://prichan.jp/resources/images/items/details/70004.jpg,ボトムス,黄,sweethoney,love,PR,800,
-PCH1-08,フラワーショップ ブルースタートップス,https://prichan.jp/resources/images/items/details/70007.jpg,トップス,水色,sweethoney,love,PR,850,
-PCH1-03,スイートハニー キラッとヘアアクセ,https://prichan.jp/resources/images/items/details/70002.jpg,ヘアアクセ,水色,sweethoney,love,KR,900,
-PCH1-07,フラワーショップ フリージアヘアアクセ,https://prichan.jp/resources/images/items/details/70006.jpg,ヘアアクセ,黄,sweethoney,love,PR,750,
-PCH1-06,フラワーショップ フリージアシューズ,https://prichan.jp/resources/images/items/details/70005.jpg,シューズ,黄,sweethoney,love,PR,750,
-PCH1-04,フラワーショップ フリージアトップス,https://prichan.jp/resources/images/items/details/70003.jpg,トップス,黄,sweethoney,love,PR,850,
-PCH1-16,ギンガムハート スカイブルートップス,https://prichan.jp/resources/images/items/details/70015.jpg,トップス,水色,sweethoney,love,SR,700,
-PCH1-15,チアリーダー グリーンヘアアクセ,https://prichan.jp/resources/images/items/details/70014.jpg,ヘアアクセ,緑,girlsyell,pop,PR,750,
-PCH1-14,チアリーダー グリーンシューズ,https://prichan.jp/resources/images/items/details/70013.jpg,シューズ,青,girlsyell,pop,PR,800,
-PCH1-13,チアリーダー グリーンスカート,https://prichan.jp/resources/images/items/details/70012.jpg,ボトムス,緑,girlsyell,pop,PR,850,
-PCH1-12,チアリーダー グリーントップス,https://prichan.jp/resources/images/items/details/70011.jpg,トップス,緑,girlsyell,pop,PR,750,
-PCH1-11,フラワーショップ ブルースターヘアアクセ,https://prichan.jp/resources/images/items/details/70010.jpg,ヘアアクセ,水色,sweethoney,love,PR,750,
-PCH1-10,フラワーショップ ブルースターシューズ,https://prichan.jp/resources/images/items/details/70009.jpg,シューズ,水色,sweethoney,love,PR,750,
-PCH1-09,フラワーショップ ブルースタースカート,https://prichan.jp/resources/images/items/details/70008.jpg,ボトムス,水色,sweethoney,love,PR,800,
-PCH2-04,ドーリーワルツ キラッとワンピ,https://prichan.jp/resources/images/items/details/70103.jpg,ワンピース,赤,dollywaltz,love,KR,1900,
-PCH2-03,ガールズエール キラッとヘアアクセ,https://prichan.jp/resources/images/items/details/70102.jpg,ヘアアクセ,白,girlsyell,pop,KR,900,
-PCH2-02,ガールズエール キラッとシューズ,https://prichan.jp/resources/images/items/details/70101.jpg,シューズ,白,girlsyell,pop,KR,900,
-PCH2-01,ガールズエール キラッとワンピ,https://prichan.jp/resources/images/items/details/70100.jpg,ワンピース,水色,girlsyell,pop,KR,1900,
-GY-01,バルーンブルーデニム サロペット,https://prichan.jp/resources/images/items/details/70069.jpg,ワンピース,青,girlsyell,pop,SR,1200,Girl's Yell(ガールズエール)チャンネル ランク2
-SH-07,アイスクリーム グレープヘアアクセ,https://prichan.jp/resources/images/items/details/27982.jpg,ヘアアクセ,紫,sweethoney,love,SR,600,Sweet Honey(スイートハニー)チャンネル ランク4
-SH-06,アイスクリーム グレープシューズ,https://prichan.jp/resources/images/items/details/27981.jpg,シューズ,紫,sweethoney,love,SR,600,Sweet Honey(スイートハニー)チャンネル ランク4
-PCH2-12,パンクキャット レッドトップス,https://prichan.jp/resources/images/items/details/70111.jpg,トップス,黒,romancebeat,cool,PR,850,
-PCH2-20,セーラーマリン ライトブルートップス,https://prichan.jp/resources/images/items/details/70119.jpg,トップス,水色,dollywaltz,love,SR,700,
-PCH2-19,パンクキャット ホワイトイエローヘアアクセ,https://prichan.jp/resources/images/items/details/70118.jpg,ヘアアクセ,白,romancebeat,cool,PR,750,
-PCH1-02,スイートハニー キラッとシューズ,https://prichan.jp/resources/images/items/details/70001.jpg,シューズ,ピンク,sweethoney,love,KR,900,
-PCH2-18,パンクキャット ホワイトイエローシューズ,https://prichan.jp/resources/images/items/details/70117.jpg,シューズ,白,romancebeat,cool,PR,750,
-PCH2-17,パンクキャット ホワイトイエロースカート,https://prichan.jp/resources/images/items/details/70116.jpg,ボトムス,白,romancebeat,cool,PR,800,
-PCH2-16,パンクキャット ホワイトイエロートップス,https://prichan.jp/resources/images/items/details/70115.jpg,トップス,白,romancebeat,cool,PR,850,
-PCH2-15,パンクキャット レッドヘアアクセ,https://prichan.jp/resources/images/items/details/70114.jpg,ヘアアクセ,黒,romancebeat,cool,PR,750,
-PCH2-28,ピクニックギンガム レッドケープワンピ,https://prichan.jp/resources/images/items/details/70126.jpg,ワンピース,赤,dollywaltz,love,SR,1200,
-PCH2-35,プリ☆チャンユニフォーム レッドトップス,https://prichan.jp/resources/images/items/details/70133.jpg,トップス,赤,prismstone,love,R,550,
-PCH2-34,ミュージシャン ホワイトハット,https://prichan.jp/resources/images/items/details/70132.jpg,ヘアアクセ,白,romancebeat,cool,SR,600,
-PCH2-33,ミュージシャン ホワイトシューズ,https://prichan.jp/resources/images/items/details/70131.jpg,シューズ,白,romancebeat,cool,SR,650,
-PCH2-32,ミュージシャン ホワイトデニム,https://prichan.jp/resources/images/items/details/70130.jpg,ボトムス,白,romancebeat,cool,SR,600,
-PCH2-31,ミュージシャン ホワイトジャケット,https://prichan.jp/resources/images/items/details/70129.jpg,トップス,白,romancebeat,cool,SR,700,
-PCH2-30,ピクニックギンガム レッドヘアアクセ,https://prichan.jp/resources/images/items/details/70128.jpg,ヘアアクセ,白,dollywaltz,love,SR,600,
-PCH2-41,プリ☆チャンユニフォーム グリーンシューズ,https://prichan.jp/resources/images/items/details/70139.jpg,シューズ,緑,prismstone,cool,R,450,
-PCH2-45,ロッカー レッドベスト＆Tシャツ,https://prichan.jp/resources/images/items/details/70143.jpg,トップス,赤,romancebeat,cool,R,500,
-PCH2-44,リボンソックス &ストライプシューズ,https://prichan.jp/resources/images/items/details/70142.jpg,シューズ,ピンク,dollywaltz,love,R,450,
-PCH2-43,ストライプローズ ワンピ,https://prichan.jp/resources/images/items/details/70141.jpg,ワンピース,ピンク,dollywaltz,love,R,900,
-PCH2-42,プリ☆チャンユニフォーム グリーンヘアアクセ,https://prichan.jp/resources/images/items/details/70140.jpg,ヘアアクセ,緑,prismstone,cool,R,450,
-C-011,クリームピーチソーダ トップス,https://prichan.jp/resources/images/items/details/28054.jpg,トップス,ピンク,sweethoney,love,Ｒ,650,
-C-010,ダンシングマーチ ヘアアクセ,https://prichan.jp/resources/images/items/details/28061.jpg,ヘアアクセ,緑,girlsyell,pop,Ｒ,550,
-C-009,ダンシングマーチ グリーンシューズ,https://prichan.jp/resources/images/items/details/28060.jpg,シューズ,緑,girlsyell,pop,Ｒ,650,
-PCH2-50,パンジーガール ミントブラウス,https://prichan.jp/resources/images/items/details/70148.jpg,トップス,緑,dollywaltz,love,N,400,
-PCH2-57,ツートンカラーパターン トップス,https://prichan.jp/resources/images/items/details/70155.jpg,トップス,黄,romancebeat,cool,N,400,
-PCH2-56,グリーンチェック レディーヘアアクセ,https://prichan.jp/resources/images/items/details/70154.jpg,ヘアアクセ,緑,dollywaltz,love,N,300,
-PCH2-55,グリーンチェック レディーシューズ,https://prichan.jp/resources/images/items/details/70153.jpg,シューズ,緑,dollywaltz,love,N,300,
-PCH2-54,グリーンチェック レディースカート,https://prichan.jp/resources/images/items/details/70152.jpg,ボトムス,緑,dollywaltz,love,N,400,
-PCH2-53,グリーンチェック レディートップス,https://prichan.jp/resources/images/items/details/70151.jpg,トップス,緑,dollywaltz,love,N,350,
-PCH2-52,パンジーガール ミントシューズ,https://prichan.jp/resources/images/items/details/70150.jpg,シューズ,白,dollywaltz,love,N,300,
-PCH2-51,パンジーガール ミントスカート,https://prichan.jp/resources/images/items/details/70149.jpg,ボトムス,白,dollywaltz,love,N,350,
-PCH2-64,ホワイトローズ ヘアアクセ,https://prichan.jp/resources/images/items/details/70162.jpg,ヘアアクセ,白,dollywaltz,love,N,300,
-PCH2-68,レッドローズ,https://prichan.jp/resources/images/items/details/70180.jpg,パシャッとアイテム,赤,romancebeat,cool,SR,600,
-PCH2-67,みらいせいふく リボンヘアアクセ,https://prichan.jp/resources/images/items/details/70165.jpg,ヘアアクセ,ピンク,,premium,N,300,
-PCH2-66,みらいせいふく ローファー,https://prichan.jp/resources/images/items/details/70164.jpg,シューズ,黒,,premium,N,300,
-PCH2-65,みらいせいふく ワンピ,https://prichan.jp/resources/images/items/details/70163.jpg,ワンピース,黄,,premium,N,600,
-P-S-004,ストロベリーガール ジャムワンピ,https://prichan.jp/resources/images/items/details/27991.jpg,ワンピース,赤,sweethoney,love,R,1000,ぷっちぐみ 2018年6月号
-P-S-003,ストロベリーガール ミルキーヘアアクセ,https://prichan.jp/resources/images/items/details/28008.jpg,ヘアアクセ,水色,sweethoney,love,R,550,ちゃお 2018年6月号
-P-S-002,ストロベリーガール ミルキーシューズ,https://prichan.jp/resources/images/items/details/28007.jpg,シューズ,水色,sweethoney,love,R,550,ちゃお 2018年6月号
-PCH2-72,デリシャスオムライス,https://prichan.jp/resources/images/items/details/70184.jpg,パシャッとアイテム,黄,girlsyell,pop,R,450,
-SW-007,ドレッシングパフェ ゴールドサイリウムワンピ,https://prichan.jp/resources/images/items/details/27953.jpg,ワンピース,ゴールド,babymonster,cool,SR,1300,
-SW-006,ガァルマゲドン ゴールドサイリウムヘアアクセ,https://prichan.jp/resources/images/items/details/27958.jpg,ヘアアクセ,ゴールド,lovedevi,cool,SR,700,
-SW-005,ガァルマゲドン ゴールドサイリウムシューズ,https://prichan.jp/resources/images/items/details/27957.jpg,シューズ,ゴールド,lovedevi,cool,SR,700,
-SW-002,そらみ?スマイル ゴールドサイリウムシューズ,https://prichan.jp/resources/images/items/details/27951.jpg,シューズ,ゴールド,twinkleribbon,love,SR,700,2018年3月発売 ニンテンドーSWITCHソフト「プリパラオールアイドルパーフェクトステージ!」同梱特典
-SW-012,トリコロール ゴールドサイリウムヘアアクセ,https://prichan.jp/resources/images/items/details/27961.jpg,ヘアアクセ,ゴールド,brilliantprince,cool,SR,700,
-SW-004,ガァルマゲドン ゴールドサイリウムワンピ,https://prichan.jp/resources/images/items/details/27956.jpg,ワンピース,ゴールド,lovedevi,cool,SR,1300,
-SW-003,そらみ?スマイル ゴールドサイリウムヘアアクセ,https://prichan.jp/resources/images/items/details/27952.jpg,ヘアアクセ,ゴールド,twinkleribbon,love,SR,700,2018年3月発売 ニンテンドーSWITCHソフト「プリパラオールアイドルパーフェクトステージ!」同梱特典
-PCH2-71,ハッピーステッキ,https://prichan.jp/resources/images/items/details/70183.jpg,パシャッとアイテム,ピンク,sweethoney,love,R,450,
-SW-011,トリコロール ゴールドサイリウムシューズ,https://prichan.jp/resources/images/items/details/27960.jpg,シューズ,ゴールド,brilliantprince,cool,SR,700,
-SW-010,トリコロール ゴールドサイリウムワンピ,https://prichan.jp/resources/images/items/details/27959.jpg,ワンピース,ゴールド,brilliantprince,cool,SR,1300,
-SW-009,ドレッシングパフェ ゴールドサイリウムヘアアクセ,https://prichan.jp/resources/images/items/details/27955.jpg,ヘアアクセ,ゴールド,babymonster,cool,SR,700,
-SW-008,ドレッシングパフェ ゴールドサイリウムシューズ,https://prichan.jp/resources/images/items/details/27954.jpg,シューズ,ゴールド,babymonster,cool,SR,700,
-PCH2-70,クリームソーダ,https://prichan.jp/resources/images/items/details/70182.jpg,パシャッとアイテム,緑,girlsyell,pop,R,450,
-PCH2-69,ももいろウサギさん ぬいぐるみ,https://prichan.jp/resources/images/items/details/70181.jpg,パシャッとアイテム,白,dollywaltz,love,SR,600,
-SW-001,そらみ?スマイル ゴールドサイリウムワンピ,https://prichan.jp/resources/images/items/details/27950.jpg,ワンピース,ゴールド,twinkleribbon,love,SR,1300,2018年3月発売 ニンテンドーSWITCHソフト「プリパラオールアイドルパーフェクトステージ!」同梱特典
-P-S-009,ストロベリーガール クリームヘアアクセ,https://prichan.jp/resources/images/items/details/70080.jpg,ヘアアクセ,黄,sweethoney,love,R,550,小学一年生 2018年6月号
-P-S-008,ストロベリーガール クリームシューズ,https://prichan.jp/resources/images/items/details/70079.jpg,シューズ,黄,sweethoney,love,R,550,小学一年生 2018年6月号
-P-S-007,ストロベリーガール クリームワンピ,https://prichan.jp/resources/images/items/details/70078.jpg,ワンピース,黄,sweethoney,love,R,1000,小学一年生 2018年6月号
-P-S-006,ストロベリーガール ジャムヘアアクセ,https://prichan.jp/resources/images/items/details/27993.jpg,ヘアアクセ,赤,sweethoney,love,R,550,ぷっちぐみ 2018年6月号
-P-S-005,ストロベリーガール ジャムシューズ,https://prichan.jp/resources/images/items/details/27992.jpg,シューズ,赤,sweethoney,love,R,550,ぷっちぐみ 2018年6月号
-P-S-001,ストロベリーガール ミルキーワンピ,https://prichan.jp/resources/images/items/details/28006.jpg,ワンピース,水色,sweethoney,love,R,1000,ちゃお 2018年6月号
-P-S-013,チアリーダー ピンクヘアアクセ,https://prichan.jp/resources/images/items/details/27976.jpg,ヘアアクセ,ピンク,girlsyell,pop,SR,700,2018年4月発売 キラッとプリチ☆ャン公式ファンブックSEASON1
-P-S-012,チアリーダー ピンクシューズ,https://prichan.jp/resources/images/items/details/27975.jpg,シューズ,ピンク,girlsyell,pop,SR,700,2018年4月発売 キラッとプリチ☆ャン公式ファンブックSEASON1
-P-S-011,チアリーダー ピンクスカート,https://prichan.jp/resources/images/items/details/27974.jpg,ボトムス,ピンク,girlsyell,pop,SR,750,2018年4月発売 キラッとプリチ☆ャン公式ファンブックSEASON1
-PCH2-63,ホワイトローズ シューズ,https://prichan.jp/resources/images/items/details/70161.jpg,シューズ,ピンク,dollywaltz,love,N,300,
-PCH2-62,ホワイトローズ スカート,https://prichan.jp/resources/images/items/details/70160.jpg,ボトムス,ピンク,dollywaltz,love,N,350,
-PCH2-61,ホワイトローズ トップス,https://prichan.jp/resources/images/items/details/70159.jpg,トップス,白,dollywaltz,love,N,400,
-PCH2-60,ツートンカラーパターン ヘアアクセ,https://prichan.jp/resources/images/items/details/70158.jpg,ヘアアクセ,黒,romancebeat,cool,N,300,
-PCH2-59,ツートンカラーパターン シューズ,https://prichan.jp/resources/images/items/details/70157.jpg,シューズ,黒,romancebeat,cool,N,350,
-PCH2-58,ツートンカラーパターン スカート,https://prichan.jp/resources/images/items/details/70156.jpg,ボトムス,黄,romancebeat,cool,N,300,
-P-S-010,チアリーダー ピンクトップス,https://prichan.jp/resources/images/items/details/27973.jpg,トップス,ピンク,girlsyell,pop,SR,800,2018年4月発売 キラッとプリチ☆ャン公式ファンブックSEASON1
-P-004,プリ☆チャンユニフォーム ピンクヘアアクセ,https://prichan.jp/resources/images/items/details/27986.jpg,ヘアアクセ,ピンク,prismstone,love,R,450,2018年4月 キラッとプリ☆チャン デビューやってみた!キャンペーン!
-P-003,プリ☆チャンユニフォーム ピンクシューズ,https://prichan.jp/resources/images/items/details/27985.jpg,シューズ,ピンク,prismstone,love,R,450,2018年4月 キラッとプリ☆チャン デビューやってみた!キャンペーン!
-P-002,プリ☆チャンユニフォーム ピンクスカート,https://prichan.jp/resources/images/items/details/27984.jpg,ボトムス,ピンク,prismstone,love,R,500,2018年4月 キラッとプリ☆チャン デビューやってみた!キャンペーン!
-P-001,プリ☆チャンユニフォーム ピンクトップス,https://prichan.jp/resources/images/items/details/27983.jpg,トップス,ピンク,prismstone,love,R,550,2018年4月 キラッとプリ☆チャン デビューやってみた!キャンペーン!
-P-011,フラワーショップ バーベナヘアアクセ,https://prichan.jp/resources/images/items/details/28035.jpg,ヘアアクセ,紫,sweethoney,love,SR,700,2018年5月 劇場版プリパラ&キラッとプリ☆チャン きらきらメモリアルライブ
-P-010,フラワーショップ バーベナシューズ,https://prichan.jp/resources/images/items/details/28034.jpg,シューズ,紫,sweethoney,love,SR,750,2018年5月 劇場版プリパラ&キラッとプリ☆チャン きらきらメモリアルライブ
-P-009,フラワーショップ バーベナスカート,https://prichan.jp/resources/images/items/details/28033.jpg,ボトムス,紫,sweethoney,love,SR,700,2018年5月 劇場版プリパラ&キラッとプリ☆チャン きらきらメモリアルライブ
-P-008,フラワーショップ バーベナトップス,https://prichan.jp/resources/images/items/details/28032.jpg,トップス,紫,sweethoney,love,SR,800,2018年5月 劇場版プリパラ&キラッとプリ☆チャン きらきらメモリアルライブ
-AM-010,スプリングリボン ブルーワンピ,https://prichan.jp/resources/images/items/details/27968.jpg,ワンピース,水色,sweethoney,love,R,1000,2018年4月発売 プリ☆チャンファイル みらい&えも
-AM-009,ポップスター ヘアアクセ,https://prichan.jp/resources/images/items/details/28005.jpg,ヘアアクセ,赤,girlsyell,pop,R,550,
-AM-008,ポップスター レッドスニーカー,https://prichan.jp/resources/images/items/details/28004.jpg,シューズ,シルバー,girlsyell,pop,R,600,
-AM-007,ポップスター グリーンキャップスカート,https://prichan.jp/resources/images/items/details/28003.jpg,ボトムス,黒,girlsyell,pop,R,650,
-PCH1-70,スタンダードマイク,https://prichan.jp/resources/images/items/details/70092.jpg,パシャッとアイテム,黒,girlsyell,pop,R,500,
-PCH1-65,グリーンチェック リボンシューズ,https://prichan.jp/resources/images/items/details/70050.jpg,シューズ,黒,,cool,N,300,
-PCH1-69,ショートケーキ,https://prichan.jp/resources/images/items/details/70090.jpg,パシャッとアイテム,白,sweethoney,love,R,500,
-PCH2-49,ミリタリー グリーンブーツ,https://prichan.jp/resources/images/items/details/70147.jpg,シューズ,緑,romancebeat,cool,N,300,
-PCH2-48,ミリタリー ホワイトニット＆ショーパン,https://prichan.jp/resources/images/items/details/70146.jpg,ワンピース,白,romancebeat,cool,N,600,
-PCH1-68,カラフルキャンディー,https://prichan.jp/resources/images/items/details/70093.jpg,パシャッとアイテム,水色,girlsyell,pop,SR,600,
-PCH1-67,ミルキーアイスクリーム,https://prichan.jp/resources/images/items/details/70091.jpg,パシャッとアイテム,ピンク,sweethoney,love,SR,600,
-PCH2-47,ロッカー ブラックローファー,https://prichan.jp/resources/images/items/details/70145.jpg,シューズ,黒,romancebeat,cool,R,550,
-PCH1-66,ピンクフラワーブーケ,https://prichan.jp/resources/images/items/details/70089.jpg,パシャッとアイテム,ピンク,sweethoney,love,SR,600,
-PCH2-46,ロッカー ダメージホワイトショーパン,https://prichan.jp/resources/images/items/details/70144.jpg,ボトムス,白,romancebeat,cool,R,450,
-AM-006,ポップスター レッドTシャツ,https://prichan.jp/resources/images/items/details/28002.jpg,トップス,赤,girlsyell,pop,R,550,
-AM-005,フラワープリンセス ブーケ,https://prichan.jp/resources/images/items/details/28031.jpg,パシャッとアイテム,紫,sweethoney,love,SR,700,2018年4月発売 みらい&えも プリチケセット
-AM-004,フラワープリンセス レースカチューシャ,https://prichan.jp/resources/images/items/details/28001.jpg,ヘアアクセ,ピンク,sweethoney,love,SR,700,2018年4月発売 みらい&えも プリチケセット
-AM-003,フラワープリンセス あみあげシューズ,https://prichan.jp/resources/images/items/details/28000.jpg,シューズ,ピンク,sweethoney,love,SR,750,2018年4月発売 みらい&えも プリチケセット
-AM-002,フラワープリンセス ボトムス,https://prichan.jp/resources/images/items/details/27999.jpg,ボトムス,ピンク,sweethoney,love,SR,700,2018年4月発売 みらい&えも プリチケセット
-AM-001,フラワープリンセス トップス,https://prichan.jp/resources/images/items/details/27998.jpg,トップス,ピンク,sweethoney,love,SR,800,2018年4月発売 みらい&えも プリチケセット
-C-014,クリームソーダ ヘアアクセ,https://prichan.jp/resources/images/items/details/28057.jpg,ヘアアクセ,黄色,sweethoney,love,Ｒ,550,
-C-013,クリームピーチソーダ シューズ,https://prichan.jp/resources/images/items/details/28056.jpg,シューズ,ピンク,sweethoney,love,Ｒ,600,
-C-012,クリームピーチソーダ スカート,https://prichan.jp/resources/images/items/details/28055.jpg,ボトムス,ピンク,sweethoney,love,Ｒ,550,
-PCH1-64,グリーンチェック ワンピ,https://prichan.jp/resources/images/items/details/70049.jpg,ワンピース,緑,,cool,N,600,
-PCH1-63,モノトーン パンプス,https://prichan.jp/resources/images/items/details/70048.jpg,シューズ,紫,,cool,N,350,
-PCH1-62,モノトーン フリルスカート,https://prichan.jp/resources/images/items/details/70047.jpg,ボトムス,黒,,cool,N,300,
-PCH1-61,モノトーン フリルカーデ,https://prichan.jp/resources/images/items/details/70046.jpg,トップス,白,,cool,N,400,
-PCH1-60,スイート ストライプシューズ,https://prichan.jp/resources/images/items/details/70062.jpg,シューズ,茶,sweethoney,love,N,350,
-PCH1-59,スイートドーナツ ボトムス,https://prichan.jp/resources/images/items/details/70061.jpg,ボトムス,茶,sweethoney,love,N,300,
-C-008,ダンシングマーチ グリーンスカート,https://prichan.jp/resources/images/items/details/28059.jpg,ボトムス,緑,girlsyell,pop,Ｒ,600,
-C-007,ダンシングマーチ グリーントップス,https://prichan.jp/resources/images/items/details/28058.jpg,トップス,緑,girlsyell,pop,Ｒ,550,
-PCH1-58,スイートドーナツ ブラウス,https://prichan.jp/resources/images/items/details/70060.jpg,トップス,茶,sweethoney,love,N,400,
-PCH1-57,ダンシングマーチ シューズ,https://prichan.jp/resources/images/items/details/70059.jpg,シューズ,赤,girlsyell,pop,N,300,
-PCH1-56,ダンシングマーチ ボトムス,https://prichan.jp/resources/images/items/details/70058.jpg,ボトムス,赤,girlsyell,pop,N,350,
-PCH1-55,ダンシングマーチ トップス,https://prichan.jp/resources/images/items/details/70057.jpg,トップス,赤,girlsyell,pop,N,400,
-PCH1-54,クリームソーダ シューズ,https://prichan.jp/resources/images/items/details/70056.jpg,シューズ,緑,sweethoney,love,N,300,
-PCH1-53,クリームソーダ ボトムス,https://prichan.jp/resources/images/items/details/70055.jpg,ボトムス,緑,sweethoney,love,N,400,
-PCH2-40,プリ☆チャンユニフォーム グリーンスカート,https://prichan.jp/resources/images/items/details/70138.jpg,ボトムス,緑,prismstone,cool,R,500,
-PCH2-39,プリ☆チャンユニフォーム グリーントップス,https://prichan.jp/resources/images/items/details/70137.jpg,トップス,緑,prismstone,cool,R,550,
-PCH2-38,プリ☆チャンユニフォーム レッドヘアアクセ,https://prichan.jp/resources/images/items/details/70136.jpg,ヘアアクセ,赤,prismstone,love,R,450,
-PCH2-37,プリ☆チャンユニフォーム レッドシューズ,https://prichan.jp/resources/images/items/details/70135.jpg,シューズ,赤,prismstone,love,R,450,
-PCH2-36,プリ☆チャンユニフォーム レッドスカート,https://prichan.jp/resources/images/items/details/70134.jpg,ボトムス,赤,prismstone,love,R,500,
-C-004,わんわんポリス ブルーヘアアクセ,https://prichan.jp/resources/images/items/details/28051.jpg,ヘアアクセ,黒,girlsyell,pop,ＳＲ,700,2018年6月発売 プリチケコレクショングミ vol.1
-C-003,わんわんポリス ブルーシューズ,https://prichan.jp/resources/images/items/details/28050.jpg,シューズ,黒,girlsyell,pop,ＳＲ,700,2018年6月発売 プリチケコレクショングミ vol.1
-C-002,わんわんポリス ブルースカート,https://prichan.jp/resources/images/items/details/28049.jpg,ボトムス,水色,girlsyell,pop,ＳＲ,750,2018年6月発売 プリチケコレクショングミ vol.1
-PCH1-52,クリームソーダ トップス,https://prichan.jp/resources/images/items/details/70054.jpg,トップス,緑,sweethoney,love,N,350,
-PCH1-51,フルレース ラベンダーシューズ,https://prichan.jp/resources/images/items/details/70053.jpg,シューズ,紫,sweethoney,love,N,400,
-PCH1-50,フルレース ラベンダースカート,https://prichan.jp/resources/images/items/details/70052.jpg,ボトムス,紫,sweethoney,love,N,350,
-PCH1-49,フルレース ラベンダートップス,https://prichan.jp/resources/images/items/details/70051.jpg,トップス,紫,sweethoney,love,N,300,
-PCH1-48,ビビッドアルファベット スニーカー,https://prichan.jp/resources/images/items/details/70045.jpg,シューズ,白,girlsyell,pop,R,450,
-PCH1-47,ビビッドラメ ボトムス,https://prichan.jp/resources/images/items/details/70044.jpg,ボトムス,ピンク,girlsyell,pop,R,500,
-PCH2-29,ピクニックギンガム レッドシューズ,https://prichan.jp/resources/images/items/details/70127.jpg,シューズ,赤,dollywaltz,love,SR,600,
-C-001,わんわんポリス ブルートップス,https://prichan.jp/resources/images/items/details/28048.jpg,トップス,水色,girlsyell,pop,SR,800,2018年6月発売 プリチケコレクショングミ vol.1
-P-S-017,ノーブルドール アクアヘアアクセ,https://prichan.jp/resources/images/items/details/28087.jpg,ヘアアクセ,水色,dollywaltz,love,SR,700,2018年6月発売 キラッとプリチ☆ャン公式ファンブックSEASON2
-P-S-016,ノーブルドール アクアシューズ,https://prichan.jp/resources/images/items/details/28086.jpg,シューズ,水色,dollywaltz,love,SR,800,2018年6月発売 キラッとプリチ☆ャン公式ファンブックSEASON2
-PCH1-46,ビビッドアルファベット パーカ,https://prichan.jp/resources/images/items/details/70043.jpg,トップス,白,girlsyell,pop,R,550,
-PCH1-45,グレンチェック シューズ,https://prichan.jp/resources/images/items/details/70039.jpg,シューズ,茶,sweethoney,love,R,500,
-PCH2-27,スターダスト レザーブルーヘアアクセ,https://prichan.jp/resources/images/items/details/70125.jpg,ヘアアクセ,青,romancebeat,cool,SR,600,
-PCH2-26,スターダスト レザーブルーブーツ,https://prichan.jp/resources/images/items/details/70124.jpg,シューズ,青,romancebeat,cool,SR,650,
-PCH2-25,スターダスト レザーブルースカート,https://prichan.jp/resources/images/items/details/70123.jpg,ボトムス,青,romancebeat,cool,SR,700,
-PCH2-24,スターダスト レザーブルートップス,https://prichan.jp/resources/images/items/details/70122.jpg,トップス,青,romancebeat,cool,SR,600,
-PCH2-23,セーラーマリン ライトブルーヘアアクセ,https://prichan.jp/resources/images/items/details/70185.jpg,ヘアアクセ,青,dollywaltz,love,SR,600,
-PCH2-22,セーラーマリン ライトブルーシューズ,https://prichan.jp/resources/images/items/details/70121.jpg,シューズ,青,dollywaltz,love,SR,600,
-PCH2-21,セーラーマリン ライトブルースカート,https://prichan.jp/resources/images/items/details/70120.jpg,ボトムス,水色,dollywaltz,love,SR,650,
-RB-08,ミュージシャン イエローハット,https://prichan.jp/resources/images/items/details/70179.jpg,ヘアアクセ,,romancebeat,cool,SR,600,Romance Beat(ロマンスビート)チャンネル ランク4
-RB-07,ミュージシャン イエローシューズ,https://prichan.jp/resources/images/items/details/70178.jpg,シューズ,,romancebeat,cool,SR,650,Romance Beat(ロマンスビート)チャンネル ランク4
-RB-06,ミュージシャン イエローデニム,https://prichan.jp/resources/images/items/details/70177.jpg,ボトムス,,romancebeat,cool,SR,600,Romance Beat(ロマンスビート)チャンネル ランク4
-P-S-015,ノーブルドール アクアスカート,https://prichan.jp/resources/images/items/details/28085.jpg,ボトムス,水色,dollywaltz,love,SR,700,2018年6月発売 キラッとプリチ☆ャン公式ファンブックSEASON2
-P-S-014,ノーブルドール アクアトップス,https://prichan.jp/resources/images/items/details/28084.jpg,トップス,水色,dollywaltz,love,SR,750,2018年6月発売 キラッとプリチ☆ャン公式ファンブックSEASON2
-YA-020,チアリーダー ブルーヘアアクセ,https://prichan.jp/resources/images/items/details/28111.jpg,ヘアアクセ,青,girlsyell,pop,PR,730,
-YA-019,チアリーダー ブルーシューズ,https://prichan.jp/resources/images/items/details/28110.jpg,シューズ,ピンク,girlsyell,pop,PR,730,
-YA-018,チアリーダー ブルースカート,https://prichan.jp/resources/images/items/details/28109.jpg,ボトムス,青,girlsyell,pop,PR,830,
-PCH1-44,グレンチェック ボトムス,https://prichan.jp/resources/images/items/details/70038.jpg,ボトムス,茶,sweethoney,love,R,450,
-PCH1-43,グレンチェック ビスチェ,https://prichan.jp/resources/images/items/details/70037.jpg,トップス,茶,sweethoney,love,R,550,
-PCH1-42,ポップスター ブルースニーカー,https://prichan.jp/resources/images/items/details/70042.jpg,シューズ,白,girlsyell,pop,R,500,
-PCH1-41,ポップスター イエローキャップスカート,https://prichan.jp/resources/images/items/details/70041.jpg,ボトムス,黒,girlsyell,pop,R,550,
-PCH1-40,ポップスター ブルーTシャツ,https://prichan.jp/resources/images/items/details/70040.jpg,トップス,青,girlsyell,pop,R,450,
-PCH1-39,スプリングリボン パンプス,https://prichan.jp/resources/images/items/details/70036.jpg,シューズ,水色,sweethoney,love,R,450,
-PCH2-14,パンクキャット レッドシューズ,https://prichan.jp/resources/images/items/details/70113.jpg,シューズ,黒,romancebeat,cool,PR,750,
-PCH2-13,パンクキャット レッドスカート,https://prichan.jp/resources/images/items/details/70112.jpg,ボトムス,黒,romancebeat,cool,PR,800,
-RB-05,ミュージシャン イエロージャケット,https://prichan.jp/resources/images/items/details/70176.jpg,トップス,,romancebeat,cool,SR,700,Romance Beat(ロマンスビート)チャンネル ランク4
-RB-04,スターダスト レザーピンクヘアアクセ,https://prichan.jp/resources/images/items/details/70175.jpg,ヘアアクセ,,romancebeat,cool,SR,600,Romance Beat(ロマンスビート)チャンネル ランク2
-RB-03,スターダスト レザーピンクブーツ,https://prichan.jp/resources/images/items/details/70174.jpg,シューズ,,romancebeat,cool,SR,650,Romance Beat(ロマンスビート)チャンネル ランク2
-RB-02,スターダスト レザーピンクスカート,https://prichan.jp/resources/images/items/details/70173.jpg,ボトムス,,romancebeat,cool,SR,600,Romance Beat(ロマンスビート)チャンネル ランク2
-RB-01,スターダスト レザーピンクトップス,https://prichan.jp/resources/images/items/details/70172.jpg,トップス,,romancebeat,cool,SR,700,Romance Beat(ロマンスビート)チャンネル ランク2
-DW-07,ピクニックギンガム ブルーヘアアクセ,https://prichan.jp/resources/images/items/details/70171.jpg,ヘアアクセ,水色,dollywaltz,love,SR,600,Dolly Waltz(ドーリーワルツ)チャンネル ランク4
-DW-06,ピクニックギンガム ブルーシューズ,https://prichan.jp/resources/images/items/details/70170.jpg,シューズ,水色,dollywaltz,love,SR,600,Dolly Waltz(ドーリーワルツ)チャンネル ランク4
-DW-05,ピクニックギンガム ブルーケープワンピ,https://prichan.jp/resources/images/items/details/70169.jpg,ワンピース,水色,dollywaltz,love,SR,1200,Dolly Waltz(ドーリーワルツ)チャンネル ランク4
-DW-04,セーラーマリン パステルピンクヘアアクセ,https://prichan.jp/resources/images/items/details/70186.jpg,ヘアアクセ,ピンク,dollywaltz,love,SR,600,Dolly Waltz(ドーリーワルツ)チャンネル ランク2
-DW-03,セーラーマリン パステルピンクシューズ,https://prichan.jp/resources/images/items/details/70168.jpg,シューズ,ピンク,dollywaltz,love,SR,600,Dolly Waltz(ドーリーワルツ)チャンネル ランク2
-YA-017,チアリーダー ブルートップス,https://prichan.jp/resources/images/items/details/28108.jpg,トップス,青,girlsyell,pop,PR,780,
-YA-016,ギンガムハート えもアプリヘアアクセ,https://prichan.jp/resources/images/items/details/28107.jpg,ヘアアクセ,黄色,girlsyell,pop,SR,650,2018年6月発売 やってみたアプリセット えもver. アプリ連動
-YA-015,ギンガムハート えもアプリシューズ,https://prichan.jp/resources/images/items/details/28106.jpg,シューズ,黄色,girlsyell,pop,SR,700,2018年6月発売 やってみたアプリセット えもver. アプリ連動
-YA-014,ギンガムハート えもアプリスカート,https://prichan.jp/resources/images/items/details/28105.jpg,ボトムス,黄色,girlsyell,pop,SR,750,2018年6月発売 やってみたアプリセット えもver. アプリ連動
-YA-013,ギンガムハート えもアプリトップス,https://prichan.jp/resources/images/items/details/28104.jpg,トップス,黄色,girlsyell,pop,SR,650,2018年6月発売 やってみたアプリセット えもver. アプリ連動
-YA-012,フラワーショップ リーフヘアアクセ,https://prichan.jp/resources/images/items/details/28103.jpg,ヘアアクセ,緑,sweethoney,love,PR,730,
-YA-011,フラワーショップ リーフシューズ,https://prichan.jp/resources/images/items/details/28102.jpg,シューズ,緑,sweethoney,love,PR,730,
-YA-010,フラワーショップ リーフスカート,https://prichan.jp/resources/images/items/details/28101.jpg,ボトムス,緑,sweethoney,love,PR,780,
-PCH1-38,スプリングリボン ワンピ,https://prichan.jp/resources/images/items/details/70035.jpg,ワンピース,黄,sweethoney,love,R,900,
-PCH1-37,プリ☆チャンユニフォーム イエローヘアアクセ,https://prichan.jp/resources/images/items/details/70034.jpg,ヘアアクセ,黄,prismstone,pop,R,450,
-PCH1-36,プリ☆チャンユニフォーム イエローシューズ,https://prichan.jp/resources/images/items/details/70033.jpg,シューズ,黄,prismstone,pop,R,450,
-PCH1-35,プリ☆チャンユニフォーム イエロースカート,https://prichan.jp/resources/images/items/details/70032.jpg,ボトムス,黄,prismstone,pop,R,500,
-PCH1-34,プリ☆チャンユニフォーム イエロートップス,https://prichan.jp/resources/images/items/details/70031.jpg,トップス,黄,prismstone,pop,R,550,
-PCH1-33,プリ☆チャンユニフォーム ピンクヘアアクセ,https://prichan.jp/resources/images/items/details/70030.jpg,ヘアアクセ,ピンク,prismstone,love,R,450,
-PCH1-32,プリ☆チャンユニフォーム ピンクシューズ,https://prichan.jp/resources/images/items/details/70029.jpg,シューズ,ピンク,prismstone,love,R,450,
-PCH1-31,プリ☆チャンユニフォーム ピンクスカート,https://prichan.jp/resources/images/items/details/70028.jpg,ボトムス,ピンク,prismstone,love,R,500,
-PCH2-11,ノーブルドール ハーフパンツ,https://prichan.jp/resources/images/items/details/70110.jpg,ボトムス,青,dollywaltz,love,PR,800,
-PCH2-10,ノーブルドール ヘアアクセ,https://prichan.jp/resources/images/items/details/70109.jpg,ヘアアクセ,青,dollywaltz,love,PR,750,
-PCH2-09,ノーブルドール シューズ,https://prichan.jp/resources/images/items/details/70108.jpg,シューズ,青,dollywaltz,love,PR,850,
-PCH2-08,ノーブルドール ボトムス,https://prichan.jp/resources/images/items/details/70107.jpg,ボトムス,青,dollywaltz,love,PR,800,
-PCH2-07,ノーブルドール トップス,https://prichan.jp/resources/images/items/details/70106.jpg,トップス,青,dollywaltz,love,PR,750,
-PCH2-06,ドーリーワルツ キラッとヘアアクセ,https://prichan.jp/resources/images/items/details/70105.jpg,ヘアアクセ,赤,dollywaltz,love,KR,900,
-PCH2-05,ドーリーワルツ キラッとシューズ,https://prichan.jp/resources/images/items/details/70104.jpg,シューズ,赤,dollywaltz,love,KR,900,
-DW-02,セーラーマリン パステルピンクスカート,https://prichan.jp/resources/images/items/details/70167.jpg,ボトムス,ピンク,dollywaltz,love,SR,650,Dolly Waltz(ドーリーワルツ)チャンネル ランク2
-DW-01,セーラーマリン パステルピンクトップス,https://prichan.jp/resources/images/items/details/70166.jpg,トップス,ピンク,dollywaltz,love,SR,700,Dolly Waltz(ドーリーワルツ)チャンネル ランク2
-GY-07,ポップコーンショップ グリーンヘアアクセ,https://prichan.jp/resources/images/items/details/28015.jpg,ヘアアクセ,緑,girlsyell,pop,SR,600,Girl's Yell(ガールズエール)チャンネル ランク4
-GY-06,ポップコーンショップ グリーンシューズ,https://prichan.jp/resources/images/items/details/28014.jpg,シューズ,緑,girlsyell,pop,SR,700,Girl's Yell(ガールズエール)チャンネル ランク4
-GY-05,ポップコーンショップ グリーンパンツ,https://prichan.jp/resources/images/items/details/28013.jpg,ボトムス,緑,girlsyell,pop,SR,600,Girl's Yell(ガールズエール)チャンネル ランク4
-GY-04,ポップコーンショップ グリーントップス,https://prichan.jp/resources/images/items/details/28012.jpg,トップス,緑,girlsyell,pop,SR,650,Girl's Yell(ガールズエール)チャンネル ランク4
-GY-03,バルーンブルーデニム ヘアアクセ,https://prichan.jp/resources/images/items/details/70071.jpg,ヘアアクセ,ピンク,girlsyell,pop,SR,600,Girl's Yell(ガールズエール)チャンネル ランク2
-GY-02,バルーンブルーデニム シューズ,https://prichan.jp/resources/images/items/details/70070.jpg,シューズ,ピンク,girlsyell,pop,SR,600,Girl's Yell(ガールズエール)チャンネル ランク2
-YA-009,フラワーショップ リーフトップス,https://prichan.jp/resources/images/items/details/28100.jpg,トップス,緑,sweethoney,love,PR,830,
-YA-008,ギンガムハート みらいアプリヘアアクセ,https://prichan.jp/resources/images/items/details/28099.jpg,ヘアアクセ,ピンク,sweethoney,love,SR,650,2018年6月発売 やってみたアプリセット みらいver. アプリ連動
-YA-007,ギンガムハート みらいアプリシューズ,https://prichan.jp/resources/images/items/details/28098.jpg,シューズ,ピンク,sweethoney,love,SR,700,2018年6月発売 やってみたアプリセット みらいver. アプリ連動
-YA-006,ギンガムハート みらいアプリスカート,https://prichan.jp/resources/images/items/details/28097.jpg,ボトムス,ピンク,sweethoney,love,SR,750,2018年6月発売 やってみたアプリセット みらいver. アプリ連動
-YA-005,ギンガムハート みらいアプリトップス,https://prichan.jp/resources/images/items/details/28096.jpg,トップス,ピンク,sweethoney,love,SR,650,2018年6月発売 やってみたアプリセット みらいver. アプリ連動
-PCH1-73,ストロベリーガール ピンクヘアアクセ,https://prichan.jp/resources/images/items/details/70077.jpg,ヘアアクセ,ピンク,sweethoney,love,SR,600,2018年5月10日～6月6日 キラ宿スイーツフェスティバル
-PCH1-72,ストロベリーガール ピンクシューズ,https://prichan.jp/resources/images/items/details/70076.jpg,シューズ,ピンク,sweethoney,love,SR,600,2018年5月10日～6月6日 キラ宿スイーツフェスティバル
-PCH1-71,ストロベリーガール ピンクワンピ,https://prichan.jp/resources/images/items/details/70075.jpg,ワンピース,ピンク,sweethoney,love,SR,1200,2018年5月10日～6月6日 キラ宿スイーツフェスティバル
-SP-004,プリ☆チャンユニフォーム ピュアホワイトヘアアクセ,https://prichan.jp/resources/images/items/details/28139.jpg,ヘアアクセ,白,prismstone,premium,ＳＲ,600,2018年6月17日～7月15日 プリズムストーンpresents キラ宿選抜スペシャル大会
-SP-003,プリ☆チャンユニフォーム ピュアホワイトシューズ,https://prichan.jp/resources/images/items/details/28138.jpg,シューズ,白,prismstone,premium,ＳＲ,650,2018年6月17日～7月15日 プリズムストーンpresents キラ宿選抜スペシャル大会
-PCH1-30,プリ☆チャンユニフォーム ピンクトップス,https://prichan.jp/resources/images/items/details/70027.jpg,トップス,ピンク,prismstone,love,R,550,
-PCH1-29,バルーンホワイトデニム ヘアアクセ,https://prichan.jp/resources/images/items/details/27979.jpg,ヘアアクセ,赤,girlsyell,pop,SR,600,
-PCH1-28,バルーンホワイトデニム シューズ,https://prichan.jp/resources/images/items/details/27978.jpg,シューズ,赤,girlsyell,pop,SR,600,
-PCH1-27,バルーンホワイトデニム サロペット,https://prichan.jp/resources/images/items/details/27977.jpg,ワンピース,白,girlsyell,pop,SR,1200,
-PCH1-26,ポップコーンショップ レッドヘアアクセ,https://prichan.jp/resources/images/items/details/70026.jpg,ヘアアクセ,赤,girlsyell,pop,SR,600,
-PCH1-25,ポップコーンショップ レッドシューズ,https://prichan.jp/resources/images/items/details/70025.jpg,シューズ,赤,girlsyell,pop,SR,600,
-PCH1-24,ポップコーンショップ レッドパンツ,https://prichan.jp/resources/images/items/details/70024.jpg,ボトムス,赤,girlsyell,pop,SR,700,
-SH-05,アイスクリーム グレープワンピ,https://prichan.jp/resources/images/items/details/27980.jpg,ワンピース,紫,sweethoney,love,SR,1200,Sweet Honey(スイートハニー)チャンネル ランク4
-SH-04,ギンガムハート サンレッドヘアアクセ,https://prichan.jp/resources/images/items/details/70022.jpg,ヘアアクセ,赤,sweethoney,love,SR,600,Sweet Honey(スイートハニー)チャンネル ランク2
-SH-03,ギンガムハート サンレッドシューズ,https://prichan.jp/resources/images/items/details/70021.jpg,シューズ,赤,sweethoney,love,SR,650,Sweet Honey(スイートハニー)チャンネル ランク2
-SH-02,ギンガムハート サンレッドスカート,https://prichan.jp/resources/images/items/details/70020.jpg,ボトムス,赤,sweethoney,love,SR,600,Sweet Honey(スイートハニー)チャンネル ランク2
-SH-01,ギンガムハート サンレッドトップス,https://prichan.jp/resources/images/items/details/70019.jpg,トップス,赤,sweethoney,love,SR,700,Sweet Honey(スイートハニー)チャンネル ランク2
-YA-004,ギンガムハート ホワイトヘアアクセ,https://prichan.jp/resources/images/items/details/28095.jpg,ヘアアクセ,白,sweethoney,love,SR,700,2018年6月発売 プリ☆チャンキャスト アプリ連動
-YA-003,ギンガムハート ホワイトシューズ,https://prichan.jp/resources/images/items/details/28094.jpg,シューズ,白,sweethoney,love,SR,800,2018年6月発売 プリ☆チャンキャスト アプリ連動
-YA-002,ギンガムハート ホワイトスカート,https://prichan.jp/resources/images/items/details/28093.jpg,ボトムス,白,sweethoney,love,SR,750,2018年6月発売 プリ☆チャンキャスト アプリ連動
-YA-001,ギンガムハート ホワイトトップス,https://prichan.jp/resources/images/items/details/28092.jpg,トップス,白,sweethoney,love,SR,700,2018年6月発売 プリ☆チャンキャスト アプリ連動
-PCH2-80,パープルローズ,https://prichan.jp/resources/images/items/details/70190.jpg,パシャッとアイテム,紫,romancebeat,cool,SR,600,なかよしチャンネル さら
-PCH2-79,そらいろウサギさん ぬいぐるみ,https://prichan.jp/resources/images/items/details/70189.jpg,パシャッとアイテム,水色,dollywaltz,love,SR,600,なかよしチャンネル あんな
-PCH2-78,オレンジソーダ,https://prichan.jp/resources/images/items/details/70188.jpg,パシャッとアイテム,オレンジ,girlsyell,pop,R,450,なかよしチャンネル えも
-PCH2-77,ラッキーステッキ,https://prichan.jp/resources/images/items/details/70187.jpg,パシャッとアイテム,青,sweethoney,love,R,450,なかよしチャンネル みらい
-SP-002,プリ☆チャンユニフォーム ピュアホワイトスカート,https://prichan.jp/resources/images/items/details/28137.jpg,ボトムス,白,prismstone,premium,ＳＲ,600,2018年6月17日～7月15日 プリズムストーンpresents キラ宿選抜スペシャル大会
-SP-001,プリ☆チャンユニフォーム ピュアホワイトトップス,https://prichan.jp/resources/images/items/details/28136.jpg,トップス,白,prismstone,premium,ＳＲ,700,2018年6月17日～7月15日 プリズムストーンpresents キラ宿選抜スペシャル大会
-PCH2-71,セーラーチア レッドリボンヘアアクセ,https://prichan.jp/resources/images/items/details/70084.jpg,ヘアアクセ,赤,girlsyell,pop,SR,600,2018年7月5日～8月1日 セーラーチアレッドリボンライブ
-PCH2-70,セーラーチア レッドリボンシューズ,https://prichan.jp/resources/images/items/details/70083.jpg,シューズ,白,girlsyell,pop,SR,650,2018年7月5日～8月1日 セーラーチアレッドリボンライブ
-PCH2-69,セーラーチア レッドリボンスカート,https://prichan.jp/resources/images/items/details/70082.jpg,ボトムス,赤,girlsyell,pop,SR,700,2018年7月5日～8月1日 セーラーチアレッドリボンライブ
-PCH2-68,セーラーチア レッドリボントップス,https://prichan.jp/resources/images/items/details/70081.jpg,トップス,青,girlsyell,pop,SR,600,2018年7月5日～8月1日 セーラーチアレッドリボンライブ
-PCH1-23,ポップコーンショップ レッドトップス,https://prichan.jp/resources/images/items/details/70023.jpg,トップス,赤,girlsyell,pop,SR,650,
-PCH1-22,アイスクリーム ミントヘアアクセ,https://prichan.jp/resources/images/items/details/70065.jpg,ヘアアクセ,緑,sweethoney,love,SR,600,
-PCH1-21,アイスクリーム ミントシューズ,https://prichan.jp/resources/images/items/details/70064.jpg,シューズ,緑,sweethoney,love,SR,600,
-PCH1-20,アイスクリーム ミントワンピ,https://prichan.jp/resources/images/items/details/70063.jpg,ワンピース,緑,sweethoney,love,SR,1200,
-PCH1-19,ギンガムハート スカイブルーヘアアクセ,https://prichan.jp/resources/images/items/details/70018.jpg,ヘアアクセ,水色,sweethoney,love,SR,600,
-PCH1-18,ギンガムハート スカイブルーシューズ,https://prichan.jp/resources/images/items/details/70017.jpg,シューズ,水色,sweethoney,love,SR,600,
-PCH1-17,ギンガムハート スカイブルースカート,https://prichan.jp/resources/images/items/details/70016.jpg,ボトムス,水色,sweethoney,love,SR,650,
+PCH1-01,スイートハニー キラッとワンピ,https://prichan.jp/resources/images/items/details/70000.jpg,ワンピース,ピンク,sweethoney,ラブリー,KR,1900,
+PCH1-05,フラワーショップ フリージアスカート,https://prichan.jp/resources/images/items/details/70004.jpg,ボトムス,黄,sweethoney,ラブリー,PR,800,
+PCH1-08,フラワーショップ ブルースタートップス,https://prichan.jp/resources/images/items/details/70007.jpg,トップス,水色,sweethoney,ラブリー,PR,850,
+PCH1-03,スイートハニー キラッとヘアアクセ,https://prichan.jp/resources/images/items/details/70002.jpg,ヘアアクセ,水色,sweethoney,ラブリー,KR,900,
+PCH1-07,フラワーショップ フリージアヘアアクセ,https://prichan.jp/resources/images/items/details/70006.jpg,ヘアアクセ,黄,sweethoney,ラブリー,PR,750,
+PCH1-06,フラワーショップ フリージアシューズ,https://prichan.jp/resources/images/items/details/70005.jpg,シューズ,黄,sweethoney,ラブリー,PR,750,
+PCH1-04,フラワーショップ フリージアトップス,https://prichan.jp/resources/images/items/details/70003.jpg,トップス,黄,sweethoney,ラブリー,PR,850,
+PCH1-16,ギンガムハート スカイブルートップス,https://prichan.jp/resources/images/items/details/70015.jpg,トップス,水色,sweethoney,ラブリー,SR,700,
+PCH1-15,チアリーダー グリーンヘアアクセ,https://prichan.jp/resources/images/items/details/70014.jpg,ヘアアクセ,緑,girlsyell,ポップ,PR,750,
+PCH1-14,チアリーダー グリーンシューズ,https://prichan.jp/resources/images/items/details/70013.jpg,シューズ,青,girlsyell,ポップ,PR,800,
+PCH1-13,チアリーダー グリーンスカート,https://prichan.jp/resources/images/items/details/70012.jpg,ボトムス,緑,girlsyell,ポップ,PR,850,
+PCH1-12,チアリーダー グリーントップス,https://prichan.jp/resources/images/items/details/70011.jpg,トップス,緑,girlsyell,ポップ,PR,750,
+PCH1-11,フラワーショップ ブルースターヘアアクセ,https://prichan.jp/resources/images/items/details/70010.jpg,ヘアアクセ,水色,sweethoney,ラブリー,PR,750,
+PCH1-10,フラワーショップ ブルースターシューズ,https://prichan.jp/resources/images/items/details/70009.jpg,シューズ,水色,sweethoney,ラブリー,PR,750,
+PCH1-09,フラワーショップ ブルースタースカート,https://prichan.jp/resources/images/items/details/70008.jpg,ボトムス,水色,sweethoney,ラブリー,PR,800,
+PCH2-04,ドーリーワルツ キラッとワンピ,https://prichan.jp/resources/images/items/details/70103.jpg,ワンピース,赤,dollywaltz,ラブリー,KR,1900,
+PCH2-03,ガールズエール キラッとヘアアクセ,https://prichan.jp/resources/images/items/details/70102.jpg,ヘアアクセ,白,girlsyell,ポップ,KR,900,
+PCH2-02,ガールズエール キラッとシューズ,https://prichan.jp/resources/images/items/details/70101.jpg,シューズ,白,girlsyell,ポップ,KR,900,
+PCH2-01,ガールズエール キラッとワンピ,https://prichan.jp/resources/images/items/details/70100.jpg,ワンピース,水色,girlsyell,ポップ,KR,1900,
+GY-01,バルーンブルーデニム サロペット,https://prichan.jp/resources/images/items/details/70069.jpg,ワンピース,青,girlsyell,ポップ,SR,1200,Girl's Yell(ガールズエール)チャンネル ランク2
+SH-07,アイスクリーム グレープヘアアクセ,https://prichan.jp/resources/images/items/details/27982.jpg,ヘアアクセ,紫,sweethoney,ラブリー,SR,600,Sweet Honey(スイートハニー)チャンネル ランク4
+SH-06,アイスクリーム グレープシューズ,https://prichan.jp/resources/images/items/details/27981.jpg,シューズ,紫,sweethoney,ラブリー,SR,600,Sweet Honey(スイートハニー)チャンネル ランク4
+PCH2-12,パンクキャット レッドトップス,https://prichan.jp/resources/images/items/details/70111.jpg,トップス,黒,romancebeat,クール,PR,850,
+PCH2-20,セーラーマリン ライトブルートップス,https://prichan.jp/resources/images/items/details/70119.jpg,トップス,水色,dollywaltz,ラブリー,SR,700,
+PCH2-19,パンクキャット ホワイトイエローヘアアクセ,https://prichan.jp/resources/images/items/details/70118.jpg,ヘアアクセ,白,romancebeat,クール,PR,750,
+PCH1-02,スイートハニー キラッとシューズ,https://prichan.jp/resources/images/items/details/70001.jpg,シューズ,ピンク,sweethoney,ラブリー,KR,900,
+PCH2-18,パンクキャット ホワイトイエローシューズ,https://prichan.jp/resources/images/items/details/70117.jpg,シューズ,白,romancebeat,クール,PR,750,
+PCH2-17,パンクキャット ホワイトイエロースカート,https://prichan.jp/resources/images/items/details/70116.jpg,ボトムス,白,romancebeat,クール,PR,800,
+PCH2-16,パンクキャット ホワイトイエロートップス,https://prichan.jp/resources/images/items/details/70115.jpg,トップス,白,romancebeat,クール,PR,850,
+PCH2-15,パンクキャット レッドヘアアクセ,https://prichan.jp/resources/images/items/details/70114.jpg,ヘアアクセ,黒,romancebeat,クール,PR,750,
+PCH2-28,ピクニックギンガム レッドケープワンピ,https://prichan.jp/resources/images/items/details/70126.jpg,ワンピース,赤,dollywaltz,ラブリー,SR,1200,
+PCH2-35,プリ☆チャンユニフォーム レッドトップス,https://prichan.jp/resources/images/items/details/70133.jpg,トップス,赤,prismstone,ラブリー,R,550,
+PCH2-34,ミュージシャン ホワイトハット,https://prichan.jp/resources/images/items/details/70132.jpg,ヘアアクセ,白,romancebeat,クール,SR,600,
+PCH2-33,ミュージシャン ホワイトシューズ,https://prichan.jp/resources/images/items/details/70131.jpg,シューズ,白,romancebeat,クール,SR,650,
+PCH2-32,ミュージシャン ホワイトデニム,https://prichan.jp/resources/images/items/details/70130.jpg,ボトムス,白,romancebeat,クール,SR,600,
+PCH2-31,ミュージシャン ホワイトジャケット,https://prichan.jp/resources/images/items/details/70129.jpg,トップス,白,romancebeat,クール,SR,700,
+PCH2-30,ピクニックギンガム レッドヘアアクセ,https://prichan.jp/resources/images/items/details/70128.jpg,ヘアアクセ,白,dollywaltz,ラブリー,SR,600,
+PCH2-41,プリ☆チャンユニフォーム グリーンシューズ,https://prichan.jp/resources/images/items/details/70139.jpg,シューズ,緑,prismstone,クール,R,450,
+PCH2-45,ロッカー レッドベスト＆Tシャツ,https://prichan.jp/resources/images/items/details/70143.jpg,トップス,赤,romancebeat,クール,R,500,
+PCH2-44,リボンソックス &ストライプシューズ,https://prichan.jp/resources/images/items/details/70142.jpg,シューズ,ピンク,dollywaltz,ラブリー,R,450,
+PCH2-43,ストライプローズ ワンピ,https://prichan.jp/resources/images/items/details/70141.jpg,ワンピース,ピンク,dollywaltz,ラブリー,R,900,
+PCH2-42,プリ☆チャンユニフォーム グリーンヘアアクセ,https://prichan.jp/resources/images/items/details/70140.jpg,ヘアアクセ,緑,prismstone,クール,R,450,
+C-011,クリームピーチソーダ トップス,https://prichan.jp/resources/images/items/details/28054.jpg,トップス,ピンク,sweethoney,ラブリー,Ｒ,650,
+C-010,ダンシングマーチ ヘアアクセ,https://prichan.jp/resources/images/items/details/28061.jpg,ヘアアクセ,緑,girlsyell,ポップ,Ｒ,550,
+C-009,ダンシングマーチ グリーンシューズ,https://prichan.jp/resources/images/items/details/28060.jpg,シューズ,緑,girlsyell,ポップ,Ｒ,650,
+PCH2-50,パンジーガール ミントブラウス,https://prichan.jp/resources/images/items/details/70148.jpg,トップス,緑,dollywaltz,ラブリー,N,400,
+PCH2-57,ツートンカラーパターン トップス,https://prichan.jp/resources/images/items/details/70155.jpg,トップス,黄,romancebeat,クール,N,400,
+PCH2-56,グリーンチェック レディーヘアアクセ,https://prichan.jp/resources/images/items/details/70154.jpg,ヘアアクセ,緑,dollywaltz,ラブリー,N,300,
+PCH2-55,グリーンチェック レディーシューズ,https://prichan.jp/resources/images/items/details/70153.jpg,シューズ,緑,dollywaltz,ラブリー,N,300,
+PCH2-54,グリーンチェック レディースカート,https://prichan.jp/resources/images/items/details/70152.jpg,ボトムス,緑,dollywaltz,ラブリー,N,400,
+PCH2-53,グリーンチェック レディートップス,https://prichan.jp/resources/images/items/details/70151.jpg,トップス,緑,dollywaltz,ラブリー,N,350,
+PCH2-52,パンジーガール ミントシューズ,https://prichan.jp/resources/images/items/details/70150.jpg,シューズ,白,dollywaltz,ラブリー,N,300,
+PCH2-51,パンジーガール ミントスカート,https://prichan.jp/resources/images/items/details/70149.jpg,ボトムス,白,dollywaltz,ラブリー,N,350,
+PCH2-64,ホワイトローズ ヘアアクセ,https://prichan.jp/resources/images/items/details/70162.jpg,ヘアアクセ,白,dollywaltz,ラブリー,N,300,
+PCH2-68,レッドローズ,https://prichan.jp/resources/images/items/details/70180.jpg,パシャッとアイテム,赤,romancebeat,クール,SR,600,
+PCH2-67,みらいせいふく リボンヘアアクセ,https://prichan.jp/resources/images/items/details/70165.jpg,ヘアアクセ,ピンク,,プレミアム,N,300,
+PCH2-66,みらいせいふく ローファー,https://prichan.jp/resources/images/items/details/70164.jpg,シューズ,黒,,プレミアム,N,300,
+PCH2-65,みらいせいふく ワンピ,https://prichan.jp/resources/images/items/details/70163.jpg,ワンピース,黄,,プレミアム,N,600,
+P-S-004,ストロベリーガール ジャムワンピ,https://prichan.jp/resources/images/items/details/27991.jpg,ワンピース,赤,sweethoney,ラブリー,R,1000,ぷっちぐみ 2018年6月号
+P-S-003,ストロベリーガール ミルキーヘアアクセ,https://prichan.jp/resources/images/items/details/28008.jpg,ヘアアクセ,水色,sweethoney,ラブリー,R,550,ちゃお 2018年6月号
+P-S-002,ストロベリーガール ミルキーシューズ,https://prichan.jp/resources/images/items/details/28007.jpg,シューズ,水色,sweethoney,ラブリー,R,550,ちゃお 2018年6月号
+PCH2-72,デリシャスオムライス,https://prichan.jp/resources/images/items/details/70184.jpg,パシャッとアイテム,黄,girlsyell,ポップ,R,450,
+SW-007,ドレッシングパフェ ゴールドサイリウムワンピ,https://prichan.jp/resources/images/items/details/27953.jpg,ワンピース,ゴールド,babymonster,クール,SR,1300,
+SW-006,ガァルマゲドン ゴールドサイリウムヘアアクセ,https://prichan.jp/resources/images/items/details/27958.jpg,ヘアアクセ,ゴールド,ラブリーdevi,クール,SR,700,
+SW-005,ガァルマゲドン ゴールドサイリウムシューズ,https://prichan.jp/resources/images/items/details/27957.jpg,シューズ,ゴールド,ラブリーdevi,クール,SR,700,
+SW-002,そらみ?スマイル ゴールドサイリウムシューズ,https://prichan.jp/resources/images/items/details/27951.jpg,シューズ,ゴールド,twinkleribbon,ラブリー,SR,700,2018年3月発売 ニンテンドーSWITCHソフト「プリパラオールアイドルパーフェクトステージ!」同梱特典
+SW-012,トリコロール ゴールドサイリウムヘアアクセ,https://prichan.jp/resources/images/items/details/27961.jpg,ヘアアクセ,ゴールド,brilliantprince,クール,SR,700,
+SW-004,ガァルマゲドン ゴールドサイリウムワンピ,https://prichan.jp/resources/images/items/details/27956.jpg,ワンピース,ゴールド,ラブリーdevi,クール,SR,1300,
+SW-003,そらみ?スマイル ゴールドサイリウムヘアアクセ,https://prichan.jp/resources/images/items/details/27952.jpg,ヘアアクセ,ゴールド,twinkleribbon,ラブリー,SR,700,2018年3月発売 ニンテンドーSWITCHソフト「プリパラオールアイドルパーフェクトステージ!」同梱特典
+PCH2-71,ハッピーステッキ,https://prichan.jp/resources/images/items/details/70183.jpg,パシャッとアイテム,ピンク,sweethoney,ラブリー,R,450,
+SW-011,トリコロール ゴールドサイリウムシューズ,https://prichan.jp/resources/images/items/details/27960.jpg,シューズ,ゴールド,brilliantprince,クール,SR,700,
+SW-010,トリコロール ゴールドサイリウムワンピ,https://prichan.jp/resources/images/items/details/27959.jpg,ワンピース,ゴールド,brilliantprince,クール,SR,1300,
+SW-009,ドレッシングパフェ ゴールドサイリウムヘアアクセ,https://prichan.jp/resources/images/items/details/27955.jpg,ヘアアクセ,ゴールド,babymonster,クール,SR,700,
+SW-008,ドレッシングパフェ ゴールドサイリウムシューズ,https://prichan.jp/resources/images/items/details/27954.jpg,シューズ,ゴールド,babymonster,クール,SR,700,
+PCH2-70,クリームソーダ,https://prichan.jp/resources/images/items/details/70182.jpg,パシャッとアイテム,緑,girlsyell,ポップ,R,450,
+PCH2-69,ももいろウサギさん ぬいぐるみ,https://prichan.jp/resources/images/items/details/70181.jpg,パシャッとアイテム,白,dollywaltz,ラブリー,SR,600,
+SW-001,そらみ?スマイル ゴールドサイリウムワンピ,https://prichan.jp/resources/images/items/details/27950.jpg,ワンピース,ゴールド,twinkleribbon,ラブリー,SR,1300,2018年3月発売 ニンテンドーSWITCHソフト「プリパラオールアイドルパーフェクトステージ!」同梱特典
+P-S-009,ストロベリーガール クリームヘアアクセ,https://prichan.jp/resources/images/items/details/70080.jpg,ヘアアクセ,黄,sweethoney,ラブリー,R,550,小学一年生 2018年6月号
+P-S-008,ストロベリーガール クリームシューズ,https://prichan.jp/resources/images/items/details/70079.jpg,シューズ,黄,sweethoney,ラブリー,R,550,小学一年生 2018年6月号
+P-S-007,ストロベリーガール クリームワンピ,https://prichan.jp/resources/images/items/details/70078.jpg,ワンピース,黄,sweethoney,ラブリー,R,1000,小学一年生 2018年6月号
+P-S-006,ストロベリーガール ジャムヘアアクセ,https://prichan.jp/resources/images/items/details/27993.jpg,ヘアアクセ,赤,sweethoney,ラブリー,R,550,ぷっちぐみ 2018年6月号
+P-S-005,ストロベリーガール ジャムシューズ,https://prichan.jp/resources/images/items/details/27992.jpg,シューズ,赤,sweethoney,ラブリー,R,550,ぷっちぐみ 2018年6月号
+P-S-001,ストロベリーガール ミルキーワンピ,https://prichan.jp/resources/images/items/details/28006.jpg,ワンピース,水色,sweethoney,ラブリー,R,1000,ちゃお 2018年6月号
+P-S-013,チアリーダー ピンクヘアアクセ,https://prichan.jp/resources/images/items/details/27976.jpg,ヘアアクセ,ピンク,girlsyell,ポップ,SR,700,2018年4月発売 キラッとプリチ☆ャン公式ファンブックSEASON1
+P-S-012,チアリーダー ピンクシューズ,https://prichan.jp/resources/images/items/details/27975.jpg,シューズ,ピンク,girlsyell,ポップ,SR,700,2018年4月発売 キラッとプリチ☆ャン公式ファンブックSEASON1
+P-S-011,チアリーダー ピンクスカート,https://prichan.jp/resources/images/items/details/27974.jpg,ボトムス,ピンク,girlsyell,ポップ,SR,750,2018年4月発売 キラッとプリチ☆ャン公式ファンブックSEASON1
+PCH2-63,ホワイトローズ シューズ,https://prichan.jp/resources/images/items/details/70161.jpg,シューズ,ピンク,dollywaltz,ラブリー,N,300,
+PCH2-62,ホワイトローズ スカート,https://prichan.jp/resources/images/items/details/70160.jpg,ボトムス,ピンク,dollywaltz,ラブリー,N,350,
+PCH2-61,ホワイトローズ トップス,https://prichan.jp/resources/images/items/details/70159.jpg,トップス,白,dollywaltz,ラブリー,N,400,
+PCH2-60,ツートンカラーパターン ヘアアクセ,https://prichan.jp/resources/images/items/details/70158.jpg,ヘアアクセ,黒,romancebeat,クール,N,300,
+PCH2-59,ツートンカラーパターン シューズ,https://prichan.jp/resources/images/items/details/70157.jpg,シューズ,黒,romancebeat,クール,N,350,
+PCH2-58,ツートンカラーパターン スカート,https://prichan.jp/resources/images/items/details/70156.jpg,ボトムス,黄,romancebeat,クール,N,300,
+P-S-010,チアリーダー ピンクトップス,https://prichan.jp/resources/images/items/details/27973.jpg,トップス,ピンク,girlsyell,ポップ,SR,800,2018年4月発売 キラッとプリチ☆ャン公式ファンブックSEASON1
+P-004,プリ☆チャンユニフォーム ピンクヘアアクセ,https://prichan.jp/resources/images/items/details/27986.jpg,ヘアアクセ,ピンク,prismstone,ラブリー,R,450,2018年4月 キラッとプリ☆チャン デビューやってみた!キャンペーン!
+P-003,プリ☆チャンユニフォーム ピンクシューズ,https://prichan.jp/resources/images/items/details/27985.jpg,シューズ,ピンク,prismstone,ラブリー,R,450,2018年4月 キラッとプリ☆チャン デビューやってみた!キャンペーン!
+P-002,プリ☆チャンユニフォーム ピンクスカート,https://prichan.jp/resources/images/items/details/27984.jpg,ボトムス,ピンク,prismstone,ラブリー,R,500,2018年4月 キラッとプリ☆チャン デビューやってみた!キャンペーン!
+P-001,プリ☆チャンユニフォーム ピンクトップス,https://prichan.jp/resources/images/items/details/27983.jpg,トップス,ピンク,prismstone,ラブリー,R,550,2018年4月 キラッとプリ☆チャン デビューやってみた!キャンペーン!
+P-011,フラワーショップ バーベナヘアアクセ,https://prichan.jp/resources/images/items/details/28035.jpg,ヘアアクセ,紫,sweethoney,ラブリー,SR,700,2018年5月 劇場版プリパラ&キラッとプリ☆チャン きらきらメモリアルライブ
+P-010,フラワーショップ バーベナシューズ,https://prichan.jp/resources/images/items/details/28034.jpg,シューズ,紫,sweethoney,ラブリー,SR,750,2018年5月 劇場版プリパラ&キラッとプリ☆チャン きらきらメモリアルライブ
+P-009,フラワーショップ バーベナスカート,https://prichan.jp/resources/images/items/details/28033.jpg,ボトムス,紫,sweethoney,ラブリー,SR,700,2018年5月 劇場版プリパラ&キラッとプリ☆チャン きらきらメモリアルライブ
+P-008,フラワーショップ バーベナトップス,https://prichan.jp/resources/images/items/details/28032.jpg,トップス,紫,sweethoney,ラブリー,SR,800,2018年5月 劇場版プリパラ&キラッとプリ☆チャン きらきらメモリアルライブ
+AM-010,スプリングリボン ブルーワンピ,https://prichan.jp/resources/images/items/details/27968.jpg,ワンピース,水色,sweethoney,ラブリー,R,1000,2018年4月発売 プリ☆チャンファイル みらい&えも
+AM-009,ポップスター ヘアアクセ,https://prichan.jp/resources/images/items/details/28005.jpg,ヘアアクセ,赤,girlsyell,ポップ,R,550,
+AM-008,ポップスター レッドスニーカー,https://prichan.jp/resources/images/items/details/28004.jpg,シューズ,シルバー,girlsyell,ポップ,R,600,
+AM-007,ポップスター グリーンキャップスカート,https://prichan.jp/resources/images/items/details/28003.jpg,ボトムス,黒,girlsyell,ポップ,R,650,
+PCH1-70,スタンダードマイク,https://prichan.jp/resources/images/items/details/70092.jpg,パシャッとアイテム,黒,girlsyell,ポップ,R,500,
+PCH1-65,グリーンチェック リボンシューズ,https://prichan.jp/resources/images/items/details/70050.jpg,シューズ,黒,,クール,N,300,
+PCH1-69,ショートケーキ,https://prichan.jp/resources/images/items/details/70090.jpg,パシャッとアイテム,白,sweethoney,ラブリー,R,500,
+PCH2-49,ミリタリー グリーンブーツ,https://prichan.jp/resources/images/items/details/70147.jpg,シューズ,緑,romancebeat,クール,N,300,
+PCH2-48,ミリタリー ホワイトニット＆ショーパン,https://prichan.jp/resources/images/items/details/70146.jpg,ワンピース,白,romancebeat,クール,N,600,
+PCH1-68,カラフルキャンディー,https://prichan.jp/resources/images/items/details/70093.jpg,パシャッとアイテム,水色,girlsyell,ポップ,SR,600,
+PCH1-67,ミルキーアイスクリーム,https://prichan.jp/resources/images/items/details/70091.jpg,パシャッとアイテム,ピンク,sweethoney,ラブリー,SR,600,
+PCH2-47,ロッカー ブラックローファー,https://prichan.jp/resources/images/items/details/70145.jpg,シューズ,黒,romancebeat,クール,R,550,
+PCH1-66,ピンクフラワーブーケ,https://prichan.jp/resources/images/items/details/70089.jpg,パシャッとアイテム,ピンク,sweethoney,ラブリー,SR,600,
+PCH2-46,ロッカー ダメージホワイトショーパン,https://prichan.jp/resources/images/items/details/70144.jpg,ボトムス,白,romancebeat,クール,R,450,
+AM-006,ポップスター レッドTシャツ,https://prichan.jp/resources/images/items/details/28002.jpg,トップス,赤,girlsyell,ポップ,R,550,
+AM-005,フラワープリンセス ブーケ,https://prichan.jp/resources/images/items/details/28031.jpg,パシャッとアイテム,紫,sweethoney,ラブリー,SR,700,2018年4月発売 みらい&えも プリチケセット
+AM-004,フラワープリンセス レースカチューシャ,https://prichan.jp/resources/images/items/details/28001.jpg,ヘアアクセ,ピンク,sweethoney,ラブリー,SR,700,2018年4月発売 みらい&えも プリチケセット
+AM-003,フラワープリンセス あみあげシューズ,https://prichan.jp/resources/images/items/details/28000.jpg,シューズ,ピンク,sweethoney,ラブリー,SR,750,2018年4月発売 みらい&えも プリチケセット
+AM-002,フラワープリンセス ボトムス,https://prichan.jp/resources/images/items/details/27999.jpg,ボトムス,ピンク,sweethoney,ラブリー,SR,700,2018年4月発売 みらい&えも プリチケセット
+AM-001,フラワープリンセス トップス,https://prichan.jp/resources/images/items/details/27998.jpg,トップス,ピンク,sweethoney,ラブリー,SR,800,2018年4月発売 みらい&えも プリチケセット
+C-014,クリームソーダ ヘアアクセ,https://prichan.jp/resources/images/items/details/28057.jpg,ヘアアクセ,黄色,sweethoney,ラブリー,Ｒ,550,
+C-013,クリームピーチソーダ シューズ,https://prichan.jp/resources/images/items/details/28056.jpg,シューズ,ピンク,sweethoney,ラブリー,Ｒ,600,
+C-012,クリームピーチソーダ スカート,https://prichan.jp/resources/images/items/details/28055.jpg,ボトムス,ピンク,sweethoney,ラブリー,Ｒ,550,
+PCH1-64,グリーンチェック ワンピ,https://prichan.jp/resources/images/items/details/70049.jpg,ワンピース,緑,,クール,N,600,
+PCH1-63,モノトーン パンプス,https://prichan.jp/resources/images/items/details/70048.jpg,シューズ,紫,,クール,N,350,
+PCH1-62,モノトーン フリルスカート,https://prichan.jp/resources/images/items/details/70047.jpg,ボトムス,黒,,クール,N,300,
+PCH1-61,モノトーン フリルカーデ,https://prichan.jp/resources/images/items/details/70046.jpg,トップス,白,,クール,N,400,
+PCH1-60,スイート ストライプシューズ,https://prichan.jp/resources/images/items/details/70062.jpg,シューズ,茶,sweethoney,ラブリー,N,350,
+PCH1-59,スイートドーナツ ボトムス,https://prichan.jp/resources/images/items/details/70061.jpg,ボトムス,茶,sweethoney,ラブリー,N,300,
+C-008,ダンシングマーチ グリーンスカート,https://prichan.jp/resources/images/items/details/28059.jpg,ボトムス,緑,girlsyell,ポップ,Ｒ,600,
+C-007,ダンシングマーチ グリーントップス,https://prichan.jp/resources/images/items/details/28058.jpg,トップス,緑,girlsyell,ポップ,Ｒ,550,
+PCH1-58,スイートドーナツ ブラウス,https://prichan.jp/resources/images/items/details/70060.jpg,トップス,茶,sweethoney,ラブリー,N,400,
+PCH1-57,ダンシングマーチ シューズ,https://prichan.jp/resources/images/items/details/70059.jpg,シューズ,赤,girlsyell,ポップ,N,300,
+PCH1-56,ダンシングマーチ ボトムス,https://prichan.jp/resources/images/items/details/70058.jpg,ボトムス,赤,girlsyell,ポップ,N,350,
+PCH1-55,ダンシングマーチ トップス,https://prichan.jp/resources/images/items/details/70057.jpg,トップス,赤,girlsyell,ポップ,N,400,
+PCH1-54,クリームソーダ シューズ,https://prichan.jp/resources/images/items/details/70056.jpg,シューズ,緑,sweethoney,ラブリー,N,300,
+PCH1-53,クリームソーダ ボトムス,https://prichan.jp/resources/images/items/details/70055.jpg,ボトムス,緑,sweethoney,ラブリー,N,400,
+PCH2-40,プリ☆チャンユニフォーム グリーンスカート,https://prichan.jp/resources/images/items/details/70138.jpg,ボトムス,緑,prismstone,クール,R,500,
+PCH2-39,プリ☆チャンユニフォーム グリーントップス,https://prichan.jp/resources/images/items/details/70137.jpg,トップス,緑,prismstone,クール,R,550,
+PCH2-38,プリ☆チャンユニフォーム レッドヘアアクセ,https://prichan.jp/resources/images/items/details/70136.jpg,ヘアアクセ,赤,prismstone,ラブリー,R,450,
+PCH2-37,プリ☆チャンユニフォーム レッドシューズ,https://prichan.jp/resources/images/items/details/70135.jpg,シューズ,赤,prismstone,ラブリー,R,450,
+PCH2-36,プリ☆チャンユニフォーム レッドスカート,https://prichan.jp/resources/images/items/details/70134.jpg,ボトムス,赤,prismstone,ラブリー,R,500,
+C-004,わんわんポリス ブルーヘアアクセ,https://prichan.jp/resources/images/items/details/28051.jpg,ヘアアクセ,黒,girlsyell,ポップ,ＳＲ,700,2018年6月発売 プリチケコレクショングミ vol.1
+C-003,わんわんポリス ブルーシューズ,https://prichan.jp/resources/images/items/details/28050.jpg,シューズ,黒,girlsyell,ポップ,ＳＲ,700,2018年6月発売 プリチケコレクショングミ vol.1
+C-002,わんわんポリス ブルースカート,https://prichan.jp/resources/images/items/details/28049.jpg,ボトムス,水色,girlsyell,ポップ,ＳＲ,750,2018年6月発売 プリチケコレクショングミ vol.1
+PCH1-52,クリームソーダ トップス,https://prichan.jp/resources/images/items/details/70054.jpg,トップス,緑,sweethoney,ラブリー,N,350,
+PCH1-51,フルレース ラベンダーシューズ,https://prichan.jp/resources/images/items/details/70053.jpg,シューズ,紫,sweethoney,ラブリー,N,400,
+PCH1-50,フルレース ラベンダースカート,https://prichan.jp/resources/images/items/details/70052.jpg,ボトムス,紫,sweethoney,ラブリー,N,350,
+PCH1-49,フルレース ラベンダートップス,https://prichan.jp/resources/images/items/details/70051.jpg,トップス,紫,sweethoney,ラブリー,N,300,
+PCH1-48,ビビッドアルファベット スニーカー,https://prichan.jp/resources/images/items/details/70045.jpg,シューズ,白,girlsyell,ポップ,R,450,
+PCH1-47,ビビッドラメ ボトムス,https://prichan.jp/resources/images/items/details/70044.jpg,ボトムス,ピンク,girlsyell,ポップ,R,500,
+PCH2-29,ピクニックギンガム レッドシューズ,https://prichan.jp/resources/images/items/details/70127.jpg,シューズ,赤,dollywaltz,ラブリー,SR,600,
+C-001,わんわんポリス ブルートップス,https://prichan.jp/resources/images/items/details/28048.jpg,トップス,水色,girlsyell,ポップ,SR,800,2018年6月発売 プリチケコレクショングミ vol.1
+P-S-017,ノーブルドール アクアヘアアクセ,https://prichan.jp/resources/images/items/details/28087.jpg,ヘアアクセ,水色,dollywaltz,ラブリー,SR,700,2018年6月発売 キラッとプリチ☆ャン公式ファンブックSEASON2
+P-S-016,ノーブルドール アクアシューズ,https://prichan.jp/resources/images/items/details/28086.jpg,シューズ,水色,dollywaltz,ラブリー,SR,800,2018年6月発売 キラッとプリチ☆ャン公式ファンブックSEASON2
+PCH1-46,ビビッドアルファベット パーカ,https://prichan.jp/resources/images/items/details/70043.jpg,トップス,白,girlsyell,ポップ,R,550,
+PCH1-45,グレンチェック シューズ,https://prichan.jp/resources/images/items/details/70039.jpg,シューズ,茶,sweethoney,ラブリー,R,500,
+PCH2-27,スターダスト レザーブルーヘアアクセ,https://prichan.jp/resources/images/items/details/70125.jpg,ヘアアクセ,青,romancebeat,クール,SR,600,
+PCH2-26,スターダスト レザーブルーブーツ,https://prichan.jp/resources/images/items/details/70124.jpg,シューズ,青,romancebeat,クール,SR,650,
+PCH2-25,スターダスト レザーブルースカート,https://prichan.jp/resources/images/items/details/70123.jpg,ボトムス,青,romancebeat,クール,SR,700,
+PCH2-24,スターダスト レザーブルートップス,https://prichan.jp/resources/images/items/details/70122.jpg,トップス,青,romancebeat,クール,SR,600,
+PCH2-23,セーラーマリン ライトブルーヘアアクセ,https://prichan.jp/resources/images/items/details/70185.jpg,ヘアアクセ,青,dollywaltz,ラブリー,SR,600,
+PCH2-22,セーラーマリン ライトブルーシューズ,https://prichan.jp/resources/images/items/details/70121.jpg,シューズ,青,dollywaltz,ラブリー,SR,600,
+PCH2-21,セーラーマリン ライトブルースカート,https://prichan.jp/resources/images/items/details/70120.jpg,ボトムス,水色,dollywaltz,ラブリー,SR,650,
+RB-08,ミュージシャン イエローハット,https://prichan.jp/resources/images/items/details/70179.jpg,ヘアアクセ,,romancebeat,クール,SR,600,Romance Beat(ロマンスビート)チャンネル ランク4
+RB-07,ミュージシャン イエローシューズ,https://prichan.jp/resources/images/items/details/70178.jpg,シューズ,,romancebeat,クール,SR,650,Romance Beat(ロマンスビート)チャンネル ランク4
+RB-06,ミュージシャン イエローデニム,https://prichan.jp/resources/images/items/details/70177.jpg,ボトムス,,romancebeat,クール,SR,600,Romance Beat(ロマンスビート)チャンネル ランク4
+P-S-015,ノーブルドール アクアスカート,https://prichan.jp/resources/images/items/details/28085.jpg,ボトムス,水色,dollywaltz,ラブリー,SR,700,2018年6月発売 キラッとプリチ☆ャン公式ファンブックSEASON2
+P-S-014,ノーブルドール アクアトップス,https://prichan.jp/resources/images/items/details/28084.jpg,トップス,水色,dollywaltz,ラブリー,SR,750,2018年6月発売 キラッとプリチ☆ャン公式ファンブックSEASON2
+YA-020,チアリーダー ブルーヘアアクセ,https://prichan.jp/resources/images/items/details/28111.jpg,ヘアアクセ,青,girlsyell,ポップ,PR,730,
+YA-019,チアリーダー ブルーシューズ,https://prichan.jp/resources/images/items/details/28110.jpg,シューズ,ピンク,girlsyell,ポップ,PR,730,
+YA-018,チアリーダー ブルースカート,https://prichan.jp/resources/images/items/details/28109.jpg,ボトムス,青,girlsyell,ポップ,PR,830,
+PCH1-44,グレンチェック ボトムス,https://prichan.jp/resources/images/items/details/70038.jpg,ボトムス,茶,sweethoney,ラブリー,R,450,
+PCH1-43,グレンチェック ビスチェ,https://prichan.jp/resources/images/items/details/70037.jpg,トップス,茶,sweethoney,ラブリー,R,550,
+PCH1-42,ポップスター ブルースニーカー,https://prichan.jp/resources/images/items/details/70042.jpg,シューズ,白,girlsyell,ポップ,R,500,
+PCH1-41,ポップスター イエローキャップスカート,https://prichan.jp/resources/images/items/details/70041.jpg,ボトムス,黒,girlsyell,ポップ,R,550,
+PCH1-40,ポップスター ブルーTシャツ,https://prichan.jp/resources/images/items/details/70040.jpg,トップス,青,girlsyell,ポップ,R,450,
+PCH1-39,スプリングリボン パンプス,https://prichan.jp/resources/images/items/details/70036.jpg,シューズ,水色,sweethoney,ラブリー,R,450,
+PCH2-14,パンクキャット レッドシューズ,https://prichan.jp/resources/images/items/details/70113.jpg,シューズ,黒,romancebeat,クール,PR,750,
+PCH2-13,パンクキャット レッドスカート,https://prichan.jp/resources/images/items/details/70112.jpg,ボトムス,黒,romancebeat,クール,PR,800,
+RB-05,ミュージシャン イエロージャケット,https://prichan.jp/resources/images/items/details/70176.jpg,トップス,,romancebeat,クール,SR,700,Romance Beat(ロマンスビート)チャンネル ランク4
+RB-04,スターダスト レザーピンクヘアアクセ,https://prichan.jp/resources/images/items/details/70175.jpg,ヘアアクセ,,romancebeat,クール,SR,600,Romance Beat(ロマンスビート)チャンネル ランク2
+RB-03,スターダスト レザーピンクブーツ,https://prichan.jp/resources/images/items/details/70174.jpg,シューズ,,romancebeat,クール,SR,650,Romance Beat(ロマンスビート)チャンネル ランク2
+RB-02,スターダスト レザーピンクスカート,https://prichan.jp/resources/images/items/details/70173.jpg,ボトムス,,romancebeat,クール,SR,600,Romance Beat(ロマンスビート)チャンネル ランク2
+RB-01,スターダスト レザーピンクトップス,https://prichan.jp/resources/images/items/details/70172.jpg,トップス,,romancebeat,クール,SR,700,Romance Beat(ロマンスビート)チャンネル ランク2
+DW-07,ピクニックギンガム ブルーヘアアクセ,https://prichan.jp/resources/images/items/details/70171.jpg,ヘアアクセ,水色,dollywaltz,ラブリー,SR,600,Dolly Waltz(ドーリーワルツ)チャンネル ランク4
+DW-06,ピクニックギンガム ブルーシューズ,https://prichan.jp/resources/images/items/details/70170.jpg,シューズ,水色,dollywaltz,ラブリー,SR,600,Dolly Waltz(ドーリーワルツ)チャンネル ランク4
+DW-05,ピクニックギンガム ブルーケープワンピ,https://prichan.jp/resources/images/items/details/70169.jpg,ワンピース,水色,dollywaltz,ラブリー,SR,1200,Dolly Waltz(ドーリーワルツ)チャンネル ランク4
+DW-04,セーラーマリン パステルピンクヘアアクセ,https://prichan.jp/resources/images/items/details/70186.jpg,ヘアアクセ,ピンク,dollywaltz,ラブリー,SR,600,Dolly Waltz(ドーリーワルツ)チャンネル ランク2
+DW-03,セーラーマリン パステルピンクシューズ,https://prichan.jp/resources/images/items/details/70168.jpg,シューズ,ピンク,dollywaltz,ラブリー,SR,600,Dolly Waltz(ドーリーワルツ)チャンネル ランク2
+YA-017,チアリーダー ブルートップス,https://prichan.jp/resources/images/items/details/28108.jpg,トップス,青,girlsyell,ポップ,PR,780,
+YA-016,ギンガムハート えもアプリヘアアクセ,https://prichan.jp/resources/images/items/details/28107.jpg,ヘアアクセ,黄色,girlsyell,ポップ,SR,650,2018年6月発売 やってみたアプリセット えもver. アプリ連動
+YA-015,ギンガムハート えもアプリシューズ,https://prichan.jp/resources/images/items/details/28106.jpg,シューズ,黄色,girlsyell,ポップ,SR,700,2018年6月発売 やってみたアプリセット えもver. アプリ連動
+YA-014,ギンガムハート えもアプリスカート,https://prichan.jp/resources/images/items/details/28105.jpg,ボトムス,黄色,girlsyell,ポップ,SR,750,2018年6月発売 やってみたアプリセット えもver. アプリ連動
+YA-013,ギンガムハート えもアプリトップス,https://prichan.jp/resources/images/items/details/28104.jpg,トップス,黄色,girlsyell,ポップ,SR,650,2018年6月発売 やってみたアプリセット えもver. アプリ連動
+YA-012,フラワーショップ リーフヘアアクセ,https://prichan.jp/resources/images/items/details/28103.jpg,ヘアアクセ,緑,sweethoney,ラブリー,PR,730,
+YA-011,フラワーショップ リーフシューズ,https://prichan.jp/resources/images/items/details/28102.jpg,シューズ,緑,sweethoney,ラブリー,PR,730,
+YA-010,フラワーショップ リーフスカート,https://prichan.jp/resources/images/items/details/28101.jpg,ボトムス,緑,sweethoney,ラブリー,PR,780,
+PCH1-38,スプリングリボン ワンピ,https://prichan.jp/resources/images/items/details/70035.jpg,ワンピース,黄,sweethoney,ラブリー,R,900,
+PCH1-37,プリ☆チャンユニフォーム イエローヘアアクセ,https://prichan.jp/resources/images/items/details/70034.jpg,ヘアアクセ,黄,prismstone,ポップ,R,450,
+PCH1-36,プリ☆チャンユニフォーム イエローシューズ,https://prichan.jp/resources/images/items/details/70033.jpg,シューズ,黄,prismstone,ポップ,R,450,
+PCH1-35,プリ☆チャンユニフォーム イエロースカート,https://prichan.jp/resources/images/items/details/70032.jpg,ボトムス,黄,prismstone,ポップ,R,500,
+PCH1-34,プリ☆チャンユニフォーム イエロートップス,https://prichan.jp/resources/images/items/details/70031.jpg,トップス,黄,prismstone,ポップ,R,550,
+PCH1-33,プリ☆チャンユニフォーム ピンクヘアアクセ,https://prichan.jp/resources/images/items/details/70030.jpg,ヘアアクセ,ピンク,prismstone,ラブリー,R,450,
+PCH1-32,プリ☆チャンユニフォーム ピンクシューズ,https://prichan.jp/resources/images/items/details/70029.jpg,シューズ,ピンク,prismstone,ラブリー,R,450,
+PCH1-31,プリ☆チャンユニフォーム ピンクスカート,https://prichan.jp/resources/images/items/details/70028.jpg,ボトムス,ピンク,prismstone,ラブリー,R,500,
+PCH2-11,ノーブルドール ハーフパンツ,https://prichan.jp/resources/images/items/details/70110.jpg,ボトムス,青,dollywaltz,ラブリー,PR,800,
+PCH2-10,ノーブルドール ヘアアクセ,https://prichan.jp/resources/images/items/details/70109.jpg,ヘアアクセ,青,dollywaltz,ラブリー,PR,750,
+PCH2-09,ノーブルドール シューズ,https://prichan.jp/resources/images/items/details/70108.jpg,シューズ,青,dollywaltz,ラブリー,PR,850,
+PCH2-08,ノーブルドール ボトムス,https://prichan.jp/resources/images/items/details/70107.jpg,ボトムス,青,dollywaltz,ラブリー,PR,800,
+PCH2-07,ノーブルドール トップス,https://prichan.jp/resources/images/items/details/70106.jpg,トップス,青,dollywaltz,ラブリー,PR,750,
+PCH2-06,ドーリーワルツ キラッとヘアアクセ,https://prichan.jp/resources/images/items/details/70105.jpg,ヘアアクセ,赤,dollywaltz,ラブリー,KR,900,
+PCH2-05,ドーリーワルツ キラッとシューズ,https://prichan.jp/resources/images/items/details/70104.jpg,シューズ,赤,dollywaltz,ラブリー,KR,900,
+DW-02,セーラーマリン パステルピンクスカート,https://prichan.jp/resources/images/items/details/70167.jpg,ボトムス,ピンク,dollywaltz,ラブリー,SR,650,Dolly Waltz(ドーリーワルツ)チャンネル ランク2
+DW-01,セーラーマリン パステルピンクトップス,https://prichan.jp/resources/images/items/details/70166.jpg,トップス,ピンク,dollywaltz,ラブリー,SR,700,Dolly Waltz(ドーリーワルツ)チャンネル ランク2
+GY-07,ポップコーンショップ グリーンヘアアクセ,https://prichan.jp/resources/images/items/details/28015.jpg,ヘアアクセ,緑,girlsyell,ポップ,SR,600,Girl's Yell(ガールズエール)チャンネル ランク4
+GY-06,ポップコーンショップ グリーンシューズ,https://prichan.jp/resources/images/items/details/28014.jpg,シューズ,緑,girlsyell,ポップ,SR,700,Girl's Yell(ガールズエール)チャンネル ランク4
+GY-05,ポップコーンショップ グリーンパンツ,https://prichan.jp/resources/images/items/details/28013.jpg,ボトムス,緑,girlsyell,ポップ,SR,600,Girl's Yell(ガールズエール)チャンネル ランク4
+GY-04,ポップコーンショップ グリーントップス,https://prichan.jp/resources/images/items/details/28012.jpg,トップス,緑,girlsyell,ポップ,SR,650,Girl's Yell(ガールズエール)チャンネル ランク4
+GY-03,バルーンブルーデニム ヘアアクセ,https://prichan.jp/resources/images/items/details/70071.jpg,ヘアアクセ,ピンク,girlsyell,ポップ,SR,600,Girl's Yell(ガールズエール)チャンネル ランク2
+GY-02,バルーンブルーデニム シューズ,https://prichan.jp/resources/images/items/details/70070.jpg,シューズ,ピンク,girlsyell,ポップ,SR,600,Girl's Yell(ガールズエール)チャンネル ランク2
+YA-009,フラワーショップ リーフトップス,https://prichan.jp/resources/images/items/details/28100.jpg,トップス,緑,sweethoney,ラブリー,PR,830,
+YA-008,ギンガムハート みらいアプリヘアアクセ,https://prichan.jp/resources/images/items/details/28099.jpg,ヘアアクセ,ピンク,sweethoney,ラブリー,SR,650,2018年6月発売 やってみたアプリセット みらいver. アプリ連動
+YA-007,ギンガムハート みらいアプリシューズ,https://prichan.jp/resources/images/items/details/28098.jpg,シューズ,ピンク,sweethoney,ラブリー,SR,700,2018年6月発売 やってみたアプリセット みらいver. アプリ連動
+YA-006,ギンガムハート みらいアプリスカート,https://prichan.jp/resources/images/items/details/28097.jpg,ボトムス,ピンク,sweethoney,ラブリー,SR,750,2018年6月発売 やってみたアプリセット みらいver. アプリ連動
+YA-005,ギンガムハート みらいアプリトップス,https://prichan.jp/resources/images/items/details/28096.jpg,トップス,ピンク,sweethoney,ラブリー,SR,650,2018年6月発売 やってみたアプリセット みらいver. アプリ連動
+PCH1-73,ストロベリーガール ピンクヘアアクセ,https://prichan.jp/resources/images/items/details/70077.jpg,ヘアアクセ,ピンク,sweethoney,ラブリー,SR,600,2018年5月10日～6月6日 キラ宿スイーツフェスティバル
+PCH1-72,ストロベリーガール ピンクシューズ,https://prichan.jp/resources/images/items/details/70076.jpg,シューズ,ピンク,sweethoney,ラブリー,SR,600,2018年5月10日～6月6日 キラ宿スイーツフェスティバル
+PCH1-71,ストロベリーガール ピンクワンピ,https://prichan.jp/resources/images/items/details/70075.jpg,ワンピース,ピンク,sweethoney,ラブリー,SR,1200,2018年5月10日～6月6日 キラ宿スイーツフェスティバル
+SP-004,プリ☆チャンユニフォーム ピュアホワイトヘアアクセ,https://prichan.jp/resources/images/items/details/28139.jpg,ヘアアクセ,白,prismstone,プレミアム,ＳＲ,600,2018年6月17日～7月15日 プリズムストーンpresents キラ宿選抜スペシャル大会
+SP-003,プリ☆チャンユニフォーム ピュアホワイトシューズ,https://prichan.jp/resources/images/items/details/28138.jpg,シューズ,白,prismstone,プレミアム,ＳＲ,650,2018年6月17日～7月15日 プリズムストーンpresents キラ宿選抜スペシャル大会
+PCH1-30,プリ☆チャンユニフォーム ピンクトップス,https://prichan.jp/resources/images/items/details/70027.jpg,トップス,ピンク,prismstone,ラブリー,R,550,
+PCH1-29,バルーンホワイトデニム ヘアアクセ,https://prichan.jp/resources/images/items/details/27979.jpg,ヘアアクセ,赤,girlsyell,ポップ,SR,600,
+PCH1-28,バルーンホワイトデニム シューズ,https://prichan.jp/resources/images/items/details/27978.jpg,シューズ,赤,girlsyell,ポップ,SR,600,
+PCH1-27,バルーンホワイトデニム サロペット,https://prichan.jp/resources/images/items/details/27977.jpg,ワンピース,白,girlsyell,ポップ,SR,1200,
+PCH1-26,ポップコーンショップ レッドヘアアクセ,https://prichan.jp/resources/images/items/details/70026.jpg,ヘアアクセ,赤,girlsyell,ポップ,SR,600,
+PCH1-25,ポップコーンショップ レッドシューズ,https://prichan.jp/resources/images/items/details/70025.jpg,シューズ,赤,girlsyell,ポップ,SR,600,
+PCH1-24,ポップコーンショップ レッドパンツ,https://prichan.jp/resources/images/items/details/70024.jpg,ボトムス,赤,girlsyell,ポップ,SR,700,
+SH-05,アイスクリーム グレープワンピ,https://prichan.jp/resources/images/items/details/27980.jpg,ワンピース,紫,sweethoney,ラブリー,SR,1200,Sweet Honey(スイートハニー)チャンネル ランク4
+SH-04,ギンガムハート サンレッドヘアアクセ,https://prichan.jp/resources/images/items/details/70022.jpg,ヘアアクセ,赤,sweethoney,ラブリー,SR,600,Sweet Honey(スイートハニー)チャンネル ランク2
+SH-03,ギンガムハート サンレッドシューズ,https://prichan.jp/resources/images/items/details/70021.jpg,シューズ,赤,sweethoney,ラブリー,SR,650,Sweet Honey(スイートハニー)チャンネル ランク2
+SH-02,ギンガムハート サンレッドスカート,https://prichan.jp/resources/images/items/details/70020.jpg,ボトムス,赤,sweethoney,ラブリー,SR,600,Sweet Honey(スイートハニー)チャンネル ランク2
+SH-01,ギンガムハート サンレッドトップス,https://prichan.jp/resources/images/items/details/70019.jpg,トップス,赤,sweethoney,ラブリー,SR,700,Sweet Honey(スイートハニー)チャンネル ランク2
+YA-004,ギンガムハート ホワイトヘアアクセ,https://prichan.jp/resources/images/items/details/28095.jpg,ヘアアクセ,白,sweethoney,ラブリー,SR,700,2018年6月発売 プリ☆チャンキャスト アプリ連動
+YA-003,ギンガムハート ホワイトシューズ,https://prichan.jp/resources/images/items/details/28094.jpg,シューズ,白,sweethoney,ラブリー,SR,800,2018年6月発売 プリ☆チャンキャスト アプリ連動
+YA-002,ギンガムハート ホワイトスカート,https://prichan.jp/resources/images/items/details/28093.jpg,ボトムス,白,sweethoney,ラブリー,SR,750,2018年6月発売 プリ☆チャンキャスト アプリ連動
+YA-001,ギンガムハート ホワイトトップス,https://prichan.jp/resources/images/items/details/28092.jpg,トップス,白,sweethoney,ラブリー,SR,700,2018年6月発売 プリ☆チャンキャスト アプリ連動
+PCH2-80,パープルローズ,https://prichan.jp/resources/images/items/details/70190.jpg,パシャッとアイテム,紫,romancebeat,クール,SR,600,なかよしチャンネル さら
+PCH2-79,そらいろウサギさん ぬいぐるみ,https://prichan.jp/resources/images/items/details/70189.jpg,パシャッとアイテム,水色,dollywaltz,ラブリー,SR,600,なかよしチャンネル あんな
+PCH2-78,オレンジソーダ,https://prichan.jp/resources/images/items/details/70188.jpg,パシャッとアイテム,オレンジ,girlsyell,ポップ,R,450,なかよしチャンネル えも
+PCH2-77,ラッキーステッキ,https://prichan.jp/resources/images/items/details/70187.jpg,パシャッとアイテム,青,sweethoney,ラブリー,R,450,なかよしチャンネル みらい
+SP-002,プリ☆チャンユニフォーム ピュアホワイトスカート,https://prichan.jp/resources/images/items/details/28137.jpg,ボトムス,白,prismstone,プレミアム,ＳＲ,600,2018年6月17日～7月15日 プリズムストーンpresents キラ宿選抜スペシャル大会
+SP-001,プリ☆チャンユニフォーム ピュアホワイトトップス,https://prichan.jp/resources/images/items/details/28136.jpg,トップス,白,prismstone,プレミアム,ＳＲ,700,2018年6月17日～7月15日 プリズムストーンpresents キラ宿選抜スペシャル大会
+PCH2-71,セーラーチア レッドリボンヘアアクセ,https://prichan.jp/resources/images/items/details/70084.jpg,ヘアアクセ,赤,girlsyell,ポップ,SR,600,2018年7月5日～8月1日 セーラーチアレッドリボンライブ
+PCH2-70,セーラーチア レッドリボンシューズ,https://prichan.jp/resources/images/items/details/70083.jpg,シューズ,白,girlsyell,ポップ,SR,650,2018年7月5日～8月1日 セーラーチアレッドリボンライブ
+PCH2-69,セーラーチア レッドリボンスカート,https://prichan.jp/resources/images/items/details/70082.jpg,ボトムス,赤,girlsyell,ポップ,SR,700,2018年7月5日～8月1日 セーラーチアレッドリボンライブ
+PCH2-68,セーラーチア レッドリボントップス,https://prichan.jp/resources/images/items/details/70081.jpg,トップス,青,girlsyell,ポップ,SR,600,2018年7月5日～8月1日 セーラーチアレッドリボンライブ
+PCH1-23,ポップコーンショップ レッドトップス,https://prichan.jp/resources/images/items/details/70023.jpg,トップス,赤,girlsyell,ポップ,SR,650,
+PCH1-22,アイスクリーム ミントヘアアクセ,https://prichan.jp/resources/images/items/details/70065.jpg,ヘアアクセ,緑,sweethoney,ラブリー,SR,600,
+PCH1-21,アイスクリーム ミントシューズ,https://prichan.jp/resources/images/items/details/70064.jpg,シューズ,緑,sweethoney,ラブリー,SR,600,
+PCH1-20,アイスクリーム ミントワンピ,https://prichan.jp/resources/images/items/details/70063.jpg,ワンピース,緑,sweethoney,ラブリー,SR,1200,
+PCH1-19,ギンガムハート スカイブルーヘアアクセ,https://prichan.jp/resources/images/items/details/70018.jpg,ヘアアクセ,水色,sweethoney,ラブリー,SR,600,
+PCH1-18,ギンガムハート スカイブルーシューズ,https://prichan.jp/resources/images/items/details/70017.jpg,シューズ,水色,sweethoney,ラブリー,SR,600,
+PCH1-17,ギンガムハート スカイブルースカート,https://prichan.jp/resources/images/items/details/70016.jpg,ボトムス,水色,sweethoney,ラブリー,SR,650,
