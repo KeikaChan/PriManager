@@ -16,7 +16,7 @@ class QRUtil {
         const val RAW = "raw"
         const val TICKET_TYPE = "ticket_type"
         const val QR_FORMAT = "qr_format"
-        const val IS_DUPLICATED ="is_duplicated"
+        const val IS_DUPLICATE ="is_duplicate"
 
         /**
          * This function is only support when "error correction level is M and also size is 14 ~ 213"
