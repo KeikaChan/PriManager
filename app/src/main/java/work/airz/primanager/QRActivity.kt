@@ -64,7 +64,7 @@ class QRActivity : AppCompatActivity() {
         val qrBitmap = QRUtil.createQR(data, result.result.maskIndex, result.sourceData.isInverted, QRUtil.detectVersionM(result.rawBytes.size))
 
         val dbUtil = DBUtil(applicationContext)
-//        val rawData = QRUtil.byteToString(data)
+        val rawString = QRUtil.byteToString(data)
 
         val qrFormat = QRUtil.QRFormat(QRUtil.QRFormat().getStringToErrorCorrectionLevel(result.resultMetadata[ResultMetadataType.ERROR_CORRECTION_LEVEL] as String),
                 result.result.maskIndex,
@@ -76,15 +76,15 @@ class QRActivity : AppCompatActivity() {
                 val followUserID = QRUtil.getFollowUserID(data)
                 val followedUsers = dbUtil.getUserList().filter { dbUtil.isFollowed(it, followUserID) }
                 if (followedUsers.isNotEmpty()) followedAlert(data, qrFormat, followedUsers, QRUtil.QRType.PRICHAN_FOLLOW)
-                else if (dbUtil.isDuplicate(DBConstants.FOLLOW_TICKET_TABLE, followUserID)) duplicateDataAlert(data, qrFormat, QRUtil.QRType.PRICHAN_FOLLOW)
+                else if (dbUtil.isDuplicate(DBConstants.FOLLOW_TICKET_TABLE, rawString)) duplicateDataAlert(data, qrFormat, QRUtil.QRType.PRICHAN_FOLLOW)
                 saveAlert(data, qrFormat, QRUtil.QRType.PRICHAN_FOLLOW)
             }
             QRUtil.QRType.PRICHAN_COORD -> {
-                if (dbUtil.isDuplicate(DBConstants.COORD_TICKET_TABLE, QRUtil.byteToString(data))) duplicateDataAlert(data, qrFormat, QRUtil.QRType.PRICHAN_COORD)
+                if (dbUtil.isDuplicate(DBConstants.COORD_TICKET_TABLE, rawString)) duplicateDataAlert(data, qrFormat, QRUtil.QRType.PRICHAN_COORD)
                 saveAlert(data, qrFormat, QRUtil.QRType.PRICHAN_COORD)
             }
             QRUtil.QRType.OTHERS -> { //基本的にプリパラのトモチケは来ない前提で考える
-                if (dbUtil.isDuplicate(DBConstants.COORD_TICKET_TABLE, QRUtil.byteToString(data))) duplicateDataAlert(data, qrFormat, QRUtil.QRType.OTHERS)
+                if (dbUtil.isDuplicate(DBConstants.COORD_TICKET_TABLE, rawString)) duplicateDataAlert(data, qrFormat, QRUtil.QRType.OTHERS)
                 else nazoDataAlert(data, qrFormat, QRUtil.QRType.OTHERS)//謎データであることを告知する
 
             }
@@ -187,7 +187,7 @@ class QRActivity : AppCompatActivity() {
             putExtra(QRUtil.RAW, rawData)
             putExtra(QRUtil.TICKET_TYPE, type)
             putExtra(QRUtil.QR_FORMAT, qrFormat)
-            putExtra(QRUtil.IS_DUPLICATED, isDuplicate)
+            putExtra(QRUtil.IS_DUPLICATE, isDuplicate)
             flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
         })
     }
@@ -203,7 +203,7 @@ class QRActivity : AppCompatActivity() {
             putExtra(QRUtil.RAW, rawData)
             putExtra(QRUtil.TICKET_TYPE, type)
             putExtra(QRUtil.QR_FORMAT, qrFormat)
-            putExtra(QRUtil.IS_DUPLICATED, isDuplicate)
+            putExtra(QRUtil.IS_DUPLICATE, isDuplicate)
             flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
         })
     }
