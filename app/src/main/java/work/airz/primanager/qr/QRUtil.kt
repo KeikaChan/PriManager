@@ -6,13 +6,17 @@ import com.google.zxing.BarcodeFormat
 import com.google.zxing.EncodeHintType
 import com.google.zxing.MultiFormatWriter
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel
+import java.io.Serializable
 import java.nio.charset.Charset
 import java.util.*
-import kotlin.math.E
 
 
 class QRUtil {
     companion object {
+        const val RAW = "raw"
+        const val TICKET_TYPE = "ticket_type"
+        const val QR_FORMAT = "qr_format"
+        const val FOLLOWED_LIST = "followed_list"
 
         /**
          * This function is only support when "error correction level is M and also size is 14 ~ 213"
@@ -159,7 +163,7 @@ class QRUtil {
     }
 
 
-    class QRFormat(val errorCorrectionLevel: ErrorCorrectionLevel = ErrorCorrectionLevel.M, val maskIndex: Int = 1, val isInverted: Boolean = false, val version: Int = 2) {
+    class QRFormat(val errorCorrectionLevel: ErrorCorrectionLevel = ErrorCorrectionLevel.M, val maskIndex: Int = 1, val isInverted: Boolean = false, val version: Int = 2) : Serializable {
 
         /**
          * データ形式のテキスト化
@@ -215,7 +219,7 @@ class QRUtil {
         }
     }
 
-    enum class QRType {
+    enum class QRType : Serializable {
         PRICHAN_FOLLOW, PRICHAN_COORD, OTHERS //OTHERS にはプリパラの他、映画特典のプリチャンのチケットも含むよ。現状ではここまでしかわからない。
 
     }

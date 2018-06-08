@@ -10,6 +10,7 @@ import com.journeyapps.barcodescanner.BarcodeCallback
 import com.journeyapps.barcodescanner.BarcodeResult
 import com.journeyapps.barcodescanner.DecoratedBarcodeView
 import kotlinx.android.synthetic.main.activity_qr.*
+import kotlinx.android.synthetic.main.activity_save_follow_ticket.*
 import work.airz.primanager.db.DBConstants
 import work.airz.primanager.db.DBFormat.*
 import work.airz.primanager.db.DBUtil
@@ -74,7 +75,7 @@ class QRActivity : AppCompatActivity() {
             QRUtil.QRType.PRICHAN_FOLLOW -> {
                 val followUserID = QRUtil.getFollowUserID(data)
                 val followedUsers = dbUtil.getUserList().filter { dbUtil.isFollowed(it, followUserID) }
-                if (followedUsers.isNotEmpty()) followedAlert(rawData, qrFormat, followedUsers)
+                if (followedUsers.isNotEmpty()) followedAlert(rawData, qrFormat, followedUsers, QRUtil.QRType.PRICHAN_FOLLOW)
                 else if (dbUtil.isDuplicate(DBConstants.FOLLOW_TICKET_TABLE, followUserID)) duplicateDataAlert(rawData, qrFormat, QRUtil.QRType.PRICHAN_FOLLOW)
                 saveAlert(rawData, qrFormat, QRUtil.QRType.PRICHAN_FOLLOW)
             }
@@ -98,12 +99,9 @@ class QRActivity : AppCompatActivity() {
         builder.setMessage("まだ保存されていない物のようです。保存しますか？")
         builder.setPositiveButton("はい", { _, _ ->
             when (type) {
-                QRUtil.QRType.PRICHAN_FOLLOW ->
-                    startActivity(Intent(this, SaveFollowTicket::class.java).apply { flags = Intent.FLAG_ACTIVITY_SINGLE_TOP })
-                QRUtil.QRType.PRICHAN_COORD ->
-                    startActivity(Intent(this, SaveCoordTicket::class.java).apply { flags = Intent.FLAG_ACTIVITY_SINGLE_TOP })
-                else ->
-                    startActivity(Intent(this, SaveCoordTicket::class.java).apply { flags = Intent.FLAG_ACTIVITY_SINGLE_TOP })
+                QRUtil.QRType.PRICHAN_FOLLOW -> intentFollow(rawData, qrFormat, type)
+                QRUtil.QRType.PRICHAN_COORD -> intentCoord(rawData, qrFormat, type)
+                QRUtil.QRType.OTHERS -> intentCoord(rawData, qrFormat, type)
             }
             finish()
         })
@@ -123,8 +121,7 @@ class QRActivity : AppCompatActivity() {
         builder.setCancelable(false)
         builder.setMessage("コーデ保存に飛びます。よろしいですか？")
         builder.setPositiveButton("はい", { _, _ ->
-            //TODO: Intentでコーデに飛ぶ
-            startActivity(Intent(this, SaveCoordTicket::class.java).apply { flags = Intent.FLAG_ACTIVITY_SINGLE_TOP })
+            intentCoord(rawData, qrFormat, type)
             finish()
         })
         builder.setNegativeButton("いいえ", { dialog, _ ->
@@ -143,7 +140,11 @@ class QRActivity : AppCompatActivity() {
         builder.setCancelable(false)
         builder.setMessage("データを編集しますか？")
         builder.setPositiveButton("はい", { _, _ ->
-            //TODO: Intentでフォロー/コーデに飛ぶ
+            when (type) {
+                QRUtil.QRType.PRICHAN_FOLLOW -> intentFollow(rawData, qrFormat, type)
+                QRUtil.QRType.PRICHAN_COORD -> intentCoord(rawData, qrFormat, type)
+                QRUtil.QRType.OTHERS -> intentCoord(rawData, qrFormat, type)
+            }
             qrReaderView.resume()
         })
         builder.setNegativeButton("いいえ", { dialog, _ ->
@@ -153,10 +154,11 @@ class QRActivity : AppCompatActivity() {
         builder.show()
     }
 
+
     /**
      * フォロー済みのときのアラート
      */
-    private fun followedAlert(rawData: String, qrFormat: QRUtil.QRFormat, followdList: List<User>) {
+    private fun followedAlert(rawData: String, qrFormat: QRUtil.QRFormat, followdList: List<User>, type: QRUtil.QRType) {
         val strb = StringBuilder("以下のユーザにフォローされています。データを編集しますか？\n")
         followdList.forEach { strb.append("${it.userName}\n") }
         val builder = AlertDialog.Builder(this)
@@ -164,7 +166,7 @@ class QRActivity : AppCompatActivity() {
         builder.setCancelable(false)
         builder.setMessage(strb.toString())
         builder.setPositiveButton("進む", { _, _ ->
-            //TODO: Intentでフォローに飛ぶ
+            intentFollow(rawData, qrFormat, type)
             qrReaderView.resume()
         })
         builder.setNegativeButton("戻る", { dialog, _ ->
@@ -172,6 +174,36 @@ class QRActivity : AppCompatActivity() {
             qrReaderView.resume()
         })
         builder.show()
+    }
+
+    /**
+     * フォロー保存画面にジャンプ
+     * @param rawData qrコードのデータ
+     * @param qrFormat qrの形式
+     * @param type QRのタイプ
+     */
+    private fun intentFollow(rawData: String, qrFormat: QRUtil.QRFormat, type: QRUtil.QRType) {
+        startActivity(Intent(this, SaveFollowTicket::class.java).apply {
+            putExtra(QRUtil.RAW, rawData)
+            putExtra(QRUtil.TICKET_TYPE, type)
+            putExtra(QRUtil.QR_FORMAT, qrFormat)
+            flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+        })
+    }
+
+    /**
+     * コーデ保存画面にジャンプ
+     * @param rawData qrコードのデータ
+     * @param qrFormat qrの形式
+     * @param type QRのタイプ
+     */
+    private fun intentCoord(rawData: String, qrFormat: QRUtil.QRFormat, type: QRUtil.QRType) {
+        startActivity(Intent(this, SaveCoordTicket::class.java).apply {
+            putExtra(QRUtil.RAW, rawData)
+            putExtra(QRUtil.TICKET_TYPE, type)
+            putExtra(QRUtil.QR_FORMAT, qrFormat)
+            flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+        })
     }
 
     override fun onResume() {
