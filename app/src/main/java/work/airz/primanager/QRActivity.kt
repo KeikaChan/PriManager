@@ -174,53 +174,6 @@ class QRActivity : AppCompatActivity() {
         builder.show()
     }
 
-
-//    fun saveAlert(qrImage: Bitmap, readerView: DecoratedBarcodeView) {
-//
-//        val inflater = LayoutInflater.from(applicationContext)
-//        var dialogRoot = inflater.inflate(R.layout.save_dialog, null)
-//
-//        var imageView = dialogRoot.findViewById<ImageView>(R.id.qrimage)
-//        imageView.scaleType = ImageView.ScaleType.FIT_XY
-//        imageView.adjustViewBounds = true
-//        imageView.setImageBitmap(qrImage)
-//        var editText = dialogRoot.findViewById<EditText>(R.id.filename)
-//
-//        var builder = AlertDialog.Builder(this)
-//        builder.setView(dialogRoot)
-//        builder.setCancelable(false)
-//        builder.setNegativeButton("Cancel", DialogInterface.OnClickListener { dialogInterface, _ ->
-//            dialogInterface.dismiss()
-//            readerView.resume()
-//        })
-//        builder.setPositiveButton("Save", DialogInterface.OnClickListener { dialogInterface, _ ->
-//            val outDir = File(Environment.getExternalStorageDirectory().absolutePath, "priQR")
-//            if (!outDir.exists()) outDir.mkdirs()
-//
-//            var outputName: String
-//            outputName = if (editText.text.toString() != "") {
-//                editText.text.toString()
-//            } else {
-//                SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
-//            }
-//            if (File(outDir.absolutePath, "${outputName}.png").exists()) {
-//                var count = 1
-//                while (File(outDir.absolutePath, "${outputName}-${count}.png").exists()) {
-//                    count++
-//                }
-//                FileOutputStream(File(outDir.absolutePath, "${outputName}-${count}.png")).use {
-//                    qrImage.compress(Bitmap.CompressFormat.PNG, 100, it)
-//                }
-//            } else {
-//                FileOutputStream(File(outDir.absolutePath, "${outputName}.png")).use {
-//                    qrImage.compress(Bitmap.CompressFormat.PNG, 100, it)
-//                }
-//            }
-//            readerView.resume()
-//        })
-//        builder.show()
-//    }
-
     override fun onResume() {
         super.onResume()
         qrReaderView.resume()
