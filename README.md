@@ -28,6 +28,12 @@ Now PriManager can build normally.
 
 
 
+## Support
+プルリクエスト等も歓迎です。   
+Contact me → [@keyka_p](https://twitter.com/keyka_p)  
+
+Kyash ID: money   
+Monacoin : [MUu78YZDtsqv7jo6EG55hjUnhgyCJuFgVE](https://monappy.jp/u/khrom)  
 
 ## License
 
