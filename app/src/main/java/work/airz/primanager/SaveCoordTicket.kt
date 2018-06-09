@@ -3,6 +3,7 @@ package work.airz.primanager
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.drawable.BitmapDrawable
 import android.os.AsyncTask
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -10,6 +11,7 @@ import android.view.View
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_save_coord_ticket.*
 import work.airz.primanager.db.DBConstants
+import work.airz.primanager.db.DBFormat
 import work.airz.primanager.db.DBUtil
 import work.airz.primanager.qr.QRUtil
 import java.net.HttpURLConnection
@@ -62,7 +64,6 @@ class SaveCoordTicket : AppCompatActivity(), View.OnClickListener {
         like.setText(coordTicket.like)
         brand.setText(coordTicket.brand)
         arcade_series.setText(coordTicket.arcadeSeries)
-
         Toast.makeText(applicationContext, "データを読み込みました", Toast.LENGTH_SHORT).show()
     }
 
@@ -124,9 +125,23 @@ class SaveCoordTicket : AppCompatActivity(), View.OnClickListener {
         }.execute()
     }
 
-    fun saveData() {
+    private fun saveData() {
         id.setText(id.text.toString().toUpperCase())
-
+        val coordTicket = DBFormat.CoordTicket(
+                QRUtil.byteToString(rawData),
+                id.text.toString(),
+                name.text.toString(),
+                rarity.text.toString(),
+                brand.text.toString(),
+                color.text.toString(),
+                category.text.toString(),
+                genre.text.toString(),
+                like.text.toString().toInt(),
+                arcade_series.text.toString(),
+                date.text.toString(),
+                (thumbnail.drawable as BitmapDrawable).bitmap,
+                memo.text.toString())
+        dbUtil.addCoordTicketData(coordTicket)
     }
 
     private fun getPrichanCoordData(): HashMap<String, CoordDetail> {
