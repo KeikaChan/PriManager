@@ -10,7 +10,6 @@ import com.journeyapps.barcodescanner.BarcodeCallback
 import com.journeyapps.barcodescanner.BarcodeResult
 import com.journeyapps.barcodescanner.DecoratedBarcodeView
 import kotlinx.android.synthetic.main.activity_qr.*
-import kotlinx.android.synthetic.main.activity_save_follow_ticket.*
 import work.airz.primanager.db.DBConstants
 import work.airz.primanager.db.DBFormat.*
 import work.airz.primanager.db.DBUtil
@@ -61,8 +60,6 @@ class QRActivity : AppCompatActivity() {
     fun analyzeQR(data: ByteArray, result: BarcodeResult) {
         qrReaderView.pause()
 
-        val qrBitmap = QRUtil.createQR(data, result.result.maskIndex, result.sourceData.isInverted, QRUtil.detectVersionM(result.rawBytes.size))
-
         val dbUtil = DBUtil(applicationContext)
         val rawString = QRUtil.byteToString(data)
 
@@ -72,39 +69,39 @@ class QRActivity : AppCompatActivity() {
         Log.d("qrformat", qrFormat.toString())
 
         when (QRUtil.detectQRFormat(data)) {
-            QRUtil.QRType.PRICHAN_FOLLOW -> {
+            QRUtil.TicketType.PRICHAN_FOLLOW -> {
                 val followUserID = QRUtil.getFollowUserID(data)
                 val followedUsers = dbUtil.getUserList().filter { dbUtil.isFollowed(it, followUserID) }
                 val isDuplicate = dbUtil.isDuplicate(DBConstants.FOLLOW_TICKET_TABLE, rawString)
                 when {
-                    followedUsers.isNotEmpty() -> followedAlert(data, qrFormat, followedUsers, QRUtil.QRType.PRICHAN_FOLLOW, isDuplicate)
-                    isDuplicate -> duplicateDataAlert(data, qrFormat, QRUtil.QRType.PRICHAN_FOLLOW)
-                    else -> saveAlert(data, qrFormat, QRUtil.QRType.PRICHAN_FOLLOW)
+                    followedUsers.isNotEmpty() -> followedAlert(data, qrFormat, followedUsers, QRUtil.TicketType.PRICHAN_FOLLOW, isDuplicate)
+                    isDuplicate -> duplicateDataAlert(data, qrFormat, QRUtil.TicketType.PRICHAN_FOLLOW)
+                    else -> saveAlert(data, qrFormat, QRUtil.TicketType.PRICHAN_FOLLOW)
                 }
             }
-            QRUtil.QRType.PRICHAN_COORD -> {
-                if (dbUtil.isDuplicate(DBConstants.COORD_TICKET_TABLE, rawString)) duplicateDataAlert(data, qrFormat, QRUtil.QRType.PRICHAN_COORD)
-                saveAlert(data, qrFormat, QRUtil.QRType.PRICHAN_COORD)
+            QRUtil.TicketType.PRICHAN_COORD -> {
+                if (dbUtil.isDuplicate(DBConstants.COORD_TICKET_TABLE, rawString)) duplicateDataAlert(data, qrFormat, QRUtil.TicketType.PRICHAN_COORD)
+                saveAlert(data, qrFormat, QRUtil.TicketType.PRICHAN_COORD)
             }
-            QRUtil.QRType.OTHERS -> { //基本的にプリパラのトモチケは来ない前提で考える
-                if (dbUtil.isDuplicate(DBConstants.COORD_TICKET_TABLE, rawString)) duplicateDataAlert(data, qrFormat, QRUtil.QRType.OTHERS)
-                else nazoDataAlert(data, qrFormat, QRUtil.QRType.OTHERS)//謎データであることを告知する
+            QRUtil.TicketType.OTHERS -> { //基本的にプリパラのトモチケは来ない前提で考える
+                if (dbUtil.isDuplicate(DBConstants.COORD_TICKET_TABLE, rawString)) duplicateDataAlert(data, qrFormat, QRUtil.TicketType.OTHERS)
+                else nazoDataAlert(data, qrFormat, QRUtil.TicketType.OTHERS)//謎データであることを告知する
 
             }
         }
 
     }
 
-    private fun saveAlert(rawData: ByteArray, qrFormat: QRUtil.QRFormat, type: QRUtil.QRType) {
+    private fun saveAlert(rawData: ByteArray, qrFormat: QRUtil.QRFormat, type: QRUtil.TicketType) {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("新データ")
         builder.setCancelable(false)
         builder.setMessage("まだ保存されていない物のようです。保存しますか？")
         builder.setPositiveButton("はい", { _, _ ->
             when (type) {
-                QRUtil.QRType.PRICHAN_FOLLOW -> intentFollow(rawData, qrFormat, type, false)
-                QRUtil.QRType.PRICHAN_COORD -> intentCoord(rawData, qrFormat, type, false)
-                QRUtil.QRType.OTHERS -> intentCoord(rawData, qrFormat, type, false)
+                QRUtil.TicketType.PRICHAN_FOLLOW -> intentFollow(rawData, qrFormat, type, false)
+                QRUtil.TicketType.PRICHAN_COORD -> intentCoord(rawData, qrFormat, type, false)
+                QRUtil.TicketType.OTHERS -> intentCoord(rawData, qrFormat, type, false)
             }
             finish()
         })
@@ -118,7 +115,7 @@ class QRActivity : AppCompatActivity() {
     /**
      * 謎データが来たときのアラート
      */
-    private fun nazoDataAlert(rawData: ByteArray, qrFormat: QRUtil.QRFormat, type: QRUtil.QRType) {
+    private fun nazoDataAlert(rawData: ByteArray, qrFormat: QRUtil.QRFormat, type: QRUtil.TicketType) {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("未知のデータ形式")
         builder.setCancelable(false)
@@ -137,16 +134,16 @@ class QRActivity : AppCompatActivity() {
     /**
      * データ重複時のアラート
      */
-    private fun duplicateDataAlert(rawData: ByteArray, qrFormat: QRUtil.QRFormat, type: QRUtil.QRType) {
+    private fun duplicateDataAlert(rawData: ByteArray, qrFormat: QRUtil.QRFormat, type: QRUtil.TicketType) {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("既にデータが存在します")
         builder.setCancelable(false)
         builder.setMessage("データを編集しますか？")
         builder.setPositiveButton("はい", { _, _ ->
             when (type) {
-                QRUtil.QRType.PRICHAN_FOLLOW -> intentFollow(rawData, qrFormat, type, true)
-                QRUtil.QRType.PRICHAN_COORD -> intentCoord(rawData, qrFormat, type, true)
-                QRUtil.QRType.OTHERS -> intentCoord(rawData, qrFormat, type, true)
+                QRUtil.TicketType.PRICHAN_FOLLOW -> intentFollow(rawData, qrFormat, type, true)
+                QRUtil.TicketType.PRICHAN_COORD -> intentCoord(rawData, qrFormat, type, true)
+                QRUtil.TicketType.OTHERS -> intentCoord(rawData, qrFormat, type, true)
             }
             finish()
         })
@@ -161,7 +158,7 @@ class QRActivity : AppCompatActivity() {
     /**
      * フォロー済みのときのアラート
      */
-    private fun followedAlert(rawData: ByteArray, qrFormat: QRUtil.QRFormat, followdList: List<User>, type: QRUtil.QRType, isDuplicate: Boolean) {
+    private fun followedAlert(rawData: ByteArray, qrFormat: QRUtil.QRFormat, followdList: List<User>, type: QRUtil.TicketType, isDuplicate: Boolean) {
         val head = if (!isDuplicate) "このフォロチケは登録されていませんが、読み取ったユーザは以下のユーザでフォローしています。" else "以下のユーザでフォローしています。"
         val strb = StringBuilder("${head}編集しますか？\n")
 
@@ -187,7 +184,7 @@ class QRActivity : AppCompatActivity() {
      * @param qrFormat qrの形式
      * @param type QRのタイプ
      */
-    private fun intentFollow(rawData: ByteArray, qrFormat: QRUtil.QRFormat, type: QRUtil.QRType, isDuplicate: Boolean) {
+    private fun intentFollow(rawData: ByteArray, qrFormat: QRUtil.QRFormat, type: QRUtil.TicketType, isDuplicate: Boolean) {
         startActivity(Intent(this, SaveFollowTicket::class.java).apply {
             putExtra(QRUtil.RAW, rawData)
             putExtra(QRUtil.TICKET_TYPE, type)
@@ -203,7 +200,7 @@ class QRActivity : AppCompatActivity() {
      * @param qrFormat qrの形式
      * @param type QRのタイプ
      */
-    private fun intentCoord(rawData: ByteArray, qrFormat: QRUtil.QRFormat, type: QRUtil.QRType, isDuplicate: Boolean) {
+    private fun intentCoord(rawData: ByteArray, qrFormat: QRUtil.QRFormat, type: QRUtil.TicketType, isDuplicate: Boolean) {
         startActivity(Intent(this, SaveCoordTicket::class.java).apply {
             putExtra(QRUtil.RAW, rawData)
             putExtra(QRUtil.TICKET_TYPE, type)

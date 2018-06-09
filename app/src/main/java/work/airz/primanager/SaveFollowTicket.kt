@@ -4,7 +4,6 @@ import android.content.Intent
 import android.graphics.drawable.BitmapDrawable
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_save_follow_ticket.*
@@ -14,11 +13,11 @@ import work.airz.primanager.db.DBUtil
 import work.airz.primanager.qr.QRUtil
 
 class SaveFollowTicket : AppCompatActivity(), View.OnClickListener {
-    lateinit var rawData: ByteArray
-    lateinit var ticketType: QRUtil.QRFormat
-    lateinit var qrFormat: QRUtil.QRType
+    private lateinit var rawData: ByteArray
+    private lateinit var ticketType: QRUtil.TicketType
+    private lateinit var qrFormat: QRUtil.QRFormat
 
-    lateinit var dbUtil: DBUtil
+    private lateinit var dbUtil: DBUtil
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,13 +30,13 @@ class SaveFollowTicket : AppCompatActivity(), View.OnClickListener {
         dbUtil = DBUtil(applicationContext)
 
         rawData = intent.getByteArrayExtra(QRUtil.RAW) ?: return
-        ticketType = intent.getSerializableExtra(QRUtil.QR_FORMAT) as? QRUtil.QRFormat ?: return
-        qrFormat = intent.getSerializableExtra(QRUtil.TICKET_TYPE) as? QRUtil.QRType ?: return
-        arcade_series.setText(if (qrFormat == QRUtil.QRType.PRICHAN_FOLLOW){
-             DBConstants.PRICHAN
-         }else{
-             DBConstants.OTHERS
-         })
+        ticketType = intent.getSerializableExtra(QRUtil.TICKET_TYPE) as? QRUtil.TicketType ?: return
+        qrFormat = intent.getSerializableExtra(QRUtil.QR_FORMAT) as? QRUtil.QRFormat ?: return
+        arcade_series.setText(if (ticketType == QRUtil.TicketType.PRICHAN_FOLLOW) {
+            DBConstants.PRICHAN
+        } else {
+            DBConstants.OTHERS
+        })
         if (intent.getBooleanExtra(QRUtil.IS_DUPLICATE, false)) getStoredData()
     }
 
@@ -50,7 +49,7 @@ class SaveFollowTicket : AppCompatActivity(), View.OnClickListener {
         coord.setText(followTicket.coordinate)
         arcade_series.setText(followTicket.arcade_series)
         thumbnail.setImageBitmap(followTicket.image)
-        Toast.makeText(applicationContext,"データを読み込みました",Toast.LENGTH_SHORT).show()
+        Toast.makeText(applicationContext, "データを読み込みました", Toast.LENGTH_SHORT).show()
     }
 
     override fun onClick(v: View) {
@@ -66,6 +65,9 @@ class SaveFollowTicket : AppCompatActivity(), View.OnClickListener {
                 saveData()
                 startActivity(Intent(this, QRActivity::class.java).apply { flags = Intent.FLAG_ACTIVITY_SINGLE_TOP })
                 finish()
+            }
+            R.id.display_qr -> {
+                QRUtil.saveQRAlert(rawData, qrFormat, applicationContext)
             }
         }
     }

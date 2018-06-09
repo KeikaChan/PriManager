@@ -1,13 +1,24 @@
 package work.airz.primanager.qr
 
+import android.content.Context
+import android.content.DialogInterface
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.os.Environment
+import android.support.v7.app.AlertDialog
+import android.view.LayoutInflater
+import android.widget.EditText
+import android.widget.ImageView
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.EncodeHintType
 import com.google.zxing.MultiFormatWriter
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel
+import work.airz.primanager.R
+import java.io.File
+import java.io.FileOutputStream
 import java.io.Serializable
 import java.nio.charset.Charset
+import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -16,7 +27,7 @@ class QRUtil {
         const val RAW = "raw"
         const val TICKET_TYPE = "ticket_type"
         const val QR_FORMAT = "qr_format"
-        const val IS_DUPLICATE ="is_duplicate"
+        const val IS_DUPLICATE = "is_duplicate"
 
         /**
          * This function is only support when "error correction level is M and also size is 14 ~ 213"
@@ -86,11 +97,11 @@ class QRUtil {
          * @param data QRコードデータ
          * @return QRコードの形式
          */
-        fun detectQRFormat(data: ByteArray): QRType {
+        fun detectQRFormat(data: ByteArray): TicketType {
             return when {
-                isPriChanFollowTicket(data) -> QRType.PRICHAN_FOLLOW
-                isPriChanCodeTicket(data) -> QRType.PRICHAN_COORD
-                else -> QRType.OTHERS
+                isPriChanFollowTicket(data) -> TicketType.PRICHAN_FOLLOW
+                isPriChanCodeTicket(data) -> TicketType.PRICHAN_COORD
+                else -> TicketType.OTHERS
             }
         }
 
@@ -160,6 +171,54 @@ class QRUtil {
             data.forEach { strb.append(String.format("%02X", it)) }
             return strb.toString()
         }
+
+
+        /**
+         * qrコード保存用
+         */
+        fun saveQRAlert(data: ByteArray, qrFormat: QRUtil.QRFormat, context: Context) {
+            val qrBitmap = QRUtil.createQR(data, qrFormat.maskIndex, qrFormat.isInverted, qrFormat.version)
+            val inflater = LayoutInflater.from(context)
+            var dialogRoot = inflater.inflate(R.layout.save_dialog, null)
+
+            var imageView = dialogRoot.findViewById<ImageView>(R.id.qrimage)
+            imageView.scaleType = ImageView.ScaleType.FIT_XY
+            imageView.adjustViewBounds = true
+            imageView.setImageBitmap(qrBitmap)
+            var editText = dialogRoot.findViewById<EditText>(R.id.filename)
+
+            var builder = AlertDialog.Builder(context)
+            builder.setView(dialogRoot)
+            builder.setCancelable(false)
+            builder.setNegativeButton("Cancel", DialogInterface.OnClickListener { dialogInterface, _ ->
+                dialogInterface.dismiss()
+            })
+            builder.setPositiveButton("Save", DialogInterface.OnClickListener { dialogInterface, _ ->
+                val outDir = File(Environment.getExternalStorageDirectory().absolutePath, "priQR")
+                if (!outDir.exists()) outDir.mkdirs()
+
+                var outputName: String
+                outputName = if (editText.text.toString() != "") {
+                    editText.text.toString()
+                } else {
+                    SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+                }
+                if (File(outDir.absolutePath, "${outputName}.png").exists()) {
+                    var count = 1
+                    while (File(outDir.absolutePath, "${outputName}-${count}.png").exists()) {
+                        count++
+                    }
+                    FileOutputStream(File(outDir.absolutePath, "${outputName}-${count}.png")).use {
+                        qrBitmap.compress(Bitmap.CompressFormat.PNG, 100, it)
+                    }
+                } else {
+                    FileOutputStream(File(outDir.absolutePath, "${outputName}.png")).use {
+                        qrBitmap.compress(Bitmap.CompressFormat.PNG, 100, it)
+                    }
+                }
+            })
+            builder.show()
+        }
     }
 
 
@@ -219,7 +278,7 @@ class QRUtil {
         }
     }
 
-    enum class QRType : Serializable {
+    enum class TicketType : Serializable {
         PRICHAN_FOLLOW, PRICHAN_COORD, OTHERS //OTHERS にはプリパラの他、映画特典のプリチャンのチケットも含むよ。現状ではここまでしかわからない。
 
     }
