@@ -1,30 +1,41 @@
 package work.airz.primanager
 
+import android.app.Activity
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
+import android.net.Uri
 import android.os.AsyncTask
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Environment
+import android.provider.MediaStore
+import android.support.v4.content.FileProvider
+import android.util.Log
 import android.view.View
+import android.widget.ImageView
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_save_coord_ticket.*
 import work.airz.primanager.db.DBConstants
 import work.airz.primanager.db.DBFormat
 import work.airz.primanager.db.DBUtil
 import work.airz.primanager.qr.QRUtil
+import java.io.ByteArrayOutputStream
+import java.io.File
 import java.net.HttpURLConnection
 import java.net.URL
+import java.text.SimpleDateFormat
+import java.util.*
 
-class SaveCoordTicket : AppCompatActivity(), View.OnClickListener {
+class SaveCoordTicket : AppCompatActivity(), View.OnClickListener, SaveQR {
     private lateinit var coordList: HashMap<String, CoordDetail>
     private lateinit var rawData: ByteArray
     private lateinit var ticketType: QRUtil.TicketType
     private lateinit var qrFormat: QRUtil.QRFormat
 
     private lateinit var dbUtil: DBUtil
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +45,7 @@ class SaveCoordTicket : AppCompatActivity(), View.OnClickListener {
         continuation.setOnClickListener(this)
         get_data.setOnClickListener(this)
         display_qr.setOnClickListener(this)
+        thumbnail.setOnClickListener(this)
         coordList = getPrichanCoordData()
 
         dbUtil = DBUtil(applicationContext)
@@ -51,7 +63,7 @@ class SaveCoordTicket : AppCompatActivity(), View.OnClickListener {
 
     }
 
-    private fun getStoredData() {
+    override fun getStoredData() {
         val coordTicket = dbUtil.getCoordTicket(QRUtil.byteToString(rawData))
         thumbnail.setImageBitmap(coordTicket.image)
         rarity.setText(coordTicket.rarity)
@@ -86,7 +98,7 @@ class SaveCoordTicket : AppCompatActivity(), View.OnClickListener {
                 id.setText(id.text.toString().toUpperCase())
                 val detail = coordList[id.text.toString()]
                 if (detail != null) {
-                    setImage(detail.imageUrl)
+                    setImage(detail.imageUrl, thumbnail)
                     name.setText(detail.name)
                     rarity.setText(detail.rarity)
                     color.setText(detail.color)
@@ -98,34 +110,63 @@ class SaveCoordTicket : AppCompatActivity(), View.OnClickListener {
 
                 }
             }
+            R.id.thumbnail -> {
+                try {
+                    startActivityForResult(Intent(MediaStore.ACTION_IMAGE_CAPTURE).apply {
+                        putExtra("return-data", true)
+                        putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(applicationContext, "${BuildConfig.APPLICATION_ID}.fileprovider", File(applicationContext.cacheDir, "temp/temp.png")))
+                    }, SaveConstants.CAMERA_CAPTURE)
+                } catch (e: ActivityNotFoundException) {
+                    Log.e("image cropping", "crop not supported")
+                }
+            }
             R.id.display_qr -> {
                 QRUtil.saveQRAlert(rawData, qrFormat, applicationContext)
+            }
+
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode != Activity.RESULT_OK) return
+        val imageUri = FileProvider.getUriForFile(applicationContext, "${BuildConfig.APPLICATION_ID}.fileprovider", File(applicationContext.cacheDir, "temp/temp.png"))
+        when (requestCode) {
+            SaveConstants.CAMERA_CAPTURE -> {
+                val bitmap: Bitmap = BitmapFactory.decodeStream(contentResolver.openInputStream(imageUri))
+                thumbnail.setImageBitmap(bitmap)
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, ByteArrayOutputStream())
+                performCrop(Uri.parse(MediaStore.Images.Media.insertImage(contentResolver, bitmap, "", null)), imageUri)
+            }
+            SaveConstants.CROP_PIC -> {
+                thumbnail.setImageURI(imageUri)
             }
         }
     }
 
-    private fun setImage(url: String) {
-        object : MyAsyncTask() {
-            override fun doInBackground(vararg params: Void): Bitmap? {
-                val url = URL(url)
-                val urlConnection = url.openConnection()  as? HttpURLConnection ?: return null
-                urlConnection.readTimeout = 5000
-                urlConnection.connectTimeout = 7000
-                urlConnection.requestMethod = "GET"
-                urlConnection.doInput = true
-                urlConnection.connect()
-                return BitmapFactory.decodeStream(urlConnection.inputStream)
-            }
+    fun performCrop(orgUri: Uri, outputUri: Uri) {
+        try {
+            startActivityForResult(Intent("com.android.camera.action.CROP").apply {
+                setDataAndType(orgUri, "image/*")
+                putExtra("crop", "true")
+                putExtra("aspectX", 1)
+                putExtra("aspectY", 1)
+                putExtra("outputX", 256)
+                putExtra("outputY", 256)
+                putExtra("return-data", true)
+                putExtra(MediaStore.EXTRA_OUTPUT, outputUri)
+            }, SaveConstants.CROP_PIC)
 
-            override fun onPostExecute(result: Bitmap?) {
-                super.onPostExecute(result)
-                result ?: return
-                thumbnail.setImageBitmap(result)
-            }
-        }.execute()
+        } catch (e: ActivityNotFoundException) {
+            Log.e("image cropping", "this device doesn't support crop action")
+        }
     }
 
-    private fun saveData() {
+    private fun setImage(url: String, thumbnail: ImageView) {
+        ImageAsyncTask().execute(url, thumbnail)
+    }
+
+    override fun saveData() {
         id.setText(id.text.toString().toUpperCase())
         val coordTicket = DBFormat.CoordTicket(
                 QRUtil.byteToString(rawData),
@@ -155,7 +196,7 @@ class SaveCoordTicket : AppCompatActivity(), View.OnClickListener {
         return coordHash
     }
 
-    private class CoordDetail(val csvdata: String) {
+    private class CoordDetail(csvdata: String) {
         val name: String
         val imageUrl: String
         val category: String
@@ -180,15 +221,29 @@ class SaveCoordTicket : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    private open class MyAsyncTask : AsyncTask<Void, Void, Bitmap>() {
-        override fun doInBackground(vararg params: Void): Bitmap? {
-            return null
-        }
 
-        override fun onPostExecute(result: Bitmap?) {
-            super.onPostExecute(result)
-            result ?: return
+    companion object {
+        open class ImageAsyncTask : AsyncTask<Any, Void, Bitmap>() {
+            var imageView: ImageView? = null
+            override fun doInBackground(vararg params: Any): Bitmap? {
+                val url = URL(params[0] as? String ?: return null)
+                imageView = params[1] as? ImageView ?: return null
+                val urlConnection = url.openConnection()  as? HttpURLConnection ?: return null
+                urlConnection.readTimeout = 5000
+                urlConnection.connectTimeout = 7000
+                urlConnection.requestMethod = "GET"
+                urlConnection.doInput = true
+                urlConnection.connect()
+                return BitmapFactory.decodeStream(urlConnection.inputStream)
+            }
+
+            override fun onPostExecute(result: Bitmap?) {
+                super.onPostExecute(result)
+                result ?: return
+                imageView!!.setImageBitmap(result)
+            }
         }
     }
+
 
 }
