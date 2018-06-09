@@ -51,7 +51,17 @@ class SaveCoordTicket : AppCompatActivity(), View.OnClickListener {
 
     private fun getStoredData() {
         val coordTicket = dbUtil.getCoordTicket(QRUtil.byteToString(rawData))
-
+        thumbnail.setImageBitmap(coordTicket.image)
+        rarity.setText(coordTicket.rarity)
+        name.setText(coordTicket.coordName)
+        id.setText(coordTicket.coordId)
+        date.setText(coordTicket.date)
+        color.setText(coordTicket.color)
+        category.setText(coordTicket.category)
+        genre.setText(coordTicket.genre)
+        like.setText(coordTicket.like)
+        brand.setText(coordTicket.brand)
+        arcade_series.setText(coordTicket.arcadeSeries)
 
         Toast.makeText(applicationContext, "データを読み込みました", Toast.LENGTH_SHORT).show()
     }
@@ -83,7 +93,7 @@ class SaveCoordTicket : AppCompatActivity(), View.OnClickListener {
                     genre.setText(detail.genre)
                     like.setText(detail.like)
                     brand.setText(detail.brand)
-                    arcade_series.setText("プリ☆チャン")
+                    arcade_series.setText("プリチャン")
 
                 }
             }
@@ -115,6 +125,7 @@ class SaveCoordTicket : AppCompatActivity(), View.OnClickListener {
     }
 
     fun saveData() {
+        id.setText(id.text.toString().toUpperCase())
 
     }
 
