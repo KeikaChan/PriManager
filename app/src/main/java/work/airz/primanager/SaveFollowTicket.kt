@@ -2,6 +2,7 @@ package work.airz.primanager
 
 import android.app.Activity
 import android.content.ActivityNotFoundException
+import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
@@ -82,10 +83,27 @@ class SaveFollowTicket : AppCompatActivity(), View.OnClickListener {
             R.id.display_qr -> {
                 QRUtil.saveQRAlert(rawData, qrFormat, applicationContext)
             }
-            R.id.select_follow ->{
-//               AlertDialog.Builder(applicationContext).apply {
-//
-//                }.show()
+            R.id.select_follow -> {
+                val userList = dbUtil.getUserList()
+                val userListString = mutableListOf<String>()
+                val userFollowList = mutableListOf<Boolean>()
+                val targetId = QRUtil.getFollowUserID(rawData)
+                userList.forEach { userListString.add(it.userName) }
+                userList.forEach { userFollowList.add(dbUtil.isFollowed(it, targetId)) }
+                AlertDialog.Builder(applicationContext).apply {
+                    setTitle("どのアカウントでフォローする？")
+                    setMultiChoiceItems(userListString.toTypedArray(), userFollowList.toBooleanArray(), { dialog, which, isChecked ->
+                        userFollowList[which] = isChecked
+                    })
+                    setPositiveButton("保存", { dialog, id ->
+                        userFollowList.withIndex().forEach {
+                            if(it.value){
+                                dbUtil.followUser(userList[it.index],DBFormat.UserFollow(targetId,"null","null","null")) //TODO:最後の保存時にまとめて追加するようにする
+                            }
+                        }
+                        dialog.dismiss()
+                    })
+                }.show()
             }
             R.id.thumbnail -> {
                 try {
@@ -96,6 +114,7 @@ class SaveFollowTicket : AppCompatActivity(), View.OnClickListener {
             }
         }
     }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode != Activity.RESULT_OK) return
