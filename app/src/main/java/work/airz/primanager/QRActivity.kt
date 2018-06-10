@@ -99,65 +99,65 @@ class QRActivity : AppCompatActivity() {
     }
 
     private fun saveAlert(rawData: ByteArray, qrFormat: QRUtil.QRFormat, type: QRUtil.TicketType) {
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("新データ")
-        builder.setCancelable(false)
-        builder.setMessage("まだ保存されていない物のようです。保存しますか？")
-        builder.setPositiveButton("はい", { _, _ ->
-            when (type) {
-                QRUtil.TicketType.PRICHAN_FOLLOW -> intentFollow(rawData, qrFormat, type, false)
-                QRUtil.TicketType.PRICHAN_COORD -> intentCoord(rawData, qrFormat, type, false)
-                QRUtil.TicketType.OTHERS -> intentCoord(rawData, qrFormat, type, false)
-            }
-            finish()
-        })
-        builder.setNegativeButton("いいえ", { dialog, _ ->
-            dialog.dismiss()
-            qrReaderView.resume()
-        })
-        builder.show()
+        AlertDialog.Builder(this).apply {
+            setTitle("新データ")
+            setCancelable(false)
+            setMessage("まだ保存されていない物のようです。保存しますか？")
+            setPositiveButton("はい", { _, _ ->
+                when (type) {
+                    QRUtil.TicketType.PRICHAN_FOLLOW -> intentFollow(rawData, qrFormat, type, false)
+                    QRUtil.TicketType.PRICHAN_COORD -> intentCoord(rawData, qrFormat, type, false)
+                    QRUtil.TicketType.OTHERS -> intentCoord(rawData, qrFormat, type, false)
+                }
+                finish()
+            })
+            setNegativeButton("いいえ", { dialog, _ ->
+                dialog.dismiss()
+                qrReaderView.resume()
+            })
+        }.show()
     }
 
     /**
      * 謎データが来たときのアラート
      */
     private fun nazoDataAlert(rawData: ByteArray, qrFormat: QRUtil.QRFormat, type: QRUtil.TicketType) {
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("未知のデータ形式")
-        builder.setCancelable(false)
-        builder.setMessage("コーデ保存に飛びます。よろしいですか？")
-        builder.setPositiveButton("はい", { _, _ ->
-            intentCoord(rawData, qrFormat, type, false)
-            finish()
-        })
-        builder.setNegativeButton("いいえ", { dialog, _ ->
-            dialog.dismiss()
-            qrReaderView.resume()
-        })
-        builder.show()
+        AlertDialog.Builder(this).apply {
+            setTitle("未知のデータ形式")
+            setCancelable(false)
+            setMessage("コーデ保存に飛びます。よろしいですか？")
+            setPositiveButton("はい", { _, _ ->
+                intentCoord(rawData, qrFormat, type, false)
+                finish()
+            })
+            setNegativeButton("いいえ", { dialog, _ ->
+                dialog.dismiss()
+                qrReaderView.resume()
+            })
+        }.show()
     }
 
     /**
      * データ重複時のアラート
      */
     private fun duplicateDataAlert(rawData: ByteArray, qrFormat: QRUtil.QRFormat, type: QRUtil.TicketType) {
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("既にデータが存在します")
-        builder.setCancelable(false)
-        builder.setMessage("データを編集しますか？")
-        builder.setPositiveButton("はい", { _, _ ->
-            when (type) {
-                QRUtil.TicketType.PRICHAN_FOLLOW -> intentFollow(rawData, qrFormat, type, true)
-                QRUtil.TicketType.PRICHAN_COORD -> intentCoord(rawData, qrFormat, type, true)
-                QRUtil.TicketType.OTHERS -> intentCoord(rawData, qrFormat, type, true)
-            }
-            finish()
-        })
-        builder.setNegativeButton("いいえ", { dialog, _ ->
-            dialog.dismiss()
-            qrReaderView.resume()
-        })
-        builder.show()
+        AlertDialog.Builder(this).apply {
+            setTitle("既にデータが存在します")
+            setCancelable(false)
+            setMessage("データを編集しますか？")
+            setPositiveButton("はい", { _, _ ->
+                when (type) {
+                    QRUtil.TicketType.PRICHAN_FOLLOW -> intentFollow(rawData, qrFormat, type, true)
+                    QRUtil.TicketType.PRICHAN_COORD -> intentCoord(rawData, qrFormat, type, true)
+                    QRUtil.TicketType.OTHERS -> intentCoord(rawData, qrFormat, type, true)
+                }
+                finish()
+            })
+            setNegativeButton("いいえ", { dialog, _ ->
+                dialog.dismiss()
+                qrReaderView.resume()
+            })
+        }.show()
     }
 
 
@@ -169,19 +169,19 @@ class QRActivity : AppCompatActivity() {
         val strb = StringBuilder("${head}編集しますか？\n")
 
         followdList.forEach { strb.append("${it.userName}\n") }
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("既にフォローされています")
-        builder.setCancelable(false)
-        builder.setMessage(strb.toString())
-        builder.setPositiveButton("進む", { _, _ ->
-            intentFollow(rawData, qrFormat, type, isDuplicate)
-            qrReaderView.resume()
-        })
-        builder.setNegativeButton("戻る", { dialog, _ ->
-            dialog.dismiss()
-            qrReaderView.resume()
-        })
-        builder.show()
+        AlertDialog.Builder(this).apply {
+            setTitle("既にフォローされています")
+            setCancelable(false)
+            setMessage(strb.toString())
+            setPositiveButton("進む", { _, _ ->
+                intentFollow(rawData, qrFormat, type, isDuplicate)
+                qrReaderView.resume()
+            })
+            setNegativeButton("戻る", { dialog, _ ->
+                dialog.dismiss()
+                qrReaderView.resume()
+            })
+        }.show()
     }
 
     /**
