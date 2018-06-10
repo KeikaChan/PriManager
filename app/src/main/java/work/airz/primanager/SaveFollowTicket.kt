@@ -90,9 +90,7 @@ class SaveFollowTicket : AppCompatActivity(), View.OnClickListener {
                 val targetId = QRUtil.getFollowUserID(rawData)
                 userList.forEach { userListString.add(it.userName) }
                 userList.forEach { userFollowList.add(dbUtil.isFollowed(it, targetId)) }
-                userListString.add("test")
-                userFollowList.add(true)
-                AlertDialog.Builder(applicationContext).apply {
+                AlertDialog.Builder(this).apply {
                     setTitle("どのアカウントでフォローする？")
                     setMultiChoiceItems(userListString.toTypedArray(), userFollowList.toBooleanArray(), { dialog, which, isChecked ->
                         userFollowList[which] = isChecked
