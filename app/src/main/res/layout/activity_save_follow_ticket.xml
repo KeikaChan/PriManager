@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SaveFollowTicket">
+    <ImageView
+        android:id="@+id/thumbnail"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:contentDescription="thumbnail"
+        android:src="@android:drawable/ic_menu_camera"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:contentDescription="Name of coord ticket"
+        android:ems="10"
+        android:hint="User name of follow ticket"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/thumbnail"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/brand_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="coorde"
+        android:gravity="center"
+        android:text="FW"
+        android:textSize="5pt"
+        app:layout_constraintBottom_toBottomOf="@+id/follower_text"
+        app:layout_constraintEnd_toStartOf="@+id/follower_text"
+        app:layout_constraintStart_toStartOf="@+id/name"
+        app:layout_constraintTop_toTopOf="@+id/follower_text" />
+
+    <EditText
+        android:id="@+id/follower_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="Follower"
+        android:inputType="number"
+        android:textSize="6pt"
+        app:layout_constraintEnd_toStartOf="@+id/fo"
+        app:layout_constraintStart_toEndOf="@+id/brand_label"
+        app:layout_constraintTop_toBottomOf="@+id/name" />
+
+    <TextView
+        android:id="@+id/fo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="coorde"
+        android:gravity="center"
+        android:text="FO"
+        android:textSize="5pt"
+        app:layout_constraintBottom_toBottomOf="@+id/follow_text"
+        app:layout_constraintEnd_toStartOf="@+id/follow_text"
+        app:layout_constraintStart_toEndOf="@+id/follower_text"
+        app:layout_constraintTop_toTopOf="@+id/follow_text"
+        app:layout_constraintVertical_bias="0.666" />
+
+    <EditText
+        android:id="@+id/follow_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="Follow"
+        android:inputType="number"
+        android:textSize="6pt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/fo"
+        app:layout_constraintTop_toBottomOf="@+id/name" />
+
+    <EditText
+        android:id="@+id/date"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="date"
+        android:inputType="date"
+        android:textSize="6pt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/name"
+        app:layout_constraintTop_toBottomOf="@+id/follower_text" />
+
+    <Button
+        android:id="@+id/select_follow"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:text="フォロー選択"
+        android:textSize="5pt"
+        app:layout_constraintEnd_toEndOf="@+id/thumbnail"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/thumbnail" />
+
+    <TextView
+        android:id="@+id/coord_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="coorde"
+        android:gravity="center"
+        android:text="コーデ"
+        app:layout_constraintBottom_toBottomOf="@+id/coord"
+        app:layout_constraintStart_toStartOf="@+id/name"
+        app:layout_constraintTop_toTopOf="@+id/coord" />
+
+    <TextView
+        android:id="@+id/arcade_series_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:contentDescription="coorde"
+        android:gravity="center"
+        android:text="ゲーム種別"
+        app:layout_constraintBottom_toBottomOf="@+id/arcade_series"
+        app:layout_constraintEnd_toStartOf="@+id/arcade_series"
+        app:layout_constraintStart_toStartOf="@+id/name"
+        app:layout_constraintTop_toTopOf="@+id/arcade_series" />
+
+    <EditText
+        android:id="@+id/coord"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="brand name"
+        android:ems="10"
+        android:hint="ハッピーレイン♪"
+        android:textSize="6pt"
+        app:layout_constraintEnd_toEndOf="@+id/name"
+        app:layout_constraintStart_toEndOf="@+id/coord_label"
+        app:layout_constraintTop_toBottomOf="@+id/date" />
+
+    <EditText
+        android:id="@+id/arcade_series"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="brand name"
+        android:ems="10"
+        android:hint="プリチャン"
+        android:textSize="6pt"
+        app:layout_constraintEnd_toEndOf="@+id/name"
+        app:layout_constraintStart_toEndOf="@+id/arcade_series_label"
+        app:layout_constraintTop_toBottomOf="@+id/coord" />
+
+    <EditText
+        android:id="@+id/memo"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        android:ems="10"
+        android:hint="メモ用"
+        android:inputType="textMultiLine"
+        app:layout_constraintBottom_toTopOf="@+id/continuation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/arcade_series" />
+
+    <Button
+        android:id="@+id/display_qr"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="QR表示"
+        app:layout_constraintEnd_toEndOf="@+id/select_follow"
+        app:layout_constraintStart_toStartOf="@+id/select_follow"
+        app:layout_constraintTop_toBottomOf="@+id/select_follow" />
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/thumbnail"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/select_follow" />
+
+    <Button
+        android:id="@+id/destruction"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:text="破棄"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/continuation"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/continuation" />
+
+    <Button
+        android:id="@+id/continuation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:text="続けて撮る"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/save"
+        app:layout_constraintStart_toEndOf="@+id/destruction" />
+
+    <Button
+        android:id="@+id/save"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="保存"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/continuation"
+        app:layout_constraintTop_toTopOf="@+id/continuation" />
+</android.support.constraint.ConstraintLayout>

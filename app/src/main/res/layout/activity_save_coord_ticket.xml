@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SaveCoordTicket">
+
+    <ImageView
+        android:id="@+id/thumbnail"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:contentDescription="thumbnail"
+        android:src="@android:drawable/ic_menu_camera"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/rarity"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="rarity"
+        android:ems="10"
+        android:hint="KR"
+        android:inputType="textPersonName"
+        android:textSize="8pt"
+        app:layout_constraintBottom_toBottomOf="@+id/name"
+        app:layout_constraintEnd_toStartOf="@+id/name"
+        app:layout_constraintStart_toEndOf="@+id/thumbnail"
+        app:layout_constraintTop_toTopOf="@+id/name" />
+
+    <EditText
+        android:id="@+id/name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginTop="32dp"
+        android:contentDescription="Name of coord ticket"
+        android:ems="10"
+        android:hint="Name Of Coordinate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/rarity"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/category"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="8dp"
+        android:ems="10"
+        android:hint="category"
+        android:inputType="text"
+        android:textSize="7pt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/color"
+        app:layout_constraintTop_toBottomOf="@+id/id" />
+
+    <EditText
+        android:id="@+id/like"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="like"
+        android:inputType="text"
+        android:textSize="7pt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/like_label"
+        app:layout_constraintTop_toBottomOf="@+id/category" />
+
+    <EditText
+        android:id="@+id/date"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="date"
+        android:inputType="date"
+        android:textSize="7pt"
+        app:layout_constraintEnd_toEndOf="@+id/thumbnail"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/thumbnail" />
+
+    <EditText
+        android:id="@+id/id"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="id"
+        android:inputType="textCapCharacters"
+        android:textSize="7pt"
+        app:layout_constraintEnd_toStartOf="@+id/get_data"
+        app:layout_constraintStart_toStartOf="@+id/rarity"
+        app:layout_constraintTop_toBottomOf="@+id/name" />
+
+    <EditText
+        android:id="@+id/color"
+        android:layout_width="55dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="color"
+        android:inputType="text"
+        android:textSize="7pt"
+        app:layout_constraintBottom_toBottomOf="@+id/category"
+        app:layout_constraintEnd_toStartOf="@+id/category"
+        app:layout_constraintStart_toStartOf="@+id/rarity"
+        app:layout_constraintTop_toTopOf="@+id/category" />
+
+    <EditText
+        android:id="@+id/genre"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="genre"
+        android:inputType="text"
+        android:textSize="7pt"
+        app:layout_constraintBottom_toBottomOf="@+id/like"
+        app:layout_constraintEnd_toStartOf="@+id/like_label"
+        app:layout_constraintStart_toStartOf="@+id/rarity"
+        app:layout_constraintTop_toTopOf="@+id/like" />
+
+    <Button
+        android:id="@+id/get_data"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginEnd="24dp"
+        android:text="補完"
+        android:textSize="5pt"
+        app:layout_constraintBottom_toBottomOf="@+id/id"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/id"
+        app:layout_constraintTop_toTopOf="@+id/id" />
+
+    <TextView
+        android:id="@+id/brand_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="brand"
+        android:gravity="center"
+        android:text="ブランド"
+        app:layout_constraintBottom_toBottomOf="@+id/brand"
+        app:layout_constraintEnd_toStartOf="@+id/brand"
+        app:layout_constraintStart_toStartOf="@+id/rarity"
+        app:layout_constraintTop_toTopOf="@+id/brand" />
+
+    <TextView
+        android:id="@+id/like_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="brand"
+        android:gravity="center"
+        android:text="いいね"
+        app:layout_constraintBottom_toBottomOf="@+id/like"
+        app:layout_constraintEnd_toStartOf="@+id/like"
+        app:layout_constraintStart_toEndOf="@+id/genre"
+        app:layout_constraintTop_toTopOf="@+id/like" />
+
+    <TextView
+        android:id="@+id/arcade_series_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:contentDescription="brand"
+        android:gravity="center"
+        android:text="ゲーム種別"
+        app:layout_constraintBottom_toBottomOf="@+id/arcade_series"
+        app:layout_constraintEnd_toStartOf="@+id/arcade_series"
+        app:layout_constraintStart_toStartOf="@+id/rarity"
+        app:layout_constraintTop_toTopOf="@+id/arcade_series" />
+
+    <EditText
+        android:id="@+id/brand"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="brand name"
+        android:ems="10"
+        android:hint="SweetHoney"
+        android:textSize="7pt"
+        app:layout_constraintEnd_toEndOf="@+id/name"
+        app:layout_constraintStart_toEndOf="@+id/brand_label"
+        app:layout_constraintTop_toBottomOf="@+id/genre" />
+
+    <EditText
+        android:id="@+id/arcade_series"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="brand name"
+        android:ems="10"
+        android:hint="プリチャン"
+        android:textSize="7pt"
+        app:layout_constraintEnd_toEndOf="@+id/name"
+        app:layout_constraintStart_toEndOf="@+id/arcade_series_label"
+        app:layout_constraintTop_toBottomOf="@+id/brand" />
+
+    <EditText
+        android:id="@+id/memo"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="メモ用"
+        android:inputType="textMultiLine"
+        app:layout_constraintBottom_toTopOf="@+id/continuation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/arcade_series" />
+
+    <Button
+        android:id="@+id/display_qr"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:text="QR表示"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/thumbnail"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/get_data" />
+
+    <Button
+        android:id="@+id/destruction"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:text="破棄"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/continuation"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/continuation" />
+
+    <Button
+        android:id="@+id/continuation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:text="続けて撮る"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/save"
+        app:layout_constraintStart_toEndOf="@+id/destruction" />
+
+    <Button
+        android:id="@+id/save"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="保存"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/continuation"
+        app:layout_constraintTop_toTopOf="@+id/continuation" />
+
+</android.support.constraint.ConstraintLayout>

@@ -1,17 +1,33 @@
 package work.airz.primanager.qr
 
+import android.content.Context
+import android.content.DialogInterface
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.os.Environment
+import android.support.v7.app.AlertDialog
+import android.view.LayoutInflater
+import android.widget.EditText
+import android.widget.ImageView
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.EncodeHintType
 import com.google.zxing.MultiFormatWriter
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel
+import work.airz.primanager.R
+import java.io.File
+import java.io.FileOutputStream
+import java.io.Serializable
 import java.nio.charset.Charset
+import java.text.SimpleDateFormat
 import java.util.*
 
 
 class QRUtil {
     companion object {
+        const val RAW = "raw"
+        const val TICKET_TYPE = "ticket_type"
+        const val QR_FORMAT = "qr_format"
+        const val IS_DUPLICATE = "is_duplicate"
 
         /**
          * This function is only support when "error correction level is M and also size is 14 ~ 213"
@@ -39,14 +55,14 @@ class QRUtil {
         /**
          * QRコードを作成します
          * @param data qr data
-         * @param maskindex mask index (it can get BarcodeResult.result.maskIndex)
+         * @param maskIndex mask index (it can get BarcodeResult.result.maskIndex)
          * @param isInverted PriChan/PriPara format
          * @param version version of QR Code
          */
-        fun createQR(data: ByteArray, maskindex: Int, isInverted: Boolean, version: Int): Bitmap {
+        fun createQR(data: ByteArray, maskIndex: Int, isInverted: Boolean, version: Int): Bitmap {
             var hints = EnumMap<EncodeHintType, Object>(EncodeHintType::class.java)
             hints[EncodeHintType.ERROR_CORRECTION] = ErrorCorrectionLevel.M as Object
-            hints[EncodeHintType.MASK_INDEX] = maskindex as Object
+            hints[EncodeHintType.MASK_INDEX] = maskIndex as Object
             hints[EncodeHintType.QR_VERSION] = version as Object
 
             val image = MultiFormatWriter().encode(String(data, Charset.forName("ISO-8859-1")), BarcodeFormat.QR_CODE, 256, 256, hints)
@@ -81,11 +97,11 @@ class QRUtil {
          * @param data QRコードデータ
          * @return QRコードの形式
          */
-        fun detectQRFormat(data: ByteArray): QRFormat {
+        fun detectQRFormat(data: ByteArray): TicketType {
             return when {
-                isPriChanFollowTicket(data) -> QRFormat.PRICHAN_FOLLOW
-                isPriChanCodeTicket(data) -> QRFormat.PRICHAN_COORD
-                else -> QRFormat.OTHERS
+                isPriChanFollowTicket(data) -> TicketType.PRICHAN_FOLLOW
+                isPriChanCodeTicket(data) -> TicketType.PRICHAN_COORD
+                else -> TicketType.OTHERS
             }
         }
 
@@ -155,10 +171,113 @@ class QRUtil {
             data.forEach { strb.append(String.format("%02X", it)) }
             return strb.toString()
         }
+
+
+        /**
+         * qrコード保存用
+         */
+        fun saveQRAlert(data: ByteArray, qrFormat: QRUtil.QRFormat, context: Context) {
+            val qrBitmap = QRUtil.createQR(data, qrFormat.maskIndex, qrFormat.isInverted, qrFormat.version)
+            val inflater = LayoutInflater.from(context)
+            var dialogRoot = inflater.inflate(R.layout.save_dialog, null)
+
+            var imageView = dialogRoot.findViewById<ImageView>(R.id.qrimage)
+            imageView.scaleType = ImageView.ScaleType.FIT_XY
+            imageView.adjustViewBounds = true
+            imageView.setImageBitmap(qrBitmap)
+            var editText = dialogRoot.findViewById<EditText>(R.id.filename)
+
+            var builder = AlertDialog.Builder(context)
+            builder.setView(dialogRoot)
+            builder.setCancelable(false)
+            builder.setNegativeButton("Cancel", DialogInterface.OnClickListener { dialogInterface, _ ->
+                dialogInterface.dismiss()
+            })
+            builder.setPositiveButton("Save", DialogInterface.OnClickListener { dialogInterface, _ ->
+                val outDir = File(Environment.getExternalStorageDirectory().absolutePath, "priQR")
+                if (!outDir.exists()) outDir.mkdirs()
+
+                var outputName: String = if (editText.text.toString() != "") {
+                    editText.text.toString()
+                } else {
+                    SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+                }
+                if (File(outDir.absolutePath, "${outputName}.png").exists()) {
+                    var count = 1
+                    while (File(outDir.absolutePath, "${outputName}-${count}.png").exists()) {
+                        count++
+                    }
+                    FileOutputStream(File(outDir.absolutePath, "${outputName}-${count}.png")).use {
+                        qrBitmap.compress(Bitmap.CompressFormat.PNG, 100, it)
+                    }
+                } else {
+                    FileOutputStream(File(outDir.absolutePath, "${outputName}.png")).use {
+                        qrBitmap.compress(Bitmap.CompressFormat.PNG, 100, it)
+                    }
+                }
+            })
+            builder.show()
+        }
     }
 
 
-    enum class QRFormat {
+    class QRFormat(val errorCorrectionLevel: ErrorCorrectionLevel = ErrorCorrectionLevel.M, val maskIndex: Int = 1, val isInverted: Boolean = false, val version: Int = 2) : Serializable {
+
+        /**
+         * データ形式のテキスト化
+         */
+        override fun toString(): String {
+            val stringBuilder = StringBuilder()
+            stringBuilder.append("${getErrorCorrectionString(errorCorrectionLevel)},")
+            stringBuilder.append("${maskIndex},")
+            stringBuilder.append("$isInverted,")
+            stringBuilder.append("$version,")
+            return stringBuilder.toString()
+        }
+
+        /**
+         * String形式で送られてきたデータのパース
+         * @param qrformat qrコードのフォーマットデータ
+         * @return 整形済みデータ
+         */
+        fun parseString(qrformat: String): QRFormat {
+            val split = qrformat.split(",")
+            return QRFormat(getStringToErrorCorrectionLevel(split[0]), split[1].toInt(), split[2].toBoolean(), split[3].toInt())
+
+        }
+
+        /**
+         * Emumのエラーレベルを文字列に変換
+         * @param errorCorrectionLevel エラーレベル
+         * @return Stringに変換したデータ
+         */
+        fun getErrorCorrectionString(errorCorrectionLevel: ErrorCorrectionLevel): String {
+            return when (errorCorrectionLevel) {
+                ErrorCorrectionLevel.M -> "M"
+                ErrorCorrectionLevel.L -> "L"
+                ErrorCorrectionLevel.H -> "H"
+                ErrorCorrectionLevel.Q -> "Q"
+                else -> "M"
+            }
+        }
+
+        /**
+         * 文字列からエラーレベルを起こす
+         * @param errorCorrectionString エラーレベル
+         * @return エラーレベルのenum
+         */
+        fun getStringToErrorCorrectionLevel(errorCorrectionString: String): ErrorCorrectionLevel {
+            return when (errorCorrectionString) {
+                "M" -> ErrorCorrectionLevel.M
+                "L" -> ErrorCorrectionLevel.L
+                "H" -> ErrorCorrectionLevel.H
+                "Q" -> ErrorCorrectionLevel.Q
+                else -> ErrorCorrectionLevel.M
+            }
+        }
+    }
+
+    enum class TicketType : Serializable {
         PRICHAN_FOLLOW, PRICHAN_COORD, OTHERS //OTHERS にはプリパラの他、映画特典のプリチャンのチケットも含むよ。現状ではここまでしかわからない。
 
     }

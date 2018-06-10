@@ -39,9 +39,11 @@ class MyDatabaseOpenHelper(context: Context) : ManagedSQLiteOpenHelper(context, 
                 DBConstants.RARITY to TEXT,
                 DBConstants.BRAND to TEXT,
                 DBConstants.COLOR to TEXT,
+                DBConstants.CATEGORY to TEXT,
+                DBConstants.GENRE to TEXT,
+                DBConstants.LIKE to INTEGER,
                 DBConstants.ARCADE_SERIES to TEXT,
                 DBConstants.DATE to TEXT,
-                DBConstants.WHICH_ACCOUNT to TEXT,
                 DBConstants.IMAGE to BLOB,
                 DBConstants.MEMO to TEXT)
 
