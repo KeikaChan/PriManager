@@ -11,7 +11,6 @@ import android.net.Uri
 import android.os.AsyncTask
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Environment
 import android.provider.MediaStore
 import android.support.v4.content.FileProvider
 import android.util.Log
@@ -23,14 +22,12 @@ import work.airz.primanager.db.DBConstants
 import work.airz.primanager.db.DBFormat
 import work.airz.primanager.db.DBUtil
 import work.airz.primanager.qr.QRUtil
-import java.io.ByteArrayOutputStream
 import java.io.File
 import java.net.HttpURLConnection
 import java.net.URL
-import java.text.SimpleDateFormat
 import java.util.*
 
-class SaveCoordTicket : AppCompatActivity(), View.OnClickListener, SaveQR {
+class SaveCoordTicket : AppCompatActivity(), View.OnClickListener, SaveTicket {
     private lateinit var coordList: HashMap<String, CoordDetail>
     private lateinit var rawData: ByteArray
     private lateinit var ticketType: QRUtil.TicketType
@@ -118,12 +115,7 @@ class SaveCoordTicket : AppCompatActivity(), View.OnClickListener, SaveQR {
             }
             R.id.thumbnail -> {
                 try {
-                    val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE).apply {
-                        putExtra("return-data", true)
-                        putExtra(MediaStore.EXTRA_OUTPUT, TEMP_URI)
-                    }
-                    grantUriPermission(intent)
-                    startActivityForResult(intent, SaveConstants.CAMERA_CAPTURE)
+                    startActivityForResult(SavePhoto.getCaptureIntent(TEMP_URI, applicationContext), SavePhoto.CAMERA_CAPTURE)
                 } catch (e: ActivityNotFoundException) {
                     Log.e("image cropping", "crop not supported")
                 }
@@ -139,37 +131,20 @@ class SaveCoordTicket : AppCompatActivity(), View.OnClickListener, SaveQR {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode != Activity.RESULT_OK) return
         when (requestCode) {
-            SaveConstants.CAMERA_CAPTURE -> {
-                performCrop(TEMP_URI, TEMP_URI)
+            SavePhoto.CAMERA_CAPTURE -> {
+                performCrop()
             }
-            SaveConstants.CROP_PIC -> {
+            SavePhoto.CROP_PIC -> {
                 thumbnail.setImageURI(TEMP_URI)
             }
         }
     }
 
-    fun performCrop(orgUri: Uri, outputUri: Uri) {
+    private fun performCrop() {
         try {
-            val intent = Intent("com.android.camera.action.CROP").apply {
-                setDataAndType(orgUri, "image/*")
-                putExtra("crop", "true")
-                putExtra("aspectX", 1)
-                putExtra("aspectY", 1)
-                putExtra("outputX", 256)
-                putExtra("outputY", 256)
-                putExtra("return-data", true)
-                putExtra(MediaStore.EXTRA_OUTPUT, outputUri)
-            }
-            grantUriPermission(intent)
-            startActivityForResult(intent, SaveConstants.CROP_PIC)
+            startActivityForResult(SavePhoto.getCropIntent(TEMP_URI, applicationContext), SavePhoto.CROP_PIC)
         } catch (e: ActivityNotFoundException) {
             Log.e("image cropping", "this device doesn't support crop action")
-        }
-    }
-
-    private fun grantUriPermission(intent: Intent) {
-        applicationContext.packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY).forEach {
-            applicationContext.grantUriPermission(it.activityInfo.packageName, TEMP_URI, Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
         }
     }
 
