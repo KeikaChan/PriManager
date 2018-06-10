@@ -1,12 +1,13 @@
 package work.airz.primanager
 
-import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.support.annotation.RequiresApi
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
+import android.view.WindowManager
 
 import kotlinx.android.synthetic.main.activity_members.*
-import work.airz.primanager.qr.QRUtil
 
 class MembersActivity : AppCompatActivity() {
 
@@ -15,11 +16,11 @@ class MembersActivity : AppCompatActivity() {
         setContentView(R.layout.activity_members)
         setSupportActionBar(toolbar)
 
+        supportFragmentManager.beginTransaction().replace(R.id.container, TicketListFragment()).commit()
+
         fab.setOnClickListener { view ->
-            startActivity(Intent(this, QRActivity::class.java).apply {
-                flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
-                putExtra(QRUtil.IS_MEMBERS_CARD, true)
-            })
+            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show()
         }
     }
 

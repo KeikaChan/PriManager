@@ -5,13 +5,13 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.folloticket_item.view.*
+import kotlinx.android.synthetic.main.ticket_item.view.*
 
 
-class RecyclerAdapter(val context: Context, val itemClickListener: RecyclerViewHolder.ItemClickListener, val itemList: List<String>) : RecyclerView.Adapter<RecyclerViewHolder>() {
+class RecyclarViewAdapter(val context: Context, val itemClickListener: RecyclerViewHolder.ItemClickListener, val itemList: List<String>) : RecyclerView.Adapter<RecyclerViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewHolder {
         val layoutInflater = LayoutInflater.from(context)
-        val mView = layoutInflater.inflate(R.layout.folloticket_item, parent, false)
+        val mView = layoutInflater.inflate(R.layout.ticket_item, parent, false)
 
         mView.setOnClickListener { view: View ->
             recyclerView?.let {
@@ -27,6 +27,7 @@ class RecyclerAdapter(val context: Context, val itemClickListener: RecyclerViewH
             it.itemView.titleText.text = itemList[position]
 //            it.itemImageView.setImageResource(R.mipmap.ic_launcher)
         }
+
     }
 
     private var recyclerView: RecyclerView? = null
