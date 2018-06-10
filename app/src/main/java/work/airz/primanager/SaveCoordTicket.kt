@@ -162,7 +162,7 @@ class SaveCoordTicket : AppCompatActivity(), View.OnClickListener, SaveTicket {
                 color.text.toString(),
                 category.text.toString(),
                 genre.text.toString(),
-                like.text.toString().toInt(),
+                if (like.text.toString().isEmpty()) 0 else like.text.toString().toInt(),
                 arcade_series.text.toString(),
                 date.text.toString(),
                 (thumbnail.drawable as BitmapDrawable).bitmap,
