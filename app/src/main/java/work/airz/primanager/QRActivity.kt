@@ -175,7 +175,7 @@ class QRActivity : AppCompatActivity() {
             setMessage(strb.toString())
             setPositiveButton("進む", { _, _ ->
                 intentFollow(rawData, qrFormat, type, isDuplicate)
-                qrReaderView.resume()
+                finish()
             })
             setNegativeButton("戻る", { dialog, _ ->
                 dialog.dismiss()
