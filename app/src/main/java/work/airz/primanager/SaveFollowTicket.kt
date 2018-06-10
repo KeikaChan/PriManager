@@ -63,6 +63,7 @@ class SaveFollowTicket : AppCompatActivity(), View.OnClickListener {
         coord.setText(followTicket.coordinate)
         arcade_series.setText(followTicket.arcade_series)
         thumbnail.setImageBitmap(followTicket.image)
+        display_qr.visibility = View.VISIBLE
         Toast.makeText(applicationContext, "データを読み込みました", Toast.LENGTH_SHORT).show()
     }
 
@@ -81,7 +82,7 @@ class SaveFollowTicket : AppCompatActivity(), View.OnClickListener {
                 finish()
             }
             R.id.display_qr -> {
-                QRUtil.saveQRAlert(rawData, qrFormat, applicationContext)
+                QRUtil.saveQRAlert(rawData, qrFormat, this)
             }
             R.id.select_follow -> {
                 val userList = dbUtil.getUserList()
@@ -90,6 +91,8 @@ class SaveFollowTicket : AppCompatActivity(), View.OnClickListener {
                 val targetId = QRUtil.getFollowUserID(rawData)
                 userList.forEach { userListString.add(it.userName) }
                 userList.forEach { userFollowList.add(dbUtil.isFollowed(it, targetId)) }
+                userListString.add("test")
+                userFollowList.add(true)
                 AlertDialog.Builder(applicationContext).apply {
                     setTitle("どのアカウントでフォローする？")
                     setMultiChoiceItems(userListString.toTypedArray(), userFollowList.toBooleanArray(), { dialog, which, isChecked ->
@@ -97,12 +100,16 @@ class SaveFollowTicket : AppCompatActivity(), View.OnClickListener {
                     })
                     setPositiveButton("保存", { dialog, id ->
                         userFollowList.withIndex().forEach {
-                            if(it.value){
-                                dbUtil.followUser(userList[it.index],DBFormat.UserFollow(targetId,"null","null","null")) //TODO:最後の保存時にまとめて追加するようにする
+                            if (it.value) {
+                                dbUtil.followUser(userList[it.index], DBFormat.UserFollow(targetId, "null", "null", "null")) //TODO:最後の保存時にまとめて追加するようにする
                             }
                         }
                         dialog.dismiss()
                     })
+                    setNegativeButton("キャンセル", { dialog, which ->
+                        dialog.dismiss()
+                    })
+
                 }.show()
             }
             R.id.thumbnail -> {

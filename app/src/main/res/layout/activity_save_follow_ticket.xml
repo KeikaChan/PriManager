@@ -190,9 +190,11 @@
         android:id="@+id/display_qr"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
         android:text="QR表示"
+        app:layout_constraintEnd_toEndOf="@+id/select_follow"
+        app:layout_constraintStart_toStartOf="@+id/select_follow"
+        app:layout_constraintTop_toBottomOf="@+id/select_follow" />
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@+id/thumbnail"
         app:layout_constraintStart_toStartOf="parent"
