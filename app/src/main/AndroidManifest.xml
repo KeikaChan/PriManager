@@ -40,8 +40,13 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/paths"/>
+                android:resource="@xml/paths" />
         </provider>
+
+        <activity
+            android:name=".MembersActivity"
+            android:label="@string/title_activity_members"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
