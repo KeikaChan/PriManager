@@ -26,14 +26,14 @@ class SavePhoto {
             return intent
         }
 
-        fun getCropIntent(temp: Uri, context: Context): Intent {
+        fun getCropIntent(temp: Uri, context: Context, aspectx: Int = 1, aspecty: Int = 1, sizex: Int = 512, sizey: Int = 512): Intent {
             val intent = Intent("com.android.camera.action.CROP").apply {
                 setDataAndType(temp, "image/*")
                 putExtra("crop", "true")
-                putExtra("aspectX", 1)
-                putExtra("aspectY", 1)
-                putExtra("outputX", 512)
-                putExtra("outputY", 512)
+                putExtra("aspectX", aspectx)
+                putExtra("aspectY", aspecty)
+                putExtra("outputX", sizex)
+                putExtra("outputY", sizey)
                 putExtra("return-data", true)
                 putExtra(MediaStore.EXTRA_OUTPUT, temp)
             }
