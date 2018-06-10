@@ -3,6 +3,7 @@ package work.airz.primanager
 import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
@@ -37,6 +38,8 @@ class SaveCoordTicket : AppCompatActivity(), View.OnClickListener, SaveQR {
 
     private lateinit var dbUtil: DBUtil
 
+    private lateinit var TEMP_URI: Uri
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_save_coord_ticket)
@@ -46,6 +49,9 @@ class SaveCoordTicket : AppCompatActivity(), View.OnClickListener, SaveQR {
         get_data.setOnClickListener(this)
         display_qr.setOnClickListener(this)
         thumbnail.setOnClickListener(this)
+
+        TEMP_URI = FileProvider.getUriForFile(applicationContext, "${BuildConfig.APPLICATION_ID}.fileprovider", File(applicationContext.cacheDir.absolutePath, "temp.png"))
+
         coordList = getPrichanCoordData()
 
         dbUtil = DBUtil(applicationContext)
@@ -73,7 +79,7 @@ class SaveCoordTicket : AppCompatActivity(), View.OnClickListener, SaveQR {
         color.setText(coordTicket.color)
         category.setText(coordTicket.category)
         genre.setText(coordTicket.genre)
-        like.setText(coordTicket.like)
+        like.setText(coordTicket.like.toString())
         brand.setText(coordTicket.brand)
         arcade_series.setText(coordTicket.arcadeSeries)
         Toast.makeText(applicationContext, "データを読み込みました", Toast.LENGTH_SHORT).show()
@@ -112,10 +118,12 @@ class SaveCoordTicket : AppCompatActivity(), View.OnClickListener, SaveQR {
             }
             R.id.thumbnail -> {
                 try {
-                    startActivityForResult(Intent(MediaStore.ACTION_IMAGE_CAPTURE).apply {
+                    val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE).apply {
                         putExtra("return-data", true)
-                        putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(applicationContext, "${BuildConfig.APPLICATION_ID}.fileprovider", File(applicationContext.cacheDir, "temp/temp.png")))
-                    }, SaveConstants.CAMERA_CAPTURE)
+                        putExtra(MediaStore.EXTRA_OUTPUT, TEMP_URI)
+                    }
+                    grantUriPermission(intent)
+                    startActivityForResult(intent, SaveConstants.CAMERA_CAPTURE)
                 } catch (e: ActivityNotFoundException) {
                     Log.e("image cropping", "crop not supported")
                 }
@@ -130,23 +138,19 @@ class SaveCoordTicket : AppCompatActivity(), View.OnClickListener, SaveQR {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode != Activity.RESULT_OK) return
-        val imageUri = FileProvider.getUriForFile(applicationContext, "${BuildConfig.APPLICATION_ID}.fileprovider", File(applicationContext.cacheDir, "temp/temp.png"))
         when (requestCode) {
             SaveConstants.CAMERA_CAPTURE -> {
-                val bitmap: Bitmap = BitmapFactory.decodeStream(contentResolver.openInputStream(imageUri))
-                thumbnail.setImageBitmap(bitmap)
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, ByteArrayOutputStream())
-                performCrop(Uri.parse(MediaStore.Images.Media.insertImage(contentResolver, bitmap, "", null)), imageUri)
+                performCrop(TEMP_URI, TEMP_URI)
             }
             SaveConstants.CROP_PIC -> {
-                thumbnail.setImageURI(imageUri)
+                thumbnail.setImageURI(TEMP_URI)
             }
         }
     }
 
     fun performCrop(orgUri: Uri, outputUri: Uri) {
         try {
-            startActivityForResult(Intent("com.android.camera.action.CROP").apply {
+            val intent = Intent("com.android.camera.action.CROP").apply {
                 setDataAndType(orgUri, "image/*")
                 putExtra("crop", "true")
                 putExtra("aspectX", 1)
@@ -155,10 +159,17 @@ class SaveCoordTicket : AppCompatActivity(), View.OnClickListener, SaveQR {
                 putExtra("outputY", 256)
                 putExtra("return-data", true)
                 putExtra(MediaStore.EXTRA_OUTPUT, outputUri)
-            }, SaveConstants.CROP_PIC)
-
+            }
+            grantUriPermission(intent)
+            startActivityForResult(intent, SaveConstants.CROP_PIC)
         } catch (e: ActivityNotFoundException) {
             Log.e("image cropping", "this device doesn't support crop action")
+        }
+    }
+
+    private fun grantUriPermission(intent: Intent) {
+        applicationContext.packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY).forEach {
+            applicationContext.grantUriPermission(it.activityInfo.packageName, TEMP_URI, Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
         }
     }
 

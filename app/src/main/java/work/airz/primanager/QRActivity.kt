@@ -80,12 +80,18 @@ class QRActivity : AppCompatActivity() {
                 }
             }
             QRUtil.TicketType.PRICHAN_COORD -> {
-                if (dbUtil.isDuplicate(DBConstants.COORD_TICKET_TABLE, rawString)) duplicateDataAlert(data, qrFormat, QRUtil.TicketType.PRICHAN_COORD)
-                saveAlert(data, qrFormat, QRUtil.TicketType.PRICHAN_COORD)
+                when {
+                    dbUtil.isDuplicate(DBConstants.COORD_TICKET_TABLE, rawString) -> duplicateDataAlert(data, qrFormat, QRUtil.TicketType.PRICHAN_COORD)
+                    else -> saveAlert(data, qrFormat, QRUtil.TicketType.PRICHAN_COORD)
+                }
+
             }
             QRUtil.TicketType.OTHERS -> { //基本的にプリパラのトモチケは来ない前提で考える
-                if (dbUtil.isDuplicate(DBConstants.COORD_TICKET_TABLE, rawString)) duplicateDataAlert(data, qrFormat, QRUtil.TicketType.OTHERS)
-                else nazoDataAlert(data, qrFormat, QRUtil.TicketType.OTHERS)//謎データであることを告知する
+                when {
+                    dbUtil.isDuplicate(DBConstants.COORD_TICKET_TABLE, rawString) -> duplicateDataAlert(data, qrFormat, QRUtil.TicketType.OTHERS)
+                    else -> nazoDataAlert(data, qrFormat, QRUtil.TicketType.OTHERS)//謎データであることを告知する
+
+                }
 
             }
         }
