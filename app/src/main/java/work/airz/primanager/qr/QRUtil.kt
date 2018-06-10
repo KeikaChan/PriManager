@@ -197,8 +197,7 @@ class QRUtil {
                 val outDir = File(Environment.getExternalStorageDirectory().absolutePath, "priQR")
                 if (!outDir.exists()) outDir.mkdirs()
 
-                var outputName: String
-                outputName = if (editText.text.toString() != "") {
+                var outputName: String = if (editText.text.toString() != "") {
                     editText.text.toString()
                 } else {
                     SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
