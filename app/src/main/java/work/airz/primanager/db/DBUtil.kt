@@ -31,6 +31,15 @@ class DBUtil(private val context: Context) {
         return userList.toList()
     }
 
+    /**
+     * 特定のユーザデータを取得する
+     */
+    fun getUser(rawData: String): User? {
+        val search = hashMapOf<String, User>()
+        userList.forEach { search[it.raw] = it }
+        return search[rawData]
+    }
+
 
     /**
      * フォローデータ取得用
