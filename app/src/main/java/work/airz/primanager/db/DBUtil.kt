@@ -112,9 +112,12 @@ class DBUtil(private val context: Context) {
                     DBConstants.USER_NAME to user.userName,
                     DBConstants.USER_CARD_ID to user.userCardId,
                     DBConstants.IMAGE to user.image,
+                    DBConstants.DATE to TEXT,
+                    DBConstants.MEMO to TEXT,
                     DBConstants.FOLLOWS_TABLE_NAME to user.followTableName)
 
             //動的にフォローユーザのテーブルを作る
+            //TODO: テーブル名衝突時の処理を入れる
             createTable(user.followTableName, true,
                     DBConstants.USER_ID to TEXT + PRIMARY_KEY,
                     DBConstants.USER_NAME to TEXT,
@@ -271,8 +274,8 @@ class DBUtil(private val context: Context) {
      * ユーザのQR情報からハッシュ値を作成してそれをテーブル名にする
      * "-"文字が入る関係で正の数のみ
      */
-    fun getUserHashString(user: User): String {
-        return user.raw.hashCode().absoluteValue.toString()
+    fun getUserHashString(userRawData: String): String {
+        return userRawData.hashCode().absoluteValue.toString()
     }
 
     /**
@@ -330,8 +333,8 @@ class DBUtil(private val context: Context) {
     private fun getUsers(): List<User> {
         return database.use {
             select(DBConstants.USER_TABLE).exec {
-                parseList(rowParser { raw: String, userName: String, userCardId: String, image: Bitmap, follows: String ->
-                    User(raw, userName, userCardId, image, follows)
+                parseList(rowParser { raw: String, userName: String, userCardId: String, image: Bitmap, date: String, memo: String, follows: String ->
+                    User(raw, userName, userCardId, image, date, memo, follows)
                 })
             }
         }
