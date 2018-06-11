@@ -8,14 +8,14 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.ticket_item.view.*
 
 
-class RecyclarViewAdapter(val context: Context, private val itemClickListener: IItemsList?, private val itemList: List<TicketUtils.TicketItemFormat>) : RecyclerView.Adapter<RecyclerViewHolder>() {
+class RecyclarViewAdapter(val context: Context, private val itemClickListener: IItemsList, private val itemList: List<TicketUtils.TicketItemFormat>) : RecyclerView.Adapter<RecyclerViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewHolder {
         val layoutInflater = LayoutInflater.from(context)
         val mView = layoutInflater.inflate(R.layout.ticket_item, parent, false)
 
         mView.setOnClickListener { view: View ->
             recyclerView?.let {
-                itemClickListener!!.onItemClick(view, it.getChildAdapterPosition(view))
+                itemClickListener.onItemClick(view, it.getChildAdapterPosition(view))
             }
         }
 
@@ -27,6 +27,7 @@ class RecyclarViewAdapter(val context: Context, private val itemClickListener: I
             it.itemView.titleText.text = itemList[position].title
             it.itemView.descriptionText.text = itemList[position].description
             it.itemView.thumbnail.setImageBitmap(itemList[position].thumbnail)
+            it.itemView.raw_data.text = itemList[position].raw
         }
 
     }
