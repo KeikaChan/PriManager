@@ -102,6 +102,7 @@ class DBUtil(private val context: Context) {
                     DBConstants.RAW to user.raw,
                     DBConstants.USER_NAME to user.userName,
                     DBConstants.USER_CARD_ID to user.userCardId,
+                    DBConstants.IMAGE to user.image,
                     DBConstants.FOLLOWS_TABLE_NAME to user.followTableName)
 
             //動的にフォローユーザのテーブルを作る
@@ -320,8 +321,8 @@ class DBUtil(private val context: Context) {
     private fun getUsers(): List<User> {
         return database.use {
             select(DBConstants.USER_TABLE).exec {
-                parseList(rowParser { raw: String, userName: String, userCardId: String, follows: String ->
-                    User(raw, userName, userCardId, follows)
+                parseList(rowParser { raw: String, userName: String, userCardId: String, image: Bitmap, follows: String ->
+                    User(raw, userName, userCardId, image, follows)
                 })
             }
         }

@@ -34,6 +34,7 @@ class DBFormat {
             val raw: String,
             val userName: String,
             val userCardId: String,
+            val image: Bitmap,
             val followTableName: String)
 
     class UserFollow(
