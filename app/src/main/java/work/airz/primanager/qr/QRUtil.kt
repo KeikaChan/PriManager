@@ -173,6 +173,26 @@ class QRUtil {
             return strb.toString()
         }
 
+        fun stringToByte(data: String): ByteArray {
+            val chars = data.toCharArray()
+            val len = chars.size
+            if (len and 1 != 0) {
+                return byteArrayOf()
+            } else {
+                val out = ByteArray(len shr 1)
+                var i = 0
+                var j = 0
+                while (j < len) {
+                    var f = Character.digit(chars[j], 16) shl 4
+                    j++
+                    f = f or Character.digit(chars[j], 16)
+                    j++
+                    out[i] = (f and 255).toByte()
+                    i++
+                }
+                return out
+            }
+        }
 
         /**
          * qrコード保存用
