@@ -17,11 +17,11 @@ import kotlinx.android.synthetic.main.fragment_ticket_list.view.*
  */
 class TicketListFragment : Fragment() {
 
-    private var iItemsList: IItemsList? = null
+    private lateinit var iItemsList: IItemsList
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_ticket_list, container, false)
-        view.ticket_recyclerview.adapter = RecyclarViewAdapter(activity!!.applicationContext, iItemsList, iItemsList!!.onItemList())
+        view.ticket_recyclerview.adapter = RecyclarViewAdapter(activity!!.applicationContext, iItemsList, iItemsList.onItemList())
         view.ticket_recyclerview.layoutManager = LinearLayoutManager(context)
         return view
     }
@@ -30,12 +30,13 @@ class TicketListFragment : Fragment() {
         super.onAttach(activity)
         attach()
     }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         attach()
     }
 
-    private fun attach(){
+    private fun attach() {
         if (activity !is IItemsList) {
             throw  UnsupportedOperationException(
                     "Listener is not Implementation.")
