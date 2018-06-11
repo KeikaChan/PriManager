@@ -1,5 +1,6 @@
 package work.airz.primanager
 
+import android.app.Activity
 import android.content.Context
 import android.support.v4.app.Fragment
 import android.os.Bundle
@@ -25,8 +26,16 @@ class TicketListFragment : Fragment() {
         return view
     }
 
+    override fun onAttach(activity: Activity?) {
+        super.onAttach(activity)
+        attach()
+    }
     override fun onAttach(context: Context) {
         super.onAttach(context)
+        attach()
+    }
+
+    private fun attach(){
         if (activity !is IItemsList) {
             throw  UnsupportedOperationException(
                     "Listener is not Implementation.")
