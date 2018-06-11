@@ -1,23 +1,23 @@
 package work.airz.primanager
 
-import android.graphics.BitmapFactory
-import android.os.Build
 import android.os.Bundle
-import android.support.annotation.RequiresApi
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import android.view.View
-import android.view.WindowManager
 import android.widget.Toast
-
 import kotlinx.android.synthetic.main.activity_members.*
+import kotlinx.android.synthetic.main.ticket_item.view.*
+import work.airz.primanager.db.DBUtil
 
 class MembersActivity : AppCompatActivity(), IItemsList {
+    private lateinit var dbUtil: DBUtil
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_members)
         setSupportActionBar(toolbar)
+
+        dbUtil = DBUtil(applicationContext)
 
         supportFragmentManager.beginTransaction().replace(R.id.container, TicketListFragment()).commit()
 
@@ -41,8 +41,11 @@ class MembersActivity : AppCompatActivity(), IItemsList {
     }
 
     override fun onItemList(): List<TicketUtils.TicketItemFormat> {
-        val format = TicketUtils.TicketItemFormat("title1", "title2", BitmapFactory.decodeResource(resources, R.mipmap.ic_launcher))
-        return listOf(format)
+        val userList = mutableListOf<TicketUtils.TicketItemFormat>()
+        dbUtil.getUserList().forEach {
+            userList.add(TicketUtils.TicketItemFormat(it.userName, it.userCardId, it.image))
+        }
+        return userList.toList()
     }
 
     override fun onDelete(positions: List<Int>) {
