@@ -32,6 +32,7 @@
             android:label="qr" />
         <activity android:name=".SaveFollowTicket" />
         <activity android:name=".SaveCoordTicket" />
+        <activity android:name=".SaveUserTicket" />
         <activity
             android:name=".MembersActivity"
             android:label="@string/title_activity_members"
