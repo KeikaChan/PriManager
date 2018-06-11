@@ -16,6 +16,7 @@ import kotlinx.android.synthetic.main.activity_save_follow_ticket.*
 import work.airz.primanager.db.DBConstants
 import work.airz.primanager.db.DBFormat
 import work.airz.primanager.db.DBUtil
+import work.airz.primanager.TicketUtils.*
 import work.airz.primanager.qr.QRUtil
 import java.io.File
 
@@ -157,8 +158,8 @@ class SaveFollowTicket : AppCompatActivity(), View.OnClickListener {
                 QRUtil.getFollowUserID(rawData),
                 name.text.toString(),
                 date.text.toString(),
-                if(follow_text.text.toString().isEmpty()) 0 else follow_text.text.toString().toInt(),
-                if(follower_text.text.toString().isEmpty()) 0 else follower_text.text.toString().toInt(),
+                if (follow_text.text.toString().isEmpty()) 0 else follow_text.text.toString().toInt(),
+                if (follower_text.text.toString().isEmpty()) 0 else follower_text.text.toString().toInt(),
                 coord.text.toString(),
                 arcade_series.text.toString(),
                 (thumbnail.drawable as BitmapDrawable).bitmap,
