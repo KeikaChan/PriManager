@@ -45,5 +45,5 @@ class TicketUtils {
         }
     }
 
-    class TicketItemFormat(val title: String, val description: String, val thumbnail: Bitmap)
+    class TicketItemFormat(val title: String, val description: String, val thumbnail: Bitmap, val raw: String = "")
 }
