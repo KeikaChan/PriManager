@@ -29,8 +29,6 @@ class QRActivity : AppCompatActivity() {
     /**
      * QRコードの読み取り部分の処理
      * 読み取って詳細データまで取得する
-     * TODO: 読み取りデータの重複チェックをした後にユーザチェックとか色々入れる
-     * TODO: DBとのデータ一致を確認する部分を作る
      */
     private fun readQR() {
         qrReaderView = decoratedBarcodeView
