@@ -61,7 +61,7 @@ class QRActivity : AppCompatActivity() {
         val dbUtil = DBUtil(applicationContext)
         val rawString = QRUtil.byteToString(data)
 
-        val qrFormat = QRUtil.QRFormat(QRUtil.QRFormat().getStringToErrorCorrectionLevel(result.resultMetadata[ResultMetadataType.ERROR_CORRECTION_LEVEL] as String),
+        val qrFormat = QRUtil.QRFormat(QRUtil.QRFormat.getStringToErrorCorrectionLevel(result.resultMetadata[ResultMetadataType.ERROR_CORRECTION_LEVEL] as String),
                 result.result.maskIndex,
                 result.sourceData.isInverted, QRUtil.detectVersionM(result.rawBytes.size))
         Log.d("qrformat", qrFormat.toString())
