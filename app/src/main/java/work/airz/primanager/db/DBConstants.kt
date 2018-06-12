@@ -15,6 +15,7 @@ class DBConstants {
         const val DATE = "date" //日付
         const val IMAGE = "image" //サムネイル用
         const val MEMO = "memo" //メモ
+        const val QR_FOMAT="qrformat" //qrコードの形式を入れておくための場所
 
         //コーデ用
         const val COORD_ID = "coord_id"  //コーデID PCH1-001 とか

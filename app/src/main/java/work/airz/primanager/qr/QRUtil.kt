@@ -172,6 +172,26 @@ class QRUtil {
             return strb.toString()
         }
 
+        fun stringToByte(data: String): ByteArray {
+            val chars = data.toCharArray()
+            val len = chars.size
+            if (len and 1 != 0) {
+                return byteArrayOf()
+            } else {
+                val out = ByteArray(len shr 1)
+                var i = 0
+                var j = 0
+                while (j < len) {
+                    var f = Character.digit(chars[j], 16) shl 4
+                    j++
+                    f = f or Character.digit(chars[j], 16)
+                    j++
+                    out[i] = (f and 255).toByte()
+                    i++
+                }
+                return out
+            }
+        }
 
         /**
          * qrコード保存用
@@ -222,6 +242,50 @@ class QRUtil {
 
 
     class QRFormat(val errorCorrectionLevel: ErrorCorrectionLevel = ErrorCorrectionLevel.M, val maskIndex: Int = 1, val isInverted: Boolean = false, val version: Int = 2) : Serializable {
+        companion object {
+            /**
+             * String形式で送られてきたデータのパース
+             * @param qrformat qrコードのフォーマットデータ
+             * @return 整形済みデータ
+             */
+            fun parseString(qrformat: String): QRFormat {
+                val split = qrformat.split(",")
+                return QRFormat(getStringToErrorCorrectionLevel(split[0]), split[1].toInt(), split[2].toBoolean(), split[3].toInt())
+
+            }
+
+            /**
+             * Emumのエラーレベルを文字列に変換
+             * @param errorCorrectionLevel エラーレベル
+             * @return Stringに変換したデータ
+             */
+            fun getErrorCorrectionString(errorCorrectionLevel: ErrorCorrectionLevel): String {
+                return when (errorCorrectionLevel) {
+                    ErrorCorrectionLevel.M -> "M"
+                    ErrorCorrectionLevel.L -> "L"
+                    ErrorCorrectionLevel.H -> "H"
+                    ErrorCorrectionLevel.Q -> "Q"
+                    else -> "M"
+                }
+            }
+
+            /**
+             * 文字列からエラーレベルを起こす
+             * @param errorCorrectionString エラーレベル
+             * @return エラーレベルのenum
+             */
+            fun getStringToErrorCorrectionLevel(errorCorrectionString: String): ErrorCorrectionLevel {
+                return when (errorCorrectionString) {
+                    "M" -> ErrorCorrectionLevel.M
+                    "L" -> ErrorCorrectionLevel.L
+                    "H" -> ErrorCorrectionLevel.H
+                    "Q" -> ErrorCorrectionLevel.Q
+                    else -> ErrorCorrectionLevel.M
+                }
+            }
+
+        }
+
 
         /**
          * データ形式のテキスト化
@@ -235,50 +299,10 @@ class QRUtil {
             return stringBuilder.toString()
         }
 
-        /**
-         * String形式で送られてきたデータのパース
-         * @param qrformat qrコードのフォーマットデータ
-         * @return 整形済みデータ
-         */
-        fun parseString(qrformat: String): QRFormat {
-            val split = qrformat.split(",")
-            return QRFormat(getStringToErrorCorrectionLevel(split[0]), split[1].toInt(), split[2].toBoolean(), split[3].toInt())
-
-        }
-
-        /**
-         * Emumのエラーレベルを文字列に変換
-         * @param errorCorrectionLevel エラーレベル
-         * @return Stringに変換したデータ
-         */
-        fun getErrorCorrectionString(errorCorrectionLevel: ErrorCorrectionLevel): String {
-            return when (errorCorrectionLevel) {
-                ErrorCorrectionLevel.M -> "M"
-                ErrorCorrectionLevel.L -> "L"
-                ErrorCorrectionLevel.H -> "H"
-                ErrorCorrectionLevel.Q -> "Q"
-                else -> "M"
-            }
-        }
-
-        /**
-         * 文字列からエラーレベルを起こす
-         * @param errorCorrectionString エラーレベル
-         * @return エラーレベルのenum
-         */
-        fun getStringToErrorCorrectionLevel(errorCorrectionString: String): ErrorCorrectionLevel {
-            return when (errorCorrectionString) {
-                "M" -> ErrorCorrectionLevel.M
-                "L" -> ErrorCorrectionLevel.L
-                "H" -> ErrorCorrectionLevel.H
-                "Q" -> ErrorCorrectionLevel.Q
-                else -> ErrorCorrectionLevel.M
-            }
-        }
     }
 
     enum class TicketType : Serializable {
-        PRICHAN_FOLLOW, PRICHAN_COORD, OTHERS //OTHERS にはプリパラの他、映画特典のプリチャンのチケットも含むよ。現状ではここまでしかわからない。
+        PRICHAN_FOLLOW, PRICHAN_COORD, PRICHAN_MEMBERS, OTHERS //OTHERS にはプリパラの他、映画特典のプリチャンのチケットも含むよ。現状ではここまでしかわからない。
 
     }
 }

@@ -25,9 +25,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setSupportActionBar(toolbar)
 
         fab.setOnClickListener { view ->
-            val intent = Intent(this, QRActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
-            startActivity(intent)
+            startActivity(Intent(this, QRActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+            })
         }
 
         val toggle = ActionBarDrawerToggle(
@@ -80,10 +80,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // Handle navigation view item clicks here.
         when (item.itemId) {
             R.id.nav_camera -> {
-                // Handle the camera action
+                startActivity(Intent(this, MembersActivity::class.java).apply { flags = Intent.FLAG_ACTIVITY_SINGLE_TOP })
             }
-            R.id.nav_settings ->{
-                
+            R.id.nav_settings -> {
+
             }
         }
 
@@ -109,7 +109,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private fun requestStoragePermission() {
         ActivityCompat.requestPermissions(this,
-                arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA, Manifest.permission.INTERNET), REQUEST_PERMISSION)
+                arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA, Manifest.permission.INTERNET), REQUEST_PERMISSION)
 
     }
 }

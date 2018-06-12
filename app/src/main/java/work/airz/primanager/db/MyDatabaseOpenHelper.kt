@@ -22,6 +22,7 @@ class MyDatabaseOpenHelper(context: Context) : ManagedSQLiteOpenHelper(context, 
     override fun onCreate(p0: SQLiteDatabase) {
         p0.createTable(DBConstants.FOLLOW_TICKET_TABLE, true,
                 DBConstants.RAW to TEXT + PRIMARY_KEY,
+                DBConstants.QR_FOMAT to TEXT,
                 DBConstants.USER_ID to TEXT,
                 DBConstants.USER_NAME to TEXT,
                 DBConstants.DATE to TEXT,
@@ -34,6 +35,7 @@ class MyDatabaseOpenHelper(context: Context) : ManagedSQLiteOpenHelper(context, 
 
         p0.createTable(DBConstants.COORD_TICKET_TABLE, true,
                 DBConstants.RAW to TEXT + PRIMARY_KEY,
+                DBConstants.QR_FOMAT to TEXT,
                 DBConstants.COORD_ID to TEXT,
                 DBConstants.COORD_NAME to TEXT,
                 DBConstants.RARITY to TEXT,
@@ -49,8 +51,12 @@ class MyDatabaseOpenHelper(context: Context) : ManagedSQLiteOpenHelper(context, 
 
         p0.createTable(DBConstants.USER_TABLE, true,
                 DBConstants.RAW to TEXT + PRIMARY_KEY,
+                DBConstants.QR_FOMAT to TEXT,
                 DBConstants.USER_NAME to TEXT,
                 DBConstants.USER_CARD_ID to TEXT,
+                DBConstants.IMAGE to BLOB,
+                DBConstants.DATE to TEXT,
+                DBConstants.MEMO to TEXT,
                 DBConstants.FOLLOWS_TABLE_NAME to TEXT)
 
     }

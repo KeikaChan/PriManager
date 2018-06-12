@@ -22,10 +22,11 @@ import work.airz.primanager.db.DBUtil
 import work.airz.primanager.qr.QRUtil
 import java.io.File
 import java.net.HttpURLConnection
+import work.airz.primanager.TicketUtils.*
 import java.net.URL
 import java.util.*
 
-class SaveCoordTicket : AppCompatActivity(), View.OnClickListener, SaveTicket {
+class SaveCoordTicket : AppCompatActivity(), View.OnClickListener, ISaveTicket {
     private lateinit var coordList: HashMap<String, CoordDetail>
     private lateinit var rawData: ByteArray
     private lateinit var ticketType: QRUtil.TicketType
@@ -155,6 +156,7 @@ class SaveCoordTicket : AppCompatActivity(), View.OnClickListener, SaveTicket {
         id.setText(id.text.toString().toUpperCase())
         val coordTicket = DBFormat.CoordTicket(
                 QRUtil.byteToString(rawData),
+                qrFormat,
                 id.text.toString(),
                 name.text.toString(),
                 rarity.text.toString(),

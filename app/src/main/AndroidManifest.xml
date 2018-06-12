@@ -32,6 +32,11 @@
             android:label="qr" />
         <activity android:name=".SaveFollowTicket" />
         <activity android:name=".SaveCoordTicket" />
+        <activity android:name=".SaveUserTicket" />
+        <activity
+            android:name=".MembersActivity"
+            android:label="@string/title_activity_members"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -40,8 +45,10 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/paths"/>
+                android:resource="@xml/paths" />
         </provider>
+
+
     </application>
 
 </manifest>
