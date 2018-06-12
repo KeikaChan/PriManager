@@ -51,8 +51,12 @@ class MyDatabaseOpenHelper(context: Context) : ManagedSQLiteOpenHelper(context, 
 
         p0.createTable(DBConstants.USER_TABLE, true,
                 DBConstants.RAW to TEXT + PRIMARY_KEY,
+                DBConstants.QR_FOMAT to TEXT,
                 DBConstants.USER_NAME to TEXT,
                 DBConstants.USER_CARD_ID to TEXT,
+                DBConstants.IMAGE to BLOB,
+                DBConstants.DATE to TEXT,
+                DBConstants.MEMO to TEXT,
                 DBConstants.FOLLOWS_TABLE_NAME to TEXT)
 
     }

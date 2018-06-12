@@ -17,16 +17,17 @@ class MembersActivity : AppCompatActivity(), IItemsList {
     private lateinit var dbUtil: DBUtil
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        dbUtil = DBUtil(applicationContext)
         setContentView(R.layout.activity_members)
         setSupportActionBar(toolbar)
 
-        dbUtil = DBUtil(applicationContext)
+
 
         supportFragmentManager.beginTransaction().replace(R.id.container, TicketListFragment()).commit()
 
         fab.setOnClickListener { view ->
             startActivity(Intent(this, QRActivity::class.java).apply {
-                putExtra(QRUtil.IS_MEMBERS_CARD, true)
+                putExtra(QRUtil.TICKET_TYPE, QRUtil.TicketType.PRICHAN_MEMBERS)
                 flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
             })
         }

@@ -114,9 +114,9 @@ class DBUtil(private val context: Context) {
                     DBConstants.QR_FOMAT to user.qrFormat.toString(),
                     DBConstants.USER_NAME to user.userName,
                     DBConstants.USER_CARD_ID to user.userCardId,
-                    DBConstants.IMAGE to user.image,
-                    DBConstants.DATE to TEXT,
-                    DBConstants.MEMO to TEXT,
+                    DBConstants.IMAGE to bitmapToByteArray(user.image),
+                    DBConstants.DATE to user.date,
+                    DBConstants.MEMO to user.memo,
                     DBConstants.FOLLOWS_TABLE_NAME to user.followTableName)
 
             //動的にフォローユーザのテーブルを作る
@@ -337,8 +337,8 @@ class DBUtil(private val context: Context) {
     private fun getUsers(): List<User> {
         return database.use {
             select(DBConstants.USER_TABLE).exec {
-                parseList(rowParser { raw: String, qrFormat: String, userName: String, userCardId: String, image: Bitmap, date: String, memo: String, follows: String ->
-                    User(raw, QRUtil.QRFormat.parseString(qrFormat), userName, userCardId, image, date, memo, follows)
+                parseList(rowParser { raw: String, qrFormat: String, userName: String, userCardId: String, image: ByteArray, date: String, memo: String, follows: String ->
+                    User(raw, QRUtil.QRFormat.parseString(qrFormat), userName, userCardId, byteArrayToBitmap(image), date, memo, follows)
                 })
             }
         }
