@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
@@ -43,11 +44,10 @@ class MembersActivity : AppCompatActivity(), IItemsList {
     }
 
     override fun onItemClick(view: View, position: Int) {
-        Toast.makeText(applicationContext, "position $position was tapped", Toast.LENGTH_SHORT).show()
         startActivity(Intent(this, SaveUserTicket::class.java).apply {
             putExtra(QRUtil.RAW, QRUtil.stringToByte(view.raw_data.text.toString()))
+            putExtra(QRUtil.QR_FORMAT, dbUtil.getUser(view.raw_data.text.toString())!!.qrFormat)
             putExtra(QRUtil.IS_DUPLICATE, true)
-            putExtra(QRUtil.QR_FORMAT, dbUtil.getUser(view.raw_data.text.toString())!!.qrFormat.toString())
             flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
         })
     }
