@@ -44,7 +44,7 @@ class MembersActivity : AppCompatActivity(), IItemsList {
         startActivity(Intent(this, SaveUserTicket::class.java).apply {
             putExtra(QRUtil.RAW, QRUtil.stringToByte(view.raw_data.text.toString()))
             putExtra(QRUtil.IS_DUPLICATE, true)
-            putExtra(QRUtil.QR_FORMAT, qrformat.raw_data.text.toString())
+            putExtra(QRUtil.QR_FORMAT, dbUtil.getUser(view.raw_data.text.toString())!!.qrFormat.toString())
             flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
         })
     }
@@ -52,7 +52,7 @@ class MembersActivity : AppCompatActivity(), IItemsList {
     override fun onItemList(): List<TicketUtils.TicketItemFormat> {
         val userList = mutableListOf<TicketUtils.TicketItemFormat>()
         dbUtil.getUserList().forEach {
-            userList.add(TicketUtils.TicketItemFormat(it.userName, it.userCardId, it.image, it.raw, it.qrFormat.toString()))
+            userList.add(TicketUtils.TicketItemFormat(it.userName, it.userCardId, it.image, it.raw))
         }
         return userList.toList()
     }

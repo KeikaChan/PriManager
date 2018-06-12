@@ -6,7 +6,6 @@ import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
 import android.provider.MediaStore
-import work.airz.primanager.qr.QRUtil
 
 class TicketUtils {
     class SavePhoto {
@@ -46,5 +45,5 @@ class TicketUtils {
         }
     }
 
-    class TicketItemFormat(val title: String, val description: String, val thumbnail: Bitmap, val raw: String = "", val qrFormat: String = "")
+    class TicketItemFormat(val title: String, val description: String, val thumbnail: Bitmap, val raw: String = "")
 }
