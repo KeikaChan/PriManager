@@ -1,10 +1,12 @@
 package work.airz.primanager.db
 
 import android.graphics.Bitmap
+import work.airz.primanager.qr.QRUtil
 
 class DBFormat {
     class FollowTicket(
             val raw: String,
+            val qrFormat: QRUtil.QRFormat,
             val userId: String,
             val userName: String,
             val date: String,
@@ -17,6 +19,7 @@ class DBFormat {
 
     class CoordTicket(
             val raw: String,
+            val qrFormat: QRUtil.QRFormat,
             val coordId: String,
             val coordName: String,
             val rarity: String,
@@ -32,6 +35,7 @@ class DBFormat {
 
     class User(
             val raw: String,
+            val qrFormat: QRUtil.QRFormat,
             val userName: String,
             val userCardId: String,
             val image: Bitmap,

@@ -155,6 +155,7 @@ class SaveFollowTicket : AppCompatActivity(), View.OnClickListener {
     private fun saveData() {
         val followTicket = DBFormat.FollowTicket(
                 QRUtil.byteToString(rawData),
+                qrFormat,
                 QRUtil.getFollowUserID(rawData),
                 name.text.toString(),
                 date.text.toString(),

@@ -156,6 +156,7 @@ class SaveCoordTicket : AppCompatActivity(), View.OnClickListener, ISaveTicket {
         id.setText(id.text.toString().toUpperCase())
         val coordTicket = DBFormat.CoordTicket(
                 QRUtil.byteToString(rawData),
+                qrFormat,
                 id.text.toString(),
                 name.text.toString(),
                 rarity.text.toString(),
