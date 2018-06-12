@@ -279,7 +279,7 @@ class DBUtil(private val context: Context) {
      * "-"文字が入る関係で正の数のみ
      */
     fun getUserHashString(userRawData: String): String {
-        return userRawData.hashCode().absoluteValue.toString()
+        return "p"+userRawData.hashCode().absoluteValue.toString()
     }
 
     /**
