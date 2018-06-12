@@ -1,7 +1,9 @@
 package work.airz.primanager
 
 import android.app.Activity
+import android.app.DatePickerDialog
 import android.content.ActivityNotFoundException
+import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -11,8 +13,10 @@ import android.os.AsyncTask
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.content.FileProvider
+import android.support.v7.app.AlertDialog
 import android.util.Log
 import android.view.View
+import android.widget.DatePicker
 import android.widget.ImageView
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_save_coord_ticket.*
@@ -45,6 +49,7 @@ class SaveCoordTicket : AppCompatActivity(), View.OnClickListener, ISaveTicket {
         get_data.setOnClickListener(this)
         display_qr.setOnClickListener(this)
         thumbnail.setOnClickListener(this)
+        date.setOnClickListener(this)
 
         TEMP_URI = FileProvider.getUriForFile(applicationContext, "${BuildConfig.APPLICATION_ID}.fileprovider", File(applicationContext.cacheDir.absolutePath, "temp.png"))
 
@@ -121,6 +126,20 @@ class SaveCoordTicket : AppCompatActivity(), View.OnClickListener, ISaveTicket {
             }
             R.id.display_qr -> {
                 QRUtil.saveQRAlert(rawData, qrFormat, this)
+            }
+            R.id.date -> {
+                val calender = Calendar.getInstance()
+                DatePickerDialog. (this).apply{
+                    DatePicker( applicationContext)
+                    setTitle("日付選択")
+                    setPositiveButton("Set", DialogInterface.OnClickListener { dialogInterface, i ->
+                        // TODO: dialogInterface.
+                    })
+                    setNegativeButton("Cancel", DialogInterface.OnClickListener { dialogInterface, _ ->
+                        dialogInterface.dismiss()
+                    })
+
+
             }
 
         }

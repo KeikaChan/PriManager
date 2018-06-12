@@ -75,8 +75,9 @@
         app:layout_constraintStart_toEndOf="@+id/like_label"
         app:layout_constraintTop_toBottomOf="@+id/category" />
 
-    <EditText
+    <Button
         android:id="@+id/date"
+        style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -84,6 +85,7 @@
         android:ems="10"
         android:hint="date"
         android:inputType="date"
+        android:text="日付を設定"
         android:textSize="7pt"
         app:layout_constraintEnd_toEndOf="@+id/thumbnail"
         app:layout_constraintStart_toStartOf="parent"
