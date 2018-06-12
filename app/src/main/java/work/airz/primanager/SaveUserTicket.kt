@@ -99,6 +99,7 @@ class SaveUserTicket : AppCompatActivity(), View.OnClickListener {
     private fun saveData() {
         val user = DBFormat.User(
                 QRUtil.byteToString(rawData),
+                qrFormat,
                 name.text.toString(),
                 card_id.text.toString(),
                 (thumbnail.drawable as BitmapDrawable).bitmap,
