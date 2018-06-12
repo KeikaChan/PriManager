@@ -303,7 +303,7 @@ class QRUtil {
     }
 
     enum class TicketType : Serializable {
-        PRICHAN_FOLLOW, PRICHAN_COORD, OTHERS //OTHERS にはプリパラの他、映画特典のプリチャンのチケットも含むよ。現状ではここまでしかわからない。
+        PRICHAN_FOLLOW, PRICHAN_COORD, PRICHAN_MEMBERS, OTHERS //OTHERS にはプリパラの他、映画特典のプリチャンのチケットも含むよ。現状ではここまでしかわからない。
 
     }
 }

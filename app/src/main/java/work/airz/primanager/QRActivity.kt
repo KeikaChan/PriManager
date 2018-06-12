@@ -19,10 +19,10 @@ import work.airz.primanager.qr.QRUtil
 class QRActivity : AppCompatActivity() {
     private lateinit var qrReaderView: DecoratedBarcodeView
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_qr)
+
         readQR()
     }
 
@@ -66,7 +66,10 @@ class QRActivity : AppCompatActivity() {
                 result.sourceData.isInverted, QRUtil.detectVersionM(result.rawBytes.size))
         Log.d("qrformat", qrFormat.toString())
 
-        when (QRUtil.detectQRFormat(data)) {
+        var ticketType: QRUtil.TicketType = intent.getSerializableExtra(QRUtil.TICKET_TYPE) as? QRUtil.TicketType
+                ?: QRUtil.detectQRFormat(data)
+
+        when (ticketType) {
             QRUtil.TicketType.PRICHAN_FOLLOW -> {
                 val followUserID = QRUtil.getFollowUserID(data)
                 val followedUsers = dbUtil.getUserList().filter { dbUtil.isFollowed(it, followUserID) }
@@ -84,7 +87,15 @@ class QRActivity : AppCompatActivity() {
                 }
 
             }
-            QRUtil.TicketType.OTHERS -> { //基本的にプリパラのトモチケは来ない前提で考える
+            QRUtil.TicketType.PRICHAN_MEMBERS -> {
+                when {
+                    dbUtil.isDuplicate(DBConstants.USER_TABLE, rawString) -> duplicateDataAlert(data, qrFormat, QRUtil.TicketType.PRICHAN_MEMBERS)
+                    else -> saveAlert(data, qrFormat, QRUtil.TicketType.PRICHAN_MEMBERS)
+                }
+
+            }
+            QRUtil.TicketType.OTHERS -> {
+                //基本的にプリパラのトモチケは来ない前提で考える
                 when {
                     dbUtil.isDuplicate(DBConstants.COORD_TICKET_TABLE, rawString) -> duplicateDataAlert(data, qrFormat, QRUtil.TicketType.OTHERS)
                     else -> nazoDataAlert(data, qrFormat, QRUtil.TicketType.OTHERS)//謎データであることを告知する
@@ -96,6 +107,9 @@ class QRActivity : AppCompatActivity() {
 
     }
 
+    /**
+     * 新データ保存のときのアラート
+     */
     private fun saveAlert(rawData: ByteArray, qrFormat: QRUtil.QRFormat, type: QRUtil.TicketType) {
         AlertDialog.Builder(this).apply {
             setTitle("新データ")
@@ -105,6 +119,7 @@ class QRActivity : AppCompatActivity() {
                 when (type) {
                     QRUtil.TicketType.PRICHAN_FOLLOW -> intentFollow(rawData, qrFormat, type, false)
                     QRUtil.TicketType.PRICHAN_COORD -> intentCoord(rawData, qrFormat, type, false)
+                    QRUtil.TicketType.PRICHAN_MEMBERS -> intentUser(rawData, qrFormat, false)
                     QRUtil.TicketType.OTHERS -> intentCoord(rawData, qrFormat, type, false)
                 }
                 finish()
@@ -147,6 +162,7 @@ class QRActivity : AppCompatActivity() {
                 when (type) {
                     QRUtil.TicketType.PRICHAN_FOLLOW -> intentFollow(rawData, qrFormat, type, true)
                     QRUtil.TicketType.PRICHAN_COORD -> intentCoord(rawData, qrFormat, type, true)
+                    QRUtil.TicketType.PRICHAN_MEMBERS -> intentUser(rawData, qrFormat, true)
                     QRUtil.TicketType.OTHERS -> intentCoord(rawData, qrFormat, type, true)
                 }
                 finish()
@@ -187,6 +203,7 @@ class QRActivity : AppCompatActivity() {
      * @param rawData qrコードのデータ
      * @param qrFormat qrの形式
      * @param type QRのタイプ
+     * @param isDuplicate 重複しているか
      */
     private fun intentFollow(rawData: ByteArray, qrFormat: QRUtil.QRFormat, type: QRUtil.TicketType, isDuplicate: Boolean) {
         startActivity(Intent(this, SaveFollowTicket::class.java).apply {
@@ -203,11 +220,27 @@ class QRActivity : AppCompatActivity() {
      * @param rawData qrコードのデータ
      * @param qrFormat qrの形式
      * @param type QRのタイプ
+     * @param isDuplicate 重複しているか
      */
     private fun intentCoord(rawData: ByteArray, qrFormat: QRUtil.QRFormat, type: QRUtil.TicketType, isDuplicate: Boolean) {
         startActivity(Intent(this, SaveCoordTicket::class.java).apply {
             putExtra(QRUtil.RAW, rawData)
             putExtra(QRUtil.TICKET_TYPE, type)
+            putExtra(QRUtil.QR_FORMAT, qrFormat)
+            putExtra(QRUtil.IS_DUPLICATE, isDuplicate)
+            flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+        })
+    }
+
+    /**
+     * ユーザ保存画面へジャンプ
+     * @param rawData qrコードのデータ
+     * @param qrFormat qrの形式
+     * @param isDuplicate 重複しているか
+     */
+    private fun intentUser(rawData: ByteArray, qrFormat: QRUtil.QRFormat, isDuplicate: Boolean) {
+        startActivity(Intent(this, SaveUserTicket::class.java).apply {
+            putExtra(QRUtil.RAW, rawData)
             putExtra(QRUtil.QR_FORMAT, qrFormat)
             putExtra(QRUtil.IS_DUPLICATE, isDuplicate)
             flags = Intent.FLAG_ACTIVITY_SINGLE_TOP

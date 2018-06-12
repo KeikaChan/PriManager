@@ -25,8 +25,10 @@ class MembersActivity : AppCompatActivity(), IItemsList {
         supportFragmentManager.beginTransaction().replace(R.id.container, TicketListFragment()).commit()
 
         fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+            startActivity(Intent(this, QRActivity::class.java).apply {
+                putExtra(QRUtil.IS_MEMBERS_CARD, true)
+                flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+            })
         }
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setHomeButtonEnabled(true)
