@@ -28,6 +28,7 @@ class RecyclarViewAdapter(val context: Context, private val itemClickListener: I
             it.itemView.descriptionText.text = itemList[position].description
             it.itemView.thumbnail.setImageBitmap(itemList[position].thumbnail)
             it.itemView.raw_data.text = itemList[position].raw
+            it.itemView.qrformat.text = itemList[position].qrFormat
         }
 
     }

@@ -20,7 +20,6 @@ import java.io.File
 
 class SaveUserTicket : AppCompatActivity(), View.OnClickListener {
     private lateinit var rawData: ByteArray
-    private lateinit var ticketType: QRUtil.TicketType
     private lateinit var qrFormat: QRUtil.QRFormat
 
     private lateinit var dbUtil: DBUtil
@@ -35,6 +34,7 @@ class SaveUserTicket : AppCompatActivity(), View.OnClickListener {
         thumbnail.setOnClickListener(this)
         TEMP_URI = FileProvider.getUriForFile(applicationContext, "${BuildConfig.APPLICATION_ID}.fileprovider", File(applicationContext.cacheDir.absolutePath, "temp.png"))
 
+        qrFormat = intent.getSerializableExtra(QRUtil.QR_FORMAT) as? QRUtil.QRFormat ?: return
         dbUtil = DBUtil(applicationContext)
 
         rawData = intent.getByteArrayExtra(QRUtil.RAW) ?: return
@@ -58,6 +58,9 @@ class SaveUserTicket : AppCompatActivity(), View.OnClickListener {
             }
             R.id.display_qr -> {
                 QRUtil.saveQRAlert(rawData, qrFormat, this)
+            }
+            R.id.destruction ->{
+                finish()
             }
             R.id.thumbnail -> {
                 try {

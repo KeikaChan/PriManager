@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_members.*
+import kotlinx.android.synthetic.main.ticket_item.*
 import kotlinx.android.synthetic.main.ticket_item.view.*
 import work.airz.primanager.db.DBUtil
 import work.airz.primanager.qr.QRUtil
@@ -43,6 +44,7 @@ class MembersActivity : AppCompatActivity(), IItemsList {
         startActivity(Intent(this, SaveUserTicket::class.java).apply {
             putExtra(QRUtil.RAW, QRUtil.stringToByte(view.raw_data.text.toString()))
             putExtra(QRUtil.IS_DUPLICATE, true)
+            putExtra(QRUtil.QR_FORMAT, qrformat.raw_data.text.toString())
             flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
         })
     }
@@ -50,7 +52,7 @@ class MembersActivity : AppCompatActivity(), IItemsList {
     override fun onItemList(): List<TicketUtils.TicketItemFormat> {
         val userList = mutableListOf<TicketUtils.TicketItemFormat>()
         dbUtil.getUserList().forEach {
-            userList.add(TicketUtils.TicketItemFormat(it.userName, it.userCardId, it.image, it.raw))
+            userList.add(TicketUtils.TicketItemFormat(it.userName, it.userCardId, it.image, it.raw, it.qrFormat.toString()))
         }
         return userList.toList()
     }
