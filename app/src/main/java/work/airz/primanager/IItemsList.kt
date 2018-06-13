@@ -5,6 +5,6 @@ import work.airz.primanager.qr.QRUtil
 
 interface IItemsList {
     fun onDelete(positions: List<Int>)
-    fun onItemList(): List<TicketUtils.TicketItemFormat>
+    fun onItemList(ticketType: QRUtil.TicketType): List<TicketUtils.TicketItemFormat>
     fun onItemClick(view: View, position: Int,ticketType: QRUtil.TicketType)
 }
