@@ -2,13 +2,10 @@ package work.airz.primanager
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_members.*
-import kotlinx.android.synthetic.main.ticket_item.*
 import kotlinx.android.synthetic.main.ticket_item.view.*
 import work.airz.primanager.db.DBUtil
 import work.airz.primanager.qr.QRUtil
@@ -20,8 +17,6 @@ class MembersActivity : AppCompatActivity(), IItemsList {
         dbUtil = DBUtil(applicationContext)
         setContentView(R.layout.activity_members)
         setSupportActionBar(toolbar)
-
-
 
         supportFragmentManager.beginTransaction().replace(R.id.container, TicketListFragment()).commit()
 
@@ -35,6 +30,7 @@ class MembersActivity : AppCompatActivity(), IItemsList {
         supportActionBar!!.setHomeButtonEnabled(true)
     }
 
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> finish()
@@ -42,12 +38,11 @@ class MembersActivity : AppCompatActivity(), IItemsList {
         return true
     }
 
-    override fun onItemClick(view: View, position: Int) {
-        Toast.makeText(applicationContext, "position $position was tapped", Toast.LENGTH_SHORT).show()
+    override fun onItemClick(view: View, position: Int, ticketType: QRUtil.TicketType) {
         startActivity(Intent(this, SaveUserTicket::class.java).apply {
             putExtra(QRUtil.RAW, QRUtil.stringToByte(view.raw_data.text.toString()))
+            putExtra(QRUtil.QR_FORMAT, dbUtil.getUser(view.raw_data.text.toString())!!.qrFormat)
             putExtra(QRUtil.IS_DUPLICATE, true)
-            putExtra(QRUtil.QR_FORMAT, dbUtil.getUser(view.raw_data.text.toString())!!.qrFormat.toString())
             flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
         })
     }
