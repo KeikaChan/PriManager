@@ -80,4 +80,9 @@
 
     <string name="pref_title_vibrate">Vibrate</string>
     <string name="title_activity_members">MembersActivity</string>
+
+    <string-array name="tabname">
+        <item>フォロチケ</item>
+        <item>コーデチケ</item>
+    </string-array>
 </resources>
