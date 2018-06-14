@@ -17,7 +17,7 @@ import work.airz.primanager.qr.QRUtil
  * フォロチケ/コーデチケット/会員証のリストを表示するためのフラグメント
  * 特定のデータ形式でデータを受け取ってそれをリストにセット、また、
  */
-class TicketListFragment() : Fragment() {
+class TicketListFragment : Fragment() {
 
     private lateinit var iTicketList: IItemsList
     private lateinit var adapter: RecyclarViewAdapter
@@ -25,7 +25,7 @@ class TicketListFragment() : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_ticket_list, container, false)
-        ticketType = savedInstanceState!!.getSerializable(QRUtil.TICKET_TYPE) as? QRUtil.TicketType ?: return view
+        ticketType = arguments!!.getSerializable(QRUtil.TICKET_TYPE) as? QRUtil.TicketType ?: return view
 
         view.ticket_recyclerview.layoutManager = LinearLayoutManager(context)
         adapter = RecyclarViewAdapter(context, iTicketList, iTicketList.onItemList(ticketType), ticketType)

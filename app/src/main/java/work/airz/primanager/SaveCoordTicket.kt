@@ -55,6 +55,7 @@ class SaveCoordTicket : AppCompatActivity(), View.OnClickListener, ISaveTicket {
         rawData = intent.getByteArrayExtra(QRUtil.RAW) ?: return
         ticketType = intent.getSerializableExtra(QRUtil.TICKET_TYPE) as? QRUtil.TicketType ?: return
         qrFormat = intent.getSerializableExtra(QRUtil.QR_FORMAT) as? QRUtil.QRFormat ?: return
+        Log.d("qrformat ", qrFormat.toString())
         arcade_series.setText(if (ticketType == QRUtil.TicketType.PRICHAN_FOLLOW) {
             DBConstants.PRICHAN
         } else {

@@ -4,23 +4,32 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.design.widget.NavigationView
 import android.support.v4.app.ActivityCompat
+import android.support.v4.app.Fragment
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.android.synthetic.main.content_main.*
+import kotlinx.android.synthetic.main.ticket_item.view.*
+import work.airz.primanager.db.DBUtil
+import work.airz.primanager.qr.QRUtil
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, IItemsList {
     private val REQUEST_PERMISSION = 1000
+
+    private lateinit var dbUtil: DBUtil
+    private var fragment1: Fragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        dbUtil = DBUtil(applicationContext)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
@@ -44,8 +53,66 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
         Log.d("permission", "granted")
 
-
+        val itemFragmentPagerAdapter = TicketFragmentPagerAdapter(supportFragmentManager, applicationContext)
+        main_view_pager.apply {
+            offscreenPageLimit = 2
+            adapter = itemFragmentPagerAdapter
+        }
+        main_tab_layout.setupWithViewPager(main_view_pager)
     }
+
+    override fun onDelete(positions: List<Int>) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+
+    override fun onItemList(ticketType: QRUtil.TicketType): List<TicketUtils.TicketItemFormat> {
+        val userList = mutableListOf<TicketUtils.TicketItemFormat>()
+        return when (ticketType) {
+            QRUtil.TicketType.PRICHAN_FOLLOW -> {
+                dbUtil.getFollowTicketList().forEach {
+                    Log.d("follow ticket", "${it.userName},${it.memo},${it.raw}")
+                    userList.add(TicketUtils.TicketItemFormat(it.userName, it.memo, it.image, it.raw))
+                }
+                userList.toList()
+            }
+            QRUtil.TicketType.PRICHAN_COORD -> {
+                dbUtil.getCoordTicketList().forEach {
+                    Log.d("ticket format ", "${it.coordName},${it.memo},${it.raw}")
+                    userList.add(TicketUtils.TicketItemFormat(it.coordName, it.memo, it.image, it.raw))
+                }
+                userList.toList()
+            }
+            else -> {
+                userList.toList()
+            }
+        }
+        return userList.toList()
+    }
+
+    override fun onItemClick(view: View, position: Int, ticketType: QRUtil.TicketType) {
+        when (ticketType) {
+            QRUtil.TicketType.PRICHAN_FOLLOW -> {
+                startActivity(Intent(this, SaveFollowTicket::class.java).apply {
+                    putExtra(QRUtil.RAW, QRUtil.stringToByte(view.raw_data.text.toString()))
+                    putExtra(QRUtil.QR_FORMAT, dbUtil.getFollowTicket(view.raw_data.text.toString())!!.qrFormat)
+                    putExtra(QRUtil.TICKET_TYPE, ticketType)
+                    putExtra(QRUtil.IS_DUPLICATE, true)
+                    flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+                })
+            }
+            QRUtil.TicketType.PRICHAN_COORD -> {
+                startActivity(Intent(this, SaveCoordTicket::class.java).apply {
+                    putExtra(QRUtil.RAW, QRUtil.stringToByte(view.raw_data.text.toString()))
+                    putExtra(QRUtil.QR_FORMAT, dbUtil.getCoordTicket(view.raw_data.text.toString())!!.qrFormat)
+                    putExtra(QRUtil.TICKET_TYPE, ticketType)
+                    putExtra(QRUtil.IS_DUPLICATE, true)
+                    flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+                })
+            }
+        }
+    }
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
