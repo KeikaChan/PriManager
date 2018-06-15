@@ -27,6 +27,7 @@ import work.airz.primanager.qr.QRUtil
 import java.io.File
 import java.net.HttpURLConnection
 import work.airz.primanager.TicketUtils.*
+import java.net.ConnectException
 import java.net.URL
 import java.util.*
 
@@ -60,6 +61,7 @@ class SaveCoordTicket : AppCompatActivity(), View.OnClickListener, ISaveTicket {
         rawData = intent.getByteArrayExtra(QRUtil.RAW) ?: return
         ticketType = intent.getSerializableExtra(QRUtil.TICKET_TYPE) as? QRUtil.TicketType ?: return
         qrFormat = intent.getSerializableExtra(QRUtil.QR_FORMAT) as? QRUtil.QRFormat ?: return
+        Log.d("qrformat ", qrFormat.toString())
         arcade_series.setText(if (ticketType == QRUtil.TicketType.PRICHAN_FOLLOW) {
             DBConstants.PRICHAN
         } else {
@@ -231,16 +233,22 @@ class SaveCoordTicket : AppCompatActivity(), View.OnClickListener, ISaveTicket {
     companion object {
         open class ImageAsyncTask : AsyncTask<Any, Void, Bitmap>() {
             var imageView: ImageView? = null
+
             override fun doInBackground(vararg params: Any): Bitmap? {
                 val url = URL(params[0] as? String ?: return null)
                 imageView = params[1] as? ImageView ?: return null
-                val urlConnection = url.openConnection()  as? HttpURLConnection ?: return null
-                urlConnection.readTimeout = 5000
-                urlConnection.connectTimeout = 7000
-                urlConnection.requestMethod = "GET"
-                urlConnection.doInput = true
-                urlConnection.connect()
-                return BitmapFactory.decodeStream(urlConnection.inputStream)
+                try {
+                    val urlConnection = url.openConnection()  as? HttpURLConnection ?: return null
+                    urlConnection.readTimeout = 5000
+                    urlConnection.connectTimeout = 7000
+                    urlConnection.requestMethod = "GET"
+                    urlConnection.doInput = true
+                    urlConnection.connect()
+                    return BitmapFactory.decodeStream(urlConnection.inputStream)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+                return null
             }
 
             override fun onPostExecute(result: Bitmap?) {

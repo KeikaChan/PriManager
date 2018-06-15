@@ -21,18 +21,21 @@ class TicketListFragment : Fragment() {
 
     private lateinit var iTicketList: IItemsList
     private lateinit var adapter: RecyclarViewAdapter
+    private lateinit var ticketType: QRUtil.TicketType
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_ticket_list, container, false)
+        ticketType = arguments!!.getSerializable(QRUtil.TICKET_TYPE) as? QRUtil.TicketType ?: return view
+
         view.ticket_recyclerview.layoutManager = LinearLayoutManager(context)
-        adapter = RecyclarViewAdapter(context, iTicketList, iTicketList.onItemList(), QRUtil.TicketType.PRICHAN_MEMBERS)
+        adapter = RecyclarViewAdapter(context, iTicketList, iTicketList.onItemList(ticketType), ticketType)
         view.ticket_recyclerview.adapter = adapter
         return view
     }
 
     override fun onResume() {
         super.onResume()
-        adapter.updateData(iTicketList.onItemList())
+        adapter.updateData(iTicketList.onItemList(ticketType))
     }
 
     override fun onAttach(activity: Activity?) {

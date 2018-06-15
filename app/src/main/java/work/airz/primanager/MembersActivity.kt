@@ -18,7 +18,10 @@ class MembersActivity : AppCompatActivity(), IItemsList {
         setContentView(R.layout.activity_members)
         setSupportActionBar(toolbar)
 
-        supportFragmentManager.beginTransaction().replace(R.id.container, TicketListFragment()).commit()
+        val fragment = TicketListFragment()
+        fragment.arguments = Bundle().apply { putSerializable(QRUtil.TICKET_TYPE, QRUtil.TicketType.PRICHAN_MEMBERS) }
+
+        supportFragmentManager.beginTransaction().replace(R.id.container, fragment).commit()
 
         fab.setOnClickListener { view ->
             startActivity(Intent(this, QRActivity::class.java).apply {
@@ -47,7 +50,7 @@ class MembersActivity : AppCompatActivity(), IItemsList {
         })
     }
 
-    override fun onItemList(): List<TicketUtils.TicketItemFormat> {
+    override fun onItemList(ticketType: QRUtil.TicketType): List<TicketUtils.TicketItemFormat> {
         val userList = mutableListOf<TicketUtils.TicketItemFormat>()
         dbUtil.getUserList().forEach {
             userList.add(TicketUtils.TicketItemFormat(it.userName, it.userCardId, it.image, it.raw))
