@@ -32,6 +32,8 @@ class SaveUserTicket : AppCompatActivity(), View.OnClickListener {
         save.setOnClickListener(this)
         display_qr.setOnClickListener(this)
         thumbnail.setOnClickListener(this)
+        destruction.setOnClickListener(this)
+
         TEMP_URI = FileProvider.getUriForFile(applicationContext, "${BuildConfig.APPLICATION_ID}.fileprovider", File(applicationContext.cacheDir.absolutePath, "temp.png"))
 
         qrFormat = intent.getSerializableExtra(QRUtil.QR_FORMAT) as? QRUtil.QRFormat ?: return
