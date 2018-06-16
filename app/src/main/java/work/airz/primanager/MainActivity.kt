@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.ticket_item.view.*
 import work.airz.primanager.db.DBUtil
 import work.airz.primanager.qr.QRUtil
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, IItemsList {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, RecyclerViewHolder.IItemsList {
     private val REQUEST_PERMISSION = 1000
 
     private lateinit var dbUtil: DBUtil

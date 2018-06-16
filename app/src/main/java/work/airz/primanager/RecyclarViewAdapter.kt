@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.ticket_item.view.*
 import work.airz.primanager.qr.QRUtil
 
 
-class RecyclarViewAdapter(val context: Context?, private val itemClickListener: IItemsList, private var itemList: List<TicketUtils.TicketItemFormat>, private val ticketType: QRUtil.TicketType) : RecyclerView.Adapter<RecyclerViewHolder>() {
+class RecyclarViewAdapter(val context: Context?, private val itemClickListener: RecyclerViewHolder.IItemsList, private var itemList: List<TicketUtils.TicketItemFormat>, private val ticketType: QRUtil.TicketType) : RecyclerView.Adapter<RecyclerViewHolder>() {
     var recyclerView: RecyclerView? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewHolder {

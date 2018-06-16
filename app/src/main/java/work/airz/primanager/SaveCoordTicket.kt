@@ -27,7 +27,7 @@ import java.net.ConnectException
 import java.net.URL
 import java.util.*
 
-class SaveCoordTicket : AppCompatActivity(), View.OnClickListener, ISaveTicket {
+class SaveCoordTicket : AppCompatActivity(), View.OnClickListener {
     private lateinit var coordList: HashMap<String, CoordDetail>
     private lateinit var rawData: ByteArray
     private lateinit var ticketType: QRUtil.TicketType
@@ -67,7 +67,7 @@ class SaveCoordTicket : AppCompatActivity(), View.OnClickListener, ISaveTicket {
 
     }
 
-    override fun getStoredData() {
+    fun getStoredData() {
         val coordTicket = dbUtil.getCoordTicket(QRUtil.byteToString(rawData))
         thumbnail.setImageBitmap(coordTicket.image)
         rarity.setText(coordTicket.rarity)
@@ -154,7 +154,7 @@ class SaveCoordTicket : AppCompatActivity(), View.OnClickListener, ISaveTicket {
         ImageAsyncTask().execute(url, thumbnail)
     }
 
-    override fun saveData() {
+    fun saveData() {
         id.setText(id.text.toString().toUpperCase())
         val coordTicket = DBFormat.CoordTicket(
                 QRUtil.byteToString(rawData),

@@ -54,7 +54,7 @@ class SaveFollowTicket : AppCompatActivity(), View.OnClickListener {
         if (intent.getBooleanExtra(QRUtil.IS_DUPLICATE, false)) getStoredData()
     }
 
-    private fun getStoredData() {
+    fun getStoredData() {
         val followTicket = dbUtil.getFollowTicket(QRUtil.byteToString(rawData))
         name.setText(followTicket.userName)
         follower_text.setText(followTicket.follower.toString()) //整数を渡してはいけない
@@ -152,7 +152,7 @@ class SaveFollowTicket : AppCompatActivity(), View.OnClickListener {
     /**
      * データ保存
      */
-    private fun saveData() {
+    fun saveData() {
         val followTicket = DBFormat.FollowTicket(
                 QRUtil.byteToString(rawData),
                 qrFormat,

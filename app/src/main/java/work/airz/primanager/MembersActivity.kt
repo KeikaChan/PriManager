@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.ticket_item.view.*
 import work.airz.primanager.db.DBUtil
 import work.airz.primanager.qr.QRUtil
 
-class MembersActivity : AppCompatActivity(), IItemsList {
+class MembersActivity : AppCompatActivity(), RecyclerViewHolder.IItemsList {
     private lateinit var dbUtil: DBUtil
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

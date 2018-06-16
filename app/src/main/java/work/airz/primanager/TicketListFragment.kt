@@ -19,7 +19,7 @@ import work.airz.primanager.qr.QRUtil
  */
 class TicketListFragment : Fragment() {
 
-    private lateinit var iTicketList: IItemsList
+    private lateinit var iTicketList: RecyclerViewHolder.IItemsList
     private lateinit var adapter: RecyclarViewAdapter
     private lateinit var ticketType: QRUtil.TicketType
 
@@ -53,11 +53,11 @@ class TicketListFragment : Fragment() {
     }
 
     private fun attach() {
-        if (activity !is IItemsList) {
+        if (activity !is RecyclerViewHolder.IItemsList) {
             throw  UnsupportedOperationException(
                     "Listener is not Implementation.")
         } else {
-            iTicketList = activity as IItemsList
+            iTicketList = activity as RecyclerViewHolder.IItemsList
         }
     }
 
