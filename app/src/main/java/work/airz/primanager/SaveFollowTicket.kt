@@ -63,6 +63,7 @@ class SaveFollowTicket : AppCompatActivity(), View.OnClickListener {
         coord.setText(followTicket.coordinate)
         arcade_series.setText(followTicket.arcade_series)
         thumbnail.setImageBitmap(followTicket.image)
+        memo.setText(followTicket.memo)
         display_qr.visibility = View.VISIBLE
         Toast.makeText(applicationContext, "データを読み込みました", Toast.LENGTH_SHORT).show()
     }

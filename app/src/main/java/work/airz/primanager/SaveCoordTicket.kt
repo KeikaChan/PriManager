@@ -16,14 +16,13 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_save_coord_ticket.*
-import work.airz.primanager.db.DBConstants
 import work.airz.primanager.db.DBFormat
 import work.airz.primanager.db.DBUtil
 import work.airz.primanager.qr.QRUtil
 import java.io.File
 import java.net.HttpURLConnection
 import work.airz.primanager.TicketUtils.*
-import java.net.ConnectException
+import work.airz.primanager.db.DBConstants
 import java.net.URL
 import java.util.*
 
@@ -80,6 +79,7 @@ class SaveCoordTicket : AppCompatActivity(), View.OnClickListener {
         like.setText(coordTicket.like.toString())
         brand.setText(coordTicket.brand)
         arcade_series.setText(coordTicket.arcadeSeries)
+        memo.setText(coordTicket.memo)
         Toast.makeText(applicationContext, "データを読み込みました", Toast.LENGTH_SHORT).show()
     }
 
