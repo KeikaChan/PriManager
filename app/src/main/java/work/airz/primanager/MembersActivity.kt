@@ -3,6 +3,7 @@ package work.airz.primanager
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import kotlinx.android.synthetic.main.activity_members.*
@@ -20,9 +21,8 @@ class MembersActivity : AppCompatActivity(), RecyclerViewHolder.IItemsList {
 
         val fragment = TicketListFragment()
         fragment.arguments = Bundle().apply { putSerializable(QRUtil.TICKET_TYPE, QRUtil.TicketType.PRICHAN_MEMBERS) }
-
         supportFragmentManager.beginTransaction().replace(R.id.container, fragment).commit()
-
+        
         fab.setOnClickListener { view ->
             startActivity(Intent(this, QRActivity::class.java).apply {
                 putExtra(QRUtil.TICKET_TYPE, QRUtil.TicketType.PRICHAN_MEMBERS)

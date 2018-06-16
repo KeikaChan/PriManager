@@ -25,12 +25,7 @@ class TicketListFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_ticket_list, container, false)
-        ticketType = if (arguments != null) {
-            arguments!!.getSerializable(QRUtil.TICKET_TYPE) as? QRUtil.TicketType ?: return view
-        } else {
-            Log.d("qrtype","QRType is NULL!!!!!!")
-            QRUtil.TicketType.PRICHAN_MEMBERS
-        }
+        ticketType = arguments!!.getSerializable(QRUtil.TICKET_TYPE) as? QRUtil.TicketType ?: return view
         view.ticket_recyclerview.layoutManager = LinearLayoutManager(context)
         adapter = RecyclarViewAdapter(context, iTicketList, iTicketList.onItemList(ticketType), ticketType)
         view.ticket_recyclerview.adapter = adapter

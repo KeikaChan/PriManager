@@ -70,14 +70,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return when (ticketType) {
             QRUtil.TicketType.PRICHAN_FOLLOW -> {
                 dbUtil.getFollowTicketList().forEach {
-                    Log.d("follow ticket", "${it.userName},${it.memo},${it.raw}")
                     userList.add(TicketUtils.TicketItemFormat(it.userName, it.memo, it.image, it.raw))
                 }
                 userList.toList()
             }
             QRUtil.TicketType.PRICHAN_COORD -> {
                 dbUtil.getCoordTicketList().forEach {
-                    Log.d("ticket format ", "${it.coordName},${it.memo},${it.raw}")
                     userList.add(TicketUtils.TicketItemFormat(it.coordName, it.memo, it.image, it.raw))
                 }
                 userList.toList()
