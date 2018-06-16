@@ -180,9 +180,9 @@ class QRActivity : AppCompatActivity() {
      */
     private fun followedAlert(rawData: ByteArray, qrFormat: QRUtil.QRFormat, followdList: List<User>, type: QRUtil.TicketType, isDuplicate: Boolean) {
         val head = if (!isDuplicate) "このフォロチケは登録されていませんが、読み取ったユーザは以下のユーザでフォローしています。" else "以下のユーザでフォローしています。"
-        val strb = StringBuilder("${head}編集しますか？\n")
+        val strb = StringBuilder("${head}編集しますか？\n\n")
 
-        followdList.forEach { strb.append("${it.userName}\n") }
+        followdList.forEach { strb.append("・${it.userName}\n") }
         AlertDialog.Builder(this).apply {
             setTitle("既にフォローされています")
             setCancelable(false)
