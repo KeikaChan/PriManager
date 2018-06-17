@@ -1,4 +1,4 @@
-# [WIP] PriManager
+# [WIP] PriManager [![Build Status](https://travis-ci.org/Khromium/PriManager.svg?branch=master)](https://travis-ci.org/Khromium/PriManager)
 Pri Ticket Manager.
 
 Management Pri☆Chan Follow/Coorde ticket.
