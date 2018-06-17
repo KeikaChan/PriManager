@@ -1,7 +1,7 @@
 # [WIP] PriManager [![Build Status](https://travis-ci.org/Khromium/PriManager.svg?branch=master)](https://travis-ci.org/Khromium/PriManager)
 Pri Ticket Manager.
 
-Management Pri☆Chan Follow/Coorde ticket.
+Manage Pri☆Chan Follow/Coorde ticket.
 
 フォロワーの管理とコーデ管理を行うためのAndroidアプリを作っています。
 
@@ -19,7 +19,7 @@ It need to build customized zxing/android-embedded library.
 
 2. Pull [this zxing-android-embedded repo](https://github.com/Khromium/zxing-android-embedded) and move /zxing/core/target/core-\*.\*.\*-SNAPSHOT.jar to /zxing-android-embedded/zxing-android-embedded/libs/ 
 
-3. Build and create aar file from zxing-android-embedded using Android Stuidio
+3. Build and create aar file from zxing-android-embedded using Android Studio
 
 4. Move aar file to PriManager/zxing-android-embedded/
 
