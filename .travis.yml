@@ -16,6 +16,9 @@ android:
     - extra-android-m2repository
     - addon-google_apis-google-27
 
+notifications:
+  email: false
+
 before_install:
   - wget https://github.com/Khromium/PriManager/files/2108934/zxing-android-embedded-release.zip
   - mv $TRAVIS_BUILD_DIR/zxing-android-embedded-release.zip $TRAVIS_BUILD_DIR/zxing-android-embedded/zxing-android-embedded-release.aar
