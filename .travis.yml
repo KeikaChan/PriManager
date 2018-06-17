@@ -21,7 +21,7 @@ before_install:
   - mv $TRAVIS_BUILD_DIR/zxing-android-embedded-release.zip $TRAVIS_BUILD_DIR/zxing-android-embedded/zxing-android-embedded-release.aar
   - ./gradlew init
 
-    script:
+script:
   - ./gradlew assembleDebug
 
 before_cache:
