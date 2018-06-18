@@ -1,17 +1,19 @@
 package work.airz.primanager
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
+import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import com.google.zxing.*
+import com.google.zxing.BarcodeFormat
+import com.google.zxing.ResultMetadataType
+import com.google.zxing.ResultPoint
 import com.journeyapps.barcodescanner.BarcodeCallback
 import com.journeyapps.barcodescanner.BarcodeResult
 import com.journeyapps.barcodescanner.DecoratedBarcodeView
 import kotlinx.android.synthetic.main.activity_qr.*
 import work.airz.primanager.db.DBConstants
-import work.airz.primanager.db.DBFormat.*
+import work.airz.primanager.db.DBFormat.User
 import work.airz.primanager.db.DBUtil
 import work.airz.primanager.qr.QRUtil
 
@@ -98,7 +100,7 @@ class QRActivity : AppCompatActivity() {
                 //基本的にプリパラのトモチケは来ない前提で考える
                 when {
                     dbUtil.isDuplicate(DBConstants.COORD_TICKET_TABLE, rawString) -> duplicateDataAlert(data, qrFormat, QRUtil.TicketType.OTHERS)
-                    else -> nazoDataAlert(data, qrFormat, QRUtil.TicketType.OTHERS)//謎データであることを告知する
+                    else -> othersDataAlert(data, qrFormat, QRUtil.TicketType.OTHERS)//謎データであることを告知する
 
                 }
 
@@ -115,38 +117,31 @@ class QRActivity : AppCompatActivity() {
             setTitle("新データ")
             setCancelable(false)
             setMessage("まだ保存されていない物のようです。保存しますか？")
-            setPositiveButton("はい", { _, _ ->
-                when (type) {
-                    QRUtil.TicketType.PRICHAN_FOLLOW -> intentFollow(rawData, qrFormat, type, false)
-                    QRUtil.TicketType.PRICHAN_COORD -> intentCoord(rawData, qrFormat, type, false)
-                    QRUtil.TicketType.PRICHAN_MEMBERS -> intentUser(rawData, qrFormat, false)
-                    QRUtil.TicketType.OTHERS -> intentCoord(rawData, qrFormat, type, false)
-                }
-                finish()
-            })
-            setNegativeButton("いいえ", { dialog, _ ->
+            setPositiveButton("はい") { _, _ ->
+                intentAdapter(rawData, qrFormat, type, false)
+            }
+            setNegativeButton("いいえ") { dialog, _ ->
                 dialog.dismiss()
                 qrReaderView.resume()
-            })
+            }
         }.show()
     }
 
     /**
      * 謎データが来たときのアラート
      */
-    private fun nazoDataAlert(rawData: ByteArray, qrFormat: QRUtil.QRFormat, type: QRUtil.TicketType) {
+    private fun othersDataAlert(rawData: ByteArray, qrFormat: QRUtil.QRFormat, type: QRUtil.TicketType) {
         AlertDialog.Builder(this).apply {
             setTitle("未知のデータ形式")
             setCancelable(false)
             setMessage("コーデ保存に飛びます。よろしいですか？")
-            setPositiveButton("はい", { _, _ ->
-                intentCoord(rawData, qrFormat, type, false)
-                finish()
-            })
-            setNegativeButton("いいえ", { dialog, _ ->
+            setPositiveButton("はい") { _, _ ->
+                intentAdapter(rawData, qrFormat, type, false)
+            }
+            setNegativeButton("いいえ") { dialog, _ ->
                 dialog.dismiss()
                 qrReaderView.resume()
-            })
+            }
         }.show()
     }
 
@@ -158,19 +153,13 @@ class QRActivity : AppCompatActivity() {
             setTitle("既にデータが存在します")
             setCancelable(false)
             setMessage("データを編集しますか？")
-            setPositiveButton("はい", { _, _ ->
-                when (type) {
-                    QRUtil.TicketType.PRICHAN_FOLLOW -> intentFollow(rawData, qrFormat, type, true)
-                    QRUtil.TicketType.PRICHAN_COORD -> intentCoord(rawData, qrFormat, type, true)
-                    QRUtil.TicketType.PRICHAN_MEMBERS -> intentUser(rawData, qrFormat, true)
-                    QRUtil.TicketType.OTHERS -> intentCoord(rawData, qrFormat, type, true)
-                }
-                finish()
-            })
-            setNegativeButton("いいえ", { dialog, _ ->
+            setPositiveButton("はい") { _, _ ->
+                intentAdapter(rawData, qrFormat, type, true)
+            }
+            setNegativeButton("いいえ") { dialog, _ ->
                 dialog.dismiss()
                 qrReaderView.resume()
-            })
+            }
         }.show()
     }
 
@@ -180,67 +169,54 @@ class QRActivity : AppCompatActivity() {
      */
     private fun followedAlert(rawData: ByteArray, qrFormat: QRUtil.QRFormat, followdList: List<User>, type: QRUtil.TicketType, isDuplicate: Boolean) {
         val head = if (!isDuplicate) "このフォロチケは登録されていませんが、読み取ったユーザは以下のユーザでフォローしています。" else "以下のユーザでフォローしています。"
-        val strb = StringBuilder("${head}編集しますか？\n\n")
+        val strb = StringBuilder("${head}編集しますか？\n")
 
-        followdList.forEach { strb.append("・${it.userName}\n") }
+        followdList.forEach { strb.append("${it.userName}\n") }
         AlertDialog.Builder(this).apply {
             setTitle("既にフォローされています")
             setCancelable(false)
             setMessage(strb.toString())
-            setPositiveButton("進む", { _, _ ->
-                intentFollow(rawData, qrFormat, type, isDuplicate)
+            setPositiveButton("進む") { _, _ ->
+                intentAdapter(rawData, qrFormat, type, isDuplicate)
                 finish()
-            })
-            setNegativeButton("戻る", { dialog, _ ->
+            }
+            setNegativeButton("戻る") { dialog, _ ->
                 dialog.dismiss()
                 qrReaderView.resume()
-            })
+            }
         }.show()
     }
 
     /**
-     * フォロー保存画面にジャンプ
+     * 適切なインテントに飛ばす処理
      * @param rawData qrコードのデータ
      * @param qrFormat qrの形式
      * @param type QRのタイプ
      * @param isDuplicate 重複しているか
      */
-    private fun intentFollow(rawData: ByteArray, qrFormat: QRUtil.QRFormat, type: QRUtil.TicketType, isDuplicate: Boolean) {
-        startActivity(Intent(this, SaveFollowTicket::class.java).apply {
-            putExtra(QRUtil.RAW, rawData)
-            putExtra(QRUtil.TICKET_TYPE, type)
-            putExtra(QRUtil.QR_FORMAT, qrFormat)
-            putExtra(QRUtil.IS_DUPLICATE, isDuplicate)
-            flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
-        })
+    private fun intentAdapter(rawData: ByteArray, qrFormat: QRUtil.QRFormat, type: QRUtil.TicketType, isDuplicate: Boolean) {
+        val intentClass = when (type) {
+            QRUtil.TicketType.PRICHAN_FOLLOW -> SaveFollowTicket::class.java
+            QRUtil.TicketType.PRICHAN_COORD -> SaveCoordTicket::class.java
+            QRUtil.TicketType.PRICHAN_MEMBERS -> SaveUserTicket::class.java
+            QRUtil.TicketType.OTHERS -> SaveCoordTicket::class.java
+        }
+        doIntent(rawData, qrFormat, type, intentClass, isDuplicate)
+
+        finish()
     }
 
     /**
-     * コーデ保存画面にジャンプ
+     * 各種画面にジャンプ
      * @param rawData qrコードのデータ
      * @param qrFormat qrの形式
      * @param type QRのタイプ
      * @param isDuplicate 重複しているか
      */
-    private fun intentCoord(rawData: ByteArray, qrFormat: QRUtil.QRFormat, type: QRUtil.TicketType, isDuplicate: Boolean) {
-        startActivity(Intent(this, SaveCoordTicket::class.java).apply {
+    private fun doIntent(rawData: ByteArray, qrFormat: QRUtil.QRFormat, type: QRUtil.TicketType, destClass: Class<*>, isDuplicate: Boolean) {
+        startActivity(Intent(this, destClass).apply {
             putExtra(QRUtil.RAW, rawData)
             putExtra(QRUtil.TICKET_TYPE, type)
-            putExtra(QRUtil.QR_FORMAT, qrFormat)
-            putExtra(QRUtil.IS_DUPLICATE, isDuplicate)
-            flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
-        })
-    }
-
-    /**
-     * ユーザ保存画面へジャンプ
-     * @param rawData qrコードのデータ
-     * @param qrFormat qrの形式
-     * @param isDuplicate 重複しているか
-     */
-    private fun intentUser(rawData: ByteArray, qrFormat: QRUtil.QRFormat, isDuplicate: Boolean) {
-        startActivity(Intent(this, SaveUserTicket::class.java).apply {
-            putExtra(QRUtil.RAW, rawData)
             putExtra(QRUtil.QR_FORMAT, qrFormat)
             putExtra(QRUtil.IS_DUPLICATE, isDuplicate)
             flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
