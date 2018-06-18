@@ -308,8 +308,8 @@ class QRUtil {
             val stringBuilder = StringBuilder()
             stringBuilder.append("${getErrorCorrectionString(errorCorrectionLevel)},")
             stringBuilder.append("${maskIndex},")
-            stringBuilder.append("$isInverted,")
-            stringBuilder.append("$version,")
+            stringBuilder.append("${isInverted},")
+            stringBuilder.append("${version},")
             return stringBuilder.toString()
         }
 
