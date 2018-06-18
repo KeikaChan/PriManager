@@ -20,6 +20,7 @@ import android.widget.DatePicker
 import android.widget.ImageView
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_save_coord_ticket.*
+import work.airz.primanager.R.id.*
 import work.airz.primanager.db.DBConstants
 import work.airz.primanager.db.DBFormat
 import work.airz.primanager.db.DBUtil
