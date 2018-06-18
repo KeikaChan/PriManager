@@ -195,25 +195,39 @@ class QRUtil {
 
         /**
          * qrコード保存用
+         * @param data qr data
+         * @param qrFormat qr format
+         * @param context app context
          */
         fun saveQRAlert(data: ByteArray, qrFormat: QRUtil.QRFormat, context: Context) {
             val qrBitmap = QRUtil.createQR(data, qrFormat.maskIndex, qrFormat.isInverted, qrFormat.version)
+            saveImageAlert(qrBitmap, context)
+        }
+
+
+        /**
+         * 保存用画像を表示して保存処理をする
+         * @param imageBitmap 保存する画像
+         * @param context app context
+         */
+        fun saveImageAlert(imageBitmap: Bitmap, context: Context) {
+
             val inflater = LayoutInflater.from(context)
             var dialogRoot = inflater.inflate(R.layout.save_dialog, null)
 
             var imageView = dialogRoot.findViewById<ImageView>(R.id.qrimage)
             imageView.scaleType = ImageView.ScaleType.FIT_XY
             imageView.adjustViewBounds = true
-            imageView.setImageBitmap(qrBitmap)
+            imageView.setImageBitmap(imageBitmap)
             var editText = dialogRoot.findViewById<EditText>(R.id.filename)
 
             var builder = AlertDialog.Builder(context)
             builder.setView(dialogRoot)
             builder.setCancelable(false)
-            builder.setNegativeButton("Cancel", DialogInterface.OnClickListener { dialogInterface, _ ->
+            builder.setNegativeButton("Cancel") { dialogInterface, _ ->
                 dialogInterface.dismiss()
-            })
-            builder.setPositiveButton("Save", DialogInterface.OnClickListener { dialogInterface, _ ->
+            }
+            builder.setPositiveButton("Save") { _, _ ->
                 val outDir = File(Environment.getExternalStorageDirectory().absolutePath, "priQR")
                 if (!outDir.exists()) outDir.mkdirs()
 
@@ -228,14 +242,14 @@ class QRUtil {
                         count++
                     }
                     FileOutputStream(File(outDir.absolutePath, "${outputName}-${count}.png")).use {
-                        qrBitmap.compress(Bitmap.CompressFormat.PNG, 100, it)
+                        imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, it)
                     }
                 } else {
                     FileOutputStream(File(outDir.absolutePath, "${outputName}.png")).use {
-                        qrBitmap.compress(Bitmap.CompressFormat.PNG, 100, it)
+                        imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, it)
                     }
                 }
-            })
+            }
             builder.show()
         }
     }
