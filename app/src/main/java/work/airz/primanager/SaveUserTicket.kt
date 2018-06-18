@@ -5,20 +5,20 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.content.FileProvider
+import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_save_user_ticket.*
+import work.airz.primanager.TicketUtils.SavePhoto
 import work.airz.primanager.db.DBFormat
 import work.airz.primanager.db.DBUtil
-import work.airz.primanager.TicketUtils.*
 import work.airz.primanager.qr.QRUtil
 import java.io.File
 
-class SaveUserTicket : AppCompatActivity(), View.OnClickListener {
+class SaveUserTicket : AppCompatActivity(), View.OnClickListener, View.OnLongClickListener {
     private lateinit var rawData: ByteArray
     private lateinit var qrFormat: QRUtil.QRFormat
 
@@ -32,6 +32,7 @@ class SaveUserTicket : AppCompatActivity(), View.OnClickListener {
         save.setOnClickListener(this)
         display_qr.setOnClickListener(this)
         thumbnail.setOnClickListener(this)
+        thumbnail.setOnLongClickListener(this)
         destruction.setOnClickListener(this)
 
         TEMP_URI = FileProvider.getUriForFile(applicationContext, "${BuildConfig.APPLICATION_ID}.fileprovider", File(applicationContext.cacheDir.absolutePath, "temp.png"))
@@ -61,7 +62,7 @@ class SaveUserTicket : AppCompatActivity(), View.OnClickListener {
             R.id.display_qr -> {
                 QRUtil.saveQRAlert(rawData, qrFormat, this)
             }
-            R.id.destruction ->{
+            R.id.destruction -> {
                 finish()
             }
             R.id.thumbnail -> {
@@ -72,6 +73,15 @@ class SaveUserTicket : AppCompatActivity(), View.OnClickListener {
                 }
             }
         }
+    }
+
+    override fun onLongClick(v: View): Boolean {
+        when (v.id) {
+            R.id.thumbnail -> {
+                QRUtil.saveImageAlert((thumbnail.drawable as BitmapDrawable).bitmap, QRUtil.PRI_USER_FOLDER, this)
+            }
+        }
+        return true
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

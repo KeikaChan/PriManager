@@ -1,7 +1,6 @@
 package work.airz.primanager.qr
 
 import android.content.Context
-import android.content.DialogInterface
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Environment
@@ -9,6 +8,7 @@ import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.Toast
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.EncodeHintType
 import com.google.zxing.MultiFormatWriter
@@ -28,6 +28,11 @@ class QRUtil {
         const val TICKET_TYPE = "ticket_type"
         const val QR_FORMAT = "qr_format"
         const val IS_DUPLICATE = "is_duplicate"
+
+        const val PRI_QR_FOLDER = "PriQR"
+        const val PRI_COORD_FOLDER = "PriCoord"
+        const val PRI_FOLLOW_FOLDER = "PriFollow"
+        const val PRI_USER_FOLDER = "PriUser"
 
         /**
          * This function is only support when "error correction level is M and also size is 14 ~ 213"
@@ -201,7 +206,7 @@ class QRUtil {
          */
         fun saveQRAlert(data: ByteArray, qrFormat: QRUtil.QRFormat, context: Context) {
             val qrBitmap = QRUtil.createQR(data, qrFormat.maskIndex, qrFormat.isInverted, qrFormat.version)
-            saveImageAlert(qrBitmap, context)
+            saveImageAlert(qrBitmap, PRI_QR_FOLDER, context)
         }
 
 
@@ -210,7 +215,7 @@ class QRUtil {
          * @param imageBitmap 保存する画像
          * @param context app context
          */
-        fun saveImageAlert(imageBitmap: Bitmap, context: Context) {
+        fun saveImageAlert(imageBitmap: Bitmap, childFolderName: String, context: Context) {
 
             val inflater = LayoutInflater.from(context)
             var dialogRoot = inflater.inflate(R.layout.save_dialog, null)
@@ -228,7 +233,7 @@ class QRUtil {
                 dialogInterface.dismiss()
             }
             builder.setPositiveButton("Save") { _, _ ->
-                val outDir = File(Environment.getExternalStorageDirectory().absolutePath, "priQR")
+                val outDir = File(Environment.getExternalStorageDirectory().absolutePath, childFolderName)
                 if (!outDir.exists()) outDir.mkdirs()
 
                 var outputName: String = if (editText.text.toString() != "") {
@@ -244,10 +249,13 @@ class QRUtil {
                     FileOutputStream(File(outDir.absolutePath, "${outputName}-${count}.png")).use {
                         imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, it)
                     }
+                    Toast.makeText(context, "${File(outDir.absolutePath, "${outputName}-${count}.png").absolutePath}に保存", Toast.LENGTH_LONG)
                 } else {
                     FileOutputStream(File(outDir.absolutePath, "${outputName}.png")).use {
                         imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, it)
                     }
+                    Toast.makeText(context, "${File(outDir.absolutePath, "${outputName}.png").absolutePath}に保存", Toast.LENGTH_LONG)
+
                 }
             }
             builder.show()

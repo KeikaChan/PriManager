@@ -5,22 +5,22 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.content.FileProvider
 import android.support.v7.app.AlertDialog
+import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_save_follow_ticket.*
+import work.airz.primanager.TicketUtils.SavePhoto
 import work.airz.primanager.db.DBConstants
 import work.airz.primanager.db.DBFormat
 import work.airz.primanager.db.DBUtil
-import work.airz.primanager.TicketUtils.*
 import work.airz.primanager.qr.QRUtil
 import java.io.File
 
-class SaveFollowTicket : AppCompatActivity(), View.OnClickListener {
+class SaveFollowTicket : AppCompatActivity(), View.OnClickListener, View.OnLongClickListener {
     private lateinit var rawData: ByteArray
     private lateinit var ticketType: QRUtil.TicketType
     private lateinit var qrFormat: QRUtil.QRFormat
@@ -37,6 +37,7 @@ class SaveFollowTicket : AppCompatActivity(), View.OnClickListener {
         continuation.setOnClickListener(this)
         display_qr.setOnClickListener(this)
         thumbnail.setOnClickListener(this)
+        thumbnail.setOnLongClickListener(this)
         select_follow.setOnClickListener(this)
 
         TEMP_URI = FileProvider.getUriForFile(applicationContext, "${BuildConfig.APPLICATION_ID}.fileprovider", File(applicationContext.cacheDir.absolutePath, "temp.png"))
@@ -94,20 +95,20 @@ class SaveFollowTicket : AppCompatActivity(), View.OnClickListener {
                 userList.forEach { userFollowList.add(dbUtil.isFollowed(it, targetId)) }
                 AlertDialog.Builder(this).apply {
                     setTitle("どのアカウントでフォローする？")
-                    setMultiChoiceItems(userListString.toTypedArray(), userFollowList.toBooleanArray(), { dialog, which, isChecked ->
+                    setMultiChoiceItems(userListString.toTypedArray(), userFollowList.toBooleanArray()) { _, which, isChecked ->
                         userFollowList[which] = isChecked
-                    })
-                    setPositiveButton("保存", { dialog, id ->
+                    }
+                    setPositiveButton("保存") { dialog, id ->
                         userFollowList.withIndex().forEach {
                             if (it.value) {
                                 dbUtil.followUser(userList[it.index], DBFormat.UserFollow(targetId, "null", "null", "null")) //TODO:最後の保存時にまとめて追加するようにする
                             }
                         }
                         dialog.dismiss()
-                    })
-                    setNegativeButton("キャンセル", { dialog, which ->
+                    }
+                    setNegativeButton("キャンセル") { dialog, which ->
                         dialog.dismiss()
-                    })
+                    }
 
                 }.show()
             }
@@ -120,6 +121,17 @@ class SaveFollowTicket : AppCompatActivity(), View.OnClickListener {
             }
         }
     }
+
+
+    override fun onLongClick(v: View): Boolean {
+        when (v.id) {
+            R.id.thumbnail -> {
+                QRUtil.saveImageAlert((thumbnail.drawable as BitmapDrawable).bitmap, QRUtil.PRI_FOLLOW_FOLDER,this)
+            }
+        }
+        return true
+    }
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
