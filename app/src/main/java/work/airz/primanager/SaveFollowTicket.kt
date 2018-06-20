@@ -102,7 +102,7 @@ class SaveFollowTicket : AppCompatActivity(), View.OnClickListener, View.OnLongC
                         userFollowList.withIndex().forEach {
                             if (it.value) {
                                 dbUtil.followUser(userList[it.index], DBFormat.UserFollow(targetId, "", "", ""))
-                            } else if (!it.value && dbUtil.isFollowed(userList[it.index], targetId)) {
+                            } else if (it.value == false && dbUtil.isFollowed(userList[it.index], targetId)) {
                                 dbUtil.removeFollowUser(userList[it.index], targetId)
                             }
                         }

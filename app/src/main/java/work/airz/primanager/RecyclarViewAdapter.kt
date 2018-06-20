@@ -8,23 +8,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.ticket_item.view.*
+import org.jetbrains.anko.forEachChild
+import work.airz.primanager.db.DBUtil
 import work.airz.primanager.qr.QRUtil
 
 
-class RecyclarViewAdapter(val context: Context?, private val itemClickListener: RecyclerViewHolder.IItemsList, private var itemList: List<TicketUtils.TicketItemFormat>, private val ticketType: QRUtil.TicketType) : RecyclerView.Adapter<RecyclerViewHolder>() {
+class RecyclarViewAdapter(val context: Context?, private val itemListener: RecyclerViewHolder.IItemsList, private var itemList: List<TicketUtils.TicketItemFormat>, private val ticketType: QRUtil.TicketType) : RecyclerView.Adapter<RecyclerViewHolder>() {
     var recyclerView: RecyclerView? = null
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewHolder {
         val layoutInflater = LayoutInflater.from(context)
-        val mView = layoutInflater.inflate(R.layout.ticket_item, parent, false)
+        val ticketItemView = layoutInflater.inflate(R.layout.ticket_item, parent, false)
 
-        mView.setOnClickListener { view: View ->
+        ticketItemView.setOnClickListener { view: View ->
             recyclerView?.let {
-                itemClickListener.onItemClick(view, it.getChildAdapterPosition(view), ticketType)
+                itemListener.onItemClick(view, it.getChildAdapterPosition(view), ticketType)
             }
         }
 
-        return RecyclerViewHolder(mView)
+        return RecyclerViewHolder(ticketItemView)
     }
 
     override fun onBindViewHolder(holder: RecyclerViewHolder, position: Int) {
@@ -33,6 +36,7 @@ class RecyclarViewAdapter(val context: Context?, private val itemClickListener: 
             it.itemView.descriptionText.text = itemList[position].description
             it.itemView.thumbnail.setImageBitmap(itemList[position].thumbnail)
             it.itemView.raw_data.text = itemList[position].raw
+            it.itemView.getCheck.isChecked = false
         }
     }
 
@@ -51,8 +55,18 @@ class RecyclarViewAdapter(val context: Context?, private val itemClickListener: 
         return itemList.size
     }
 
+    fun removeSelected() {
+        val deleteList= mutableListOf<String>()
+        recyclerView!!.forEachChild {
+            if (it.getCheck.isChecked) {
+               deleteList.add(it.raw_data.toString())
+            }
+        }
+        itemListener.onDelete(deleteList)
+    }
+
     fun updateData(newList: List<TicketUtils.TicketItemFormat>) {
-        Log.d("datasize ","old ${itemList.size}   new ${newList.size}")
+        Log.d("datasize ", "old ${itemList.size}   new ${newList.size}")
         DiffUtil.calculateDiff(RecyclerDiffCallback(itemList, newList), true).dispatchUpdatesTo(this)
         itemList = newList
     }
