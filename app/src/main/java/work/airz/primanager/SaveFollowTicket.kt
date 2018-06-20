@@ -101,7 +101,9 @@ class SaveFollowTicket : AppCompatActivity(), View.OnClickListener, View.OnLongC
                     setPositiveButton("保存") { dialog, id ->
                         userFollowList.withIndex().forEach {
                             if (it.value) {
-                                dbUtil.followUser(userList[it.index], DBFormat.UserFollow(targetId, "null", "null", "null")) //TODO:最後の保存時にまとめて追加するようにする
+                                dbUtil.followUser(userList[it.index], DBFormat.UserFollow(targetId, "", "", ""))
+                            } else if (!it.value && dbUtil.isFollowed(userList[it.index], targetId)) {
+                                dbUtil.removeFollowUser(userList[it.index], targetId)
                             }
                         }
                         dialog.dismiss()
@@ -126,7 +128,7 @@ class SaveFollowTicket : AppCompatActivity(), View.OnClickListener, View.OnLongC
     override fun onLongClick(v: View): Boolean {
         when (v.id) {
             R.id.thumbnail -> {
-                QRUtil.saveImageAlert((thumbnail.drawable as BitmapDrawable).bitmap, QRUtil.PRI_FOLLOW_FOLDER,this)
+                QRUtil.saveImageAlert((thumbnail.drawable as BitmapDrawable).bitmap, QRUtil.PRI_FOLLOW_FOLDER, this)
             }
         }
         return true

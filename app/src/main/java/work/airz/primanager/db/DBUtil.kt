@@ -6,7 +6,7 @@ import android.graphics.BitmapFactory
 import org.jetbrains.anko.db.*
 import work.airz.primanager.db.DBFormat.*
 import work.airz.primanager.qr.QRUtil
-import java.io.*
+import java.io.ByteArrayOutputStream
 import kotlin.math.absoluteValue
 
 /**
@@ -232,6 +232,19 @@ class DBUtil(private val context: Context) {
     }
 
     /**
+     * フォローデータを取得します
+     */
+    fun getFollowUser(my: User, targetUserId: String): UserFollow {
+        return database.use {
+            select(my.followTableName).whereArgs("${DBConstants.USER_ID} = {arg}", "arg" to targetUserId).exec {
+                parseSingle(rowParser { userId: String, userName: String, date: String, memo: String ->
+                    UserFollow(userId, userName, date, memo)
+                })
+            }
+        }
+    }
+
+    /**
      * ユーザのフォロー用
      * ユーザの更新も同時にします
      * @param my フォローするユーザのデータ
@@ -246,6 +259,27 @@ class DBUtil(private val context: Context) {
                     DBConstants.MEMO to target.memo)
         }
     }
+
+    /**
+     * コーデデータの削除
+     * @param my 削除するユーザのデータ
+     * @param target 削除するユーザデータ
+     */
+    fun removeFollowUser(my: User, targetUserId: String) {
+        database.use {
+            delete(my.followTableName, "${DBConstants.USER_ID} = {arg}", "arg" to targetUserId)
+        }
+    }
+
+    /**
+     * コーデデータの削除
+     * @param my 削除するユーザのデータ
+     * @param target 削除するユーザデータ
+     */
+    fun removeFollowUser(my: User, target: UserFollow) {
+        removeFollowUser(my, target.userId)
+    }
+
 
     /**
      * ユーザデータを参照して対象の会員を既にフォローしているかチェックする
@@ -279,7 +313,7 @@ class DBUtil(private val context: Context) {
      * "-"文字が入る関係で正の数のみ
      */
     fun getUserHashString(userRawData: String): String {
-        return "p"+userRawData.hashCode().absoluteValue.toString()
+        return "p" + userRawData.hashCode().absoluteValue.toString()
     }
 
     /**
