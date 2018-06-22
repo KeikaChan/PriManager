@@ -1,7 +1,9 @@
 package work.airz.primanager
 
 import android.app.Activity
+import android.app.DatePickerDialog
 import android.content.ActivityNotFoundException
+import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -13,6 +15,7 @@ import android.os.Bundle
 import android.support.v4.content.FileProvider
 import android.util.Log
 import android.view.View
+import android.widget.DatePicker
 import android.widget.ImageView
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_save_coord_ticket.*
@@ -124,8 +127,22 @@ class SaveCoordTicket : AppCompatActivity(), View.OnClickListener {
             R.id.display_qr -> {
                 QRUtil.saveQRAlert(rawData, qrFormat, this)
             }
+            /*R.id.date -> {
+                val calender = Calendar.getInstance()
+                DatePickerDialog. (this).apply{
+                    DatePicker( applicationContext)
+                    setTitle("日付選択")
+                    setPositiveButton("Set", DialogInterface.OnClickListener { dialogInterface, i ->
 
-        }
+                    })
+                    setNegativeButton("Cancel", DialogInterface.OnClickListener { dialogInterface, _ ->
+                        dialogInterface.dismiss()
+                    })
+
+
+                }*/
+
+            }
     }
 
 
