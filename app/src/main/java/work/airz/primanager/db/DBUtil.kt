@@ -3,6 +3,7 @@ package work.airz.primanager.db
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel
 import org.jetbrains.anko.db.*
 import work.airz.primanager.db.DBFormat.*
 import work.airz.primanager.qr.QRUtil
@@ -65,6 +66,17 @@ class DBUtil(private val context: Context) {
             select(DBConstants.FOLLOW_TICKET_TABLE).exec {
                 parseList(rowParser { raw: String, qrFormat: String, userId: String, userName: String, date: String, follow: Int, follower: Int, coordinate: String, arcade_series: String, image: ByteArray, memo: String ->
                     FollowTicket(raw, QRUtil.QRFormat.parseString(qrFormat), userId, userName, date, follow, follower, coordinate, arcade_series, byteArrayToBitmap(image), memo)
+                })
+            }
+        }
+    }
+
+    //TODO: 軽量化の有用性検証及びボトルネックの特定
+    fun getFollowTicketOutlines(): List<FollowTicket> {
+        return database.use {
+            select(DBConstants.FOLLOW_TICKET_TABLE, DBConstants.RAW, DBConstants.USER_NAME, DBConstants.MEMO, DBConstants.IMAGE).exec {
+                parseList(rowParser { raw: String, userName: String, memo: String, image: ByteArray ->
+                    FollowTicket(raw, QRUtil.QRFormat(ErrorCorrectionLevel.M, 1, false, 1), "", userName, "", 0, 0, "", "", byteArrayToBitmap(image), memo)
                 })
             }
         }
