@@ -60,6 +60,11 @@ class MembersActivity : AppCompatActivity(), RecyclerViewHolder.IItemsList {
 
     override fun onDelete(target: List<String>, ticketType: QRUtil.TicketType) {
         target.forEach { Log.d("delete target", it) }
+        when (ticketType) {
+            QRUtil.TicketType.PRICHAN_MEMBERS -> {
+                target.forEach { dbUtil.removeUser(dbUtil.getUser(it)!!) }
+            }
+        }
     }
 
 

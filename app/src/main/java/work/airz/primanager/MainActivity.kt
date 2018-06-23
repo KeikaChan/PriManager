@@ -60,6 +60,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onDelete(target: List<String>, ticketType: QRUtil.TicketType) {
         target.forEach { Log.d("delete target", it) }
+        when (ticketType) {
+            QRUtil.TicketType.PRICHAN_FOLLOW -> {
+                target.forEach { dbUtil.removeFollowTicketData(dbUtil.getFollowTicket(it)) }
+                //TODO: ユーザのフォロー解除
+            }
+            QRUtil.TicketType.PRICHAN_COORD -> {
+                target.forEach { dbUtil.removeCoordTicketData(dbUtil.getCoordTicket(it)) }
+            }
+        }
     }
 
 
