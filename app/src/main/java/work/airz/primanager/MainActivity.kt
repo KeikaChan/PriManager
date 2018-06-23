@@ -6,12 +6,10 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.app.ActivityCompat
-import android.support.v4.app.Fragment
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
@@ -60,8 +58,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         main_tab_layout.setupWithViewPager(main_view_pager)
     }
 
-    override fun onDelete(positions: List<Int>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun onDelete(target: List<String>, ticketType: QRUtil.TicketType) {
+        target.forEach { Log.d("delete target", it) }
     }
 
 

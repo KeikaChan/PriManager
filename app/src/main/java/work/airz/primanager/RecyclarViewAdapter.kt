@@ -1,6 +1,7 @@
 package work.airz.primanager
 
 import android.content.Context
+import android.support.v7.app.AlertDialog
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.util.Log
@@ -9,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.ticket_item.view.*
 import org.jetbrains.anko.forEachChild
-import work.airz.primanager.db.DBUtil
 import work.airz.primanager.qr.QRUtil
 
 
@@ -48,21 +48,34 @@ class RecyclarViewAdapter(val context: Context?, private val itemListener: Recyc
     override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
         super.onDetachedFromRecyclerView(recyclerView)
         this.recyclerView = null
-
     }
 
     override fun getItemCount(): Int {
         return itemList.size
     }
 
-    fun removeSelected() {
-        val deleteList= mutableListOf<String>()
-        recyclerView!!.forEachChild {
-            if (it.getCheck.isChecked) {
-               deleteList.add(it.raw_data.toString())
+    /**
+     * チェックボックスのついている項目を削除します
+     */
+    fun deleteSelected() {
+        AlertDialog.Builder(context!!).apply {
+            setTitle("データの削除")
+            setCancelable(false)
+            setMessage("選択しているデータを削除します。よろしいですか？")
+            setPositiveButton("はい") { _, _ ->
+                val deleteSet = hashSetOf<String>()
+                recyclerView!!.forEachChild {
+                    if (it.getCheck.isChecked) {
+                        deleteSet.add(it.raw_data.text.toString())
+                    }
+                }
+                itemListener.onDelete(deleteSet.toList(), ticketType)
+                val newList = itemList.filter { deleteSet.add(it.raw) }
+                Log.d("list sizes", "old:${itemList.size}, new:${newList.size}")
+                updateData(newList)
             }
-        }
-        itemListener.onDelete(deleteList)
+            setNegativeButton("いいえ", null)
+        }.show()
     }
 
     fun updateData(newList: List<TicketUtils.TicketItemFormat>) {
