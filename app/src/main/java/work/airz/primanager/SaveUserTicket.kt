@@ -119,6 +119,7 @@ class SaveUserTicket : AppCompatActivity(), View.OnClickListener, View.OnLongCli
                 memo.text.toString(),
                 dbUtil.getUserHashString(QRUtil.byteToString(rawData)))
         dbUtil.addUser(user)
+        PriQRPrefsManager(applicationContext).putIsUpdate(true)
         Toast.makeText(applicationContext, "保存完了♪", Toast.LENGTH_LONG).show()
     }
 }

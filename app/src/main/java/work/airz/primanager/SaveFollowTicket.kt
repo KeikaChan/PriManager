@@ -181,6 +181,7 @@ class SaveFollowTicket : AppCompatActivity(), View.OnClickListener, View.OnLongC
                 (thumbnail.drawable as BitmapDrawable).bitmap,
                 memo.text.toString())
         dbUtil.addFollowTicketData(followTicket)
+        PriQRPrefsManager(applicationContext).putIsUpdate(true)
         Toast.makeText(applicationContext, "保存完了♪", Toast.LENGTH_LONG).show()
     }
 }

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.Toolbar
+import android.util.Log
 import android.view.*
 import kotlinx.android.synthetic.main.fragment_ticket_list.view.*
 import work.airz.primanager.qr.QRUtil
@@ -47,7 +48,11 @@ class TicketListFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        adapter.updateData(iTicketList.onItemList(ticketType))
+        Log.d("update,",PriQRPrefsManager(context!!).getIsUpdate().toString())
+        if (PriQRPrefsManager(context!!).getIsUpdate()) {
+            adapter.updateData(iTicketList.onItemList(ticketType))
+            PriQRPrefsManager(context!!).putIsUpdate(false)
+        }
     }
 
     override fun onAttach(activity: Activity?) {

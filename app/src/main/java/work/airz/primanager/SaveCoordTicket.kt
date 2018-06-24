@@ -182,6 +182,8 @@ class SaveCoordTicket : AppCompatActivity(), View.OnClickListener, View.OnLongCl
                 (thumbnail.drawable as BitmapDrawable).bitmap,
                 memo.text.toString())
         dbUtil.addCoordTicketData(coordTicket)
+        PriQRPrefsManager(applicationContext).putIsUpdate(true)
+        Toast.makeText(applicationContext, "保存完了♪", Toast.LENGTH_LONG).show()
     }
 
     private fun getPrichanCoordData(): HashMap<String, CoordDetail> {
