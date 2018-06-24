@@ -1,6 +1,7 @@
 package work.airz.primanager
 
 import android.content.Context
+import android.support.v7.app.AlertDialog
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.util.Log
@@ -8,23 +9,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.ticket_item.view.*
+import org.jetbrains.anko.forEachChild
 import work.airz.primanager.qr.QRUtil
 
 
-class RecyclarViewAdapter(val context: Context?, private val itemClickListener: RecyclerViewHolder.IItemsList, private var itemList: List<TicketUtils.TicketItemFormat>, private val ticketType: QRUtil.TicketType) : RecyclerView.Adapter<RecyclerViewHolder>() {
+class RecyclarViewAdapter(val context: Context?, private val itemListener: RecyclerViewHolder.IItemsList, private var itemList: List<TicketUtils.TicketItemFormat>, private val ticketType: QRUtil.TicketType) : RecyclerView.Adapter<RecyclerViewHolder>() {
     var recyclerView: RecyclerView? = null
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewHolder {
         val layoutInflater = LayoutInflater.from(context)
-        val mView = layoutInflater.inflate(R.layout.ticket_item, parent, false)
+        val ticketItemView = layoutInflater.inflate(R.layout.ticket_item, parent, false)
 
-        mView.setOnClickListener { view: View ->
+        ticketItemView.setOnClickListener { view: View ->
             recyclerView?.let {
-                itemClickListener.onItemClick(view, it.getChildAdapterPosition(view), ticketType)
+                itemListener.onItemClick(view, it.getChildAdapterPosition(view), ticketType)
             }
         }
 
-        return RecyclerViewHolder(mView)
+        return RecyclerViewHolder(ticketItemView)
     }
 
     override fun onBindViewHolder(holder: RecyclerViewHolder, position: Int) {
@@ -33,6 +36,7 @@ class RecyclarViewAdapter(val context: Context?, private val itemClickListener: 
             it.itemView.descriptionText.text = itemList[position].description
             it.itemView.thumbnail.setImageBitmap(itemList[position].thumbnail)
             it.itemView.raw_data.text = itemList[position].raw
+            it.itemView.getCheck.isChecked = false
         }
     }
 
@@ -44,15 +48,38 @@ class RecyclarViewAdapter(val context: Context?, private val itemClickListener: 
     override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
         super.onDetachedFromRecyclerView(recyclerView)
         this.recyclerView = null
-
     }
 
     override fun getItemCount(): Int {
         return itemList.size
     }
 
+    /**
+     * チェックボックスのついている項目を削除します
+     */
+    fun deleteSelected() {
+        AlertDialog.Builder(context!!).apply {
+            setTitle("データの削除")
+            setCancelable(false)
+            setMessage("選択しているデータを削除します。よろしいですか？")
+            setPositiveButton("はい") { _, _ ->
+                val deleteSet = hashSetOf<String>()
+                recyclerView!!.forEachChild {
+                    if (it.getCheck.isChecked) {
+                        deleteSet.add(it.raw_data.text.toString())
+                    }
+                }
+                itemListener.onDelete(deleteSet.toList(), ticketType)
+                val newList = itemList.filter { deleteSet.add(it.raw) }
+                Log.d("list sizes", "old:${itemList.size}, new:${newList.size}")
+                updateData(newList)
+            }
+            setNegativeButton("いいえ", null)
+        }.show()
+    }
+
     fun updateData(newList: List<TicketUtils.TicketItemFormat>) {
-        Log.d("datasize ","old ${itemList.size}   new ${newList.size}")
+        Log.d("datasize ", "old ${itemList.size}   new ${newList.size}")
         DiffUtil.calculateDiff(RecyclerDiffCallback(itemList, newList), true).dispatchUpdatesTo(this)
         itemList = newList
     }

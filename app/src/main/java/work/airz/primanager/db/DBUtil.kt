@@ -3,10 +3,11 @@ package work.airz.primanager.db
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel
 import org.jetbrains.anko.db.*
 import work.airz.primanager.db.DBFormat.*
 import work.airz.primanager.qr.QRUtil
-import java.io.*
+import java.io.ByteArrayOutputStream
 import kotlin.math.absoluteValue
 
 /**
@@ -65,6 +66,17 @@ class DBUtil(private val context: Context) {
             select(DBConstants.FOLLOW_TICKET_TABLE).exec {
                 parseList(rowParser { raw: String, qrFormat: String, userId: String, userName: String, date: String, follow: Int, follower: Int, coordinate: String, arcade_series: String, image: ByteArray, memo: String ->
                     FollowTicket(raw, QRUtil.QRFormat.parseString(qrFormat), userId, userName, date, follow, follower, coordinate, arcade_series, byteArrayToBitmap(image), memo)
+                })
+            }
+        }
+    }
+
+    //TODO: 軽量化の有用性検証及びボトルネックの特定
+    fun getFollowTicketOutlines(): List<FollowTicket> {
+        return database.use {
+            select(DBConstants.FOLLOW_TICKET_TABLE, DBConstants.RAW, DBConstants.USER_NAME, DBConstants.MEMO, DBConstants.IMAGE).exec {
+                parseList(rowParser { raw: String, userName: String, memo: String, image: ByteArray ->
+                    FollowTicket(raw, QRUtil.QRFormat(ErrorCorrectionLevel.M, 1, false, 1), "", userName, "", 0, 0, "", "", byteArrayToBitmap(image), memo)
                 })
             }
         }
@@ -232,6 +244,19 @@ class DBUtil(private val context: Context) {
     }
 
     /**
+     * フォローデータを取得します
+     */
+    fun getFollowUser(my: User, targetUserId: String): UserFollow {
+        return database.use {
+            select(my.followTableName).whereArgs("${DBConstants.USER_ID} = {arg}", "arg" to targetUserId).exec {
+                parseSingle(rowParser { userId: String, userName: String, date: String, memo: String ->
+                    UserFollow(userId, userName, date, memo)
+                })
+            }
+        }
+    }
+
+    /**
      * ユーザのフォロー用
      * ユーザの更新も同時にします
      * @param my フォローするユーザのデータ
@@ -246,6 +271,27 @@ class DBUtil(private val context: Context) {
                     DBConstants.MEMO to target.memo)
         }
     }
+
+    /**
+     * コーデデータの削除
+     * @param my 削除するユーザのデータ
+     * @param target 削除するユーザデータ
+     */
+    fun removeFollowUser(my: User, targetUserId: String) {
+        database.use {
+            delete(my.followTableName, "${DBConstants.USER_ID} = {arg}", "arg" to targetUserId)
+        }
+    }
+
+    /**
+     * コーデデータの削除
+     * @param my 削除するユーザのデータ
+     * @param target 削除するユーザデータ
+     */
+    fun removeFollowUser(my: User, target: UserFollow) {
+        removeFollowUser(my, target.userId)
+    }
+
 
     /**
      * ユーザデータを参照して対象の会員を既にフォローしているかチェックする
@@ -279,7 +325,7 @@ class DBUtil(private val context: Context) {
      * "-"文字が入る関係で正の数のみ
      */
     fun getUserHashString(userRawData: String): String {
-        return "p"+userRawData.hashCode().absoluteValue.toString()
+        return "p" + userRawData.hashCode().absoluteValue.toString()
     }
 
     /**

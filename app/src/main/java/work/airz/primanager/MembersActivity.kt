@@ -22,8 +22,8 @@ class MembersActivity : AppCompatActivity(), RecyclerViewHolder.IItemsList {
         val fragment = TicketListFragment()
         fragment.arguments = Bundle().apply { putSerializable(QRUtil.TICKET_TYPE, QRUtil.TicketType.PRICHAN_MEMBERS) }
         supportFragmentManager.beginTransaction().replace(R.id.container, fragment).commit()
-        
-        fab.setOnClickListener { view ->
+
+        fab.setOnClickListener {
             startActivity(Intent(this, QRActivity::class.java).apply {
                 putExtra(QRUtil.TICKET_TYPE, QRUtil.TicketType.PRICHAN_MEMBERS)
                 flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
@@ -58,7 +58,13 @@ class MembersActivity : AppCompatActivity(), RecyclerViewHolder.IItemsList {
         return userList.toList()
     }
 
-    override fun onDelete(positions: List<Int>) {
+    override fun onDelete(target: List<String>, ticketType: QRUtil.TicketType) {
+        target.forEach { Log.d("delete target", it) }
+        when (ticketType) {
+            QRUtil.TicketType.PRICHAN_MEMBERS -> {
+                target.forEach { dbUtil.removeUser(dbUtil.getUser(it)!!) }
+            }
+        }
     }
 
 

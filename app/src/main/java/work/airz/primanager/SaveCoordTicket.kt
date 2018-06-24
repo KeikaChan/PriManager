@@ -8,26 +8,25 @@ import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.AsyncTask
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.content.FileProvider
+import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_save_coord_ticket.*
+import work.airz.primanager.TicketUtils.SavePhoto
 import work.airz.primanager.db.DBConstants
 import work.airz.primanager.db.DBFormat
 import work.airz.primanager.db.DBUtil
 import work.airz.primanager.qr.QRUtil
 import java.io.File
 import java.net.HttpURLConnection
-import work.airz.primanager.TicketUtils.*
-import java.net.ConnectException
 import java.net.URL
 import java.util.*
 
-class SaveCoordTicket : AppCompatActivity(), View.OnClickListener {
+class SaveCoordTicket : AppCompatActivity(), View.OnClickListener, View.OnLongClickListener {
     private lateinit var coordList: HashMap<String, CoordDetail>
     private lateinit var rawData: ByteArray
     private lateinit var ticketType: QRUtil.TicketType
@@ -45,6 +44,7 @@ class SaveCoordTicket : AppCompatActivity(), View.OnClickListener {
         continuation.setOnClickListener(this)
         get_data.setOnClickListener(this)
         display_qr.setOnClickListener(this)
+        thumbnail.setOnLongClickListener(this)
         thumbnail.setOnClickListener(this)
 
         TEMP_URI = FileProvider.getUriForFile(applicationContext, "${BuildConfig.APPLICATION_ID}.fileprovider", File(applicationContext.cacheDir.absolutePath, "temp.png"))
@@ -80,6 +80,7 @@ class SaveCoordTicket : AppCompatActivity(), View.OnClickListener {
         like.setText(coordTicket.like.toString())
         brand.setText(coordTicket.brand)
         arcade_series.setText(coordTicket.arcadeSeries)
+        memo.setText(coordTicket.memo)
         Toast.makeText(applicationContext, "データを読み込みました", Toast.LENGTH_SHORT).show()
     }
 
@@ -128,6 +129,15 @@ class SaveCoordTicket : AppCompatActivity(), View.OnClickListener {
         }
     }
 
+    override fun onLongClick(v: View): Boolean {
+        when (v.id) {
+            R.id.thumbnail -> {
+                QRUtil.saveImageAlert((thumbnail.drawable as BitmapDrawable).bitmap, QRUtil.PRI_COORD_FOLDER, this)
+            }
+        }
+        return true
+    }
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -172,6 +182,8 @@ class SaveCoordTicket : AppCompatActivity(), View.OnClickListener {
                 (thumbnail.drawable as BitmapDrawable).bitmap,
                 memo.text.toString())
         dbUtil.addCoordTicketData(coordTicket)
+        PriQRPrefsManager(applicationContext).putIsUpdate(true)
+        Toast.makeText(applicationContext, "保存完了♪", Toast.LENGTH_LONG).show()
     }
 
     private fun getPrichanCoordData(): HashMap<String, CoordDetail> {

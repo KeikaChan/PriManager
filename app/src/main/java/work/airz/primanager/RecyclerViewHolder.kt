@@ -6,7 +6,7 @@ import work.airz.primanager.qr.QRUtil
 
 class RecyclerViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     interface IItemsList {
-        fun onDelete(positions: List<Int>)
+        fun onDelete(target: List<String>, ticketType: QRUtil.TicketType)
         fun onItemList(ticketType: QRUtil.TicketType): List<TicketUtils.TicketItemFormat>
         fun onItemClick(view: View, position: Int, ticketType: QRUtil.TicketType)
     }
