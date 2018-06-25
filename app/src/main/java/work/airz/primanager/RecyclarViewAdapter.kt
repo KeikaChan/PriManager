@@ -3,6 +3,7 @@ package work.airz.primanager
 import android.content.Context
 import android.support.v7.app.AlertDialog
 import android.support.v7.util.DiffUtil
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
@@ -27,16 +28,36 @@ class RecyclarViewAdapter(val context: Context?, private val itemListener: Recyc
             }
         }
 
+        recyclerView?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            var prevTotal = 0
+            var isLoading = true
+            var currentPage = 1
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val totalItemCount = recyclerView.adapter.itemCount
+                val visibleItemCount = recyclerView.childCount
+                val firstVisibleItem = (recyclerView.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+                if (isLoading && totalItemCount > prevTotal) {
+                    isLoading = false
+                    prevTotal = totalItemCount
+                }
+                if (!isLoading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + 20)) {
+                    // TODO: ページング処理
+                    currentPage++
+                }
+            }
+        })
         return RecyclerViewHolder(ticketItemView)
     }
 
     override fun onBindViewHolder(holder: RecyclerViewHolder, position: Int) {
-        holder?.let {
-            it.itemView.titleText.text = itemList[position].title
-            it.itemView.descriptionText.text = itemList[position].description
-            it.itemView.thumbnail.setImageBitmap(itemList[position].thumbnail)
-            it.itemView.raw_data.text = itemList[position].raw
-            it.itemView.getCheck.isChecked = false
+        holder?.itemView.apply {
+            titleText.text = itemList[position].title
+            descriptionText.text = itemList[position].description
+            thumbnail.setImageBitmap(itemList[position].thumbnail)
+            raw_data.text = itemList[position].raw
+            getCheck.isChecked = false
         }
     }
 
@@ -53,6 +74,7 @@ class RecyclarViewAdapter(val context: Context?, private val itemListener: Recyc
     override fun getItemCount(): Int {
         return itemList.size
     }
+
 
     /**
      * チェックボックスのついている項目を削除します
@@ -80,7 +102,7 @@ class RecyclarViewAdapter(val context: Context?, private val itemListener: Recyc
 
     fun updateData(newList: List<TicketUtils.TicketItemFormat>) {
         Log.d("datasize ", "old ${itemList.size}   new ${newList.size}")
-        DiffUtil.calculateDiff(RecyclerDiffCallback(itemList, newList), true).dispatchUpdatesTo(this)
+        DiffUtil.calculateDiff(RecyclerDiffCallback(itemList, newList), false).dispatchUpdatesTo(this)
         itemList = newList
     }
 
