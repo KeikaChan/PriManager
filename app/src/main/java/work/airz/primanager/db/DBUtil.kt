@@ -3,8 +3,8 @@ package work.airz.primanager.db
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel
 import org.jetbrains.anko.db.*
+import work.airz.primanager.TicketUtils
 import work.airz.primanager.db.DBFormat.*
 import work.airz.primanager.qr.QRUtil
 import java.io.ByteArrayOutputStream
@@ -71,16 +71,30 @@ class DBUtil(private val context: Context) {
         }
     }
 
-    //TODO: 軽量化の有用性検証及びボトルネックの特定
-    fun getFollowTicketOutlines(): List<FollowTicket> {
+    fun getFollowTicketOutlines(): List<TicketUtils.TicketOutlineFormat> {
         return database.use {
-            select(DBConstants.FOLLOW_TICKET_TABLE, DBConstants.RAW, DBConstants.USER_NAME, DBConstants.MEMO, DBConstants.IMAGE).exec {
-                parseList(rowParser { raw: String, userName: String, memo: String, image: ByteArray ->
-                    FollowTicket(raw, QRUtil.QRFormat(ErrorCorrectionLevel.M, 1, false, 1), "", userName, "", 0, 0, "", "", byteArrayToBitmap(image), memo)
+            select(DBConstants.FOLLOW_TICKET_TABLE, DBConstants.RAW, DBConstants.USER_NAME, DBConstants.MEMO).exec {
+                parseList(rowParser { raw: String, userName: String, memo: String ->
+                    TicketUtils.TicketOutlineFormat(userName, memo, raw)
                 })
             }
         }
     }
+
+    /**
+     * コーデチケットのリスト取得用
+     * @return コーデチケットのリスト
+     */
+    fun getCoordTicketOutlines(): List<TicketUtils.TicketOutlineFormat> {
+        return database.use {
+            select(DBConstants.COORD_TICKET_TABLE, DBConstants.RAW, DBConstants.COORD_NAME, DBConstants.MEMO).exec {
+                parseList(rowParser { raw: String, coordName: String, memo: String ->
+                    TicketUtils.TicketOutlineFormat(coordName, memo, raw)
+                })
+            }
+        }
+    }
+
 
     /**
      * フォロチケデータ追加

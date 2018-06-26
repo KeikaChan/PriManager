@@ -1,6 +1,7 @@
 package work.airz.primanager
 
 import android.content.Context
+import android.os.AsyncTask
 import android.support.v7.app.AlertDialog
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.LinearLayoutManager
@@ -14,8 +15,11 @@ import org.jetbrains.anko.forEachChild
 import work.airz.primanager.qr.QRUtil
 
 
-class RecyclarViewAdapter(val context: Context?, private val itemListener: RecyclerViewHolder.IItemsList, private var itemList: List<TicketUtils.TicketItemFormat>, private val ticketType: QRUtil.TicketType) : RecyclerView.Adapter<RecyclerViewHolder>() {
+class RecyclarViewAdapter(val context: Context?, private val itemListener: RecyclerViewHolder.IItemsList, private var itemPager: TicketListPager, private val ticketType: QRUtil.TicketType) : RecyclerView.Adapter<RecyclerViewHolder>() {
     var recyclerView: RecyclerView? = null
+    private var page = 0
+    private var pagedList = itemPager.getPagedList(page)
+    private var updateFinished = true
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewHolder {
@@ -31,10 +35,10 @@ class RecyclarViewAdapter(val context: Context?, private val itemListener: Recyc
         recyclerView?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             var prevTotal = 0
             var isLoading = true
-            var currentPage = 1
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
+                Log.d("onscrolled!", "called")
                 val totalItemCount = recyclerView.adapter.itemCount
                 val visibleItemCount = recyclerView.childCount
                 val firstVisibleItem = (recyclerView.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
@@ -42,9 +46,10 @@ class RecyclarViewAdapter(val context: Context?, private val itemListener: Recyc
                     isLoading = false
                     prevTotal = totalItemCount
                 }
-                if (!isLoading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + 20)) {
-                    // TODO: ページング処理
-                    currentPage++
+                if (!isLoading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + 20) && totalItemCount < itemPager.getOutlineSize()) {
+                    page++
+                    Log.d("paged!", page.toString())
+                    recyclerView.post { updateData() }
                 }
             }
         })
@@ -53,10 +58,10 @@ class RecyclarViewAdapter(val context: Context?, private val itemListener: Recyc
 
     override fun onBindViewHolder(holder: RecyclerViewHolder, position: Int) {
         holder?.itemView.apply {
-            titleText.text = itemList[position].title
-            descriptionText.text = itemList[position].description
-            thumbnail.setImageBitmap(itemList[position].thumbnail)
-            raw_data.text = itemList[position].raw
+            titleText.text = pagedList[position].title
+            descriptionText.text = pagedList[position].description
+            thumbnail.setImageBitmap(pagedList[position].thumbnail)
+            raw_data.text = pagedList[position].raw
             getCheck.isChecked = false
         }
     }
@@ -72,7 +77,7 @@ class RecyclarViewAdapter(val context: Context?, private val itemListener: Recyc
     }
 
     override fun getItemCount(): Int {
-        return itemList.size
+        return itemPager.getPagedSize(page)
     }
 
 
@@ -92,19 +97,40 @@ class RecyclarViewAdapter(val context: Context?, private val itemListener: Recyc
                     }
                 }
                 itemListener.onDelete(deleteSet.toList(), ticketType)
-                val newList = itemList.filter { deleteSet.add(it.raw) }
-                Log.d("list sizes", "old:${itemList.size}, new:${newList.size}")
-                updateData(newList)
+                val newList = itemPager.getPagedList(page).filter { deleteSet.add(it.raw) }
+                Log.d("list sizes", "old:${itemPager.getPagedSize(page)}, new:${newList.size}")
+                updateData()
             }
             setNegativeButton("いいえ", null)
         }.show()
     }
 
-    fun updateData(newList: List<TicketUtils.TicketItemFormat>) {
-        Log.d("datasize ", "old ${itemList.size}   new ${newList.size}")
-        DiffUtil.calculateDiff(RecyclerDiffCallback(itemList, newList), false).dispatchUpdatesTo(this)
-        itemList = newList
+    fun updateData() {
+        Log.d("update data", "Called!")
+        UpDateAsync().executeOnExecutor(AsyncTask.SERIAL_EXECUTOR,this) //シリアルでasynctaskしてくれる
     }
 
+    companion object {
+        private class UpDateAsync : AsyncTask<RecyclarViewAdapter, Void, List<TicketUtils.TicketItemFormat>>() {
+            var recyclerViewAdapter: RecyclarViewAdapter? = null
+
+            override fun doInBackground(vararg params: RecyclarViewAdapter?): List<TicketUtils.TicketItemFormat>? {
+                if (params.size != 1) return null
+                recyclerViewAdapter = params[0]
+                Log.d("fetched list", "called")
+                return recyclerViewAdapter?.itemPager?.getPagedList(recyclerViewAdapter!!.page)
+            }
+
+            override fun onPostExecute(result: List<TicketUtils.TicketItemFormat>?) {
+                super.onPostExecute(result)
+                result ?: return
+                Log.d("apply update list", "called")
+                val oldList = recyclerViewAdapter!!.pagedList.toList()
+                recyclerViewAdapter!!.pagedList = result
+                DiffUtil.calculateDiff(RecyclerDiffCallback(oldList, result), false).dispatchUpdatesTo(recyclerViewAdapter)
+
+            }
+        }
+    }
 
 }

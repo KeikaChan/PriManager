@@ -1,6 +1,7 @@
 package work.airz.primanager
 
 import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
@@ -50,12 +51,27 @@ class MembersActivity : AppCompatActivity(), RecyclerViewHolder.IItemsList {
         })
     }
 
-    override fun onItemList(ticketType: QRUtil.TicketType): List<TicketUtils.TicketItemFormat> {
-        val userList = mutableListOf<TicketUtils.TicketItemFormat>()
-        dbUtil.getUserList().forEach {
-            userList.add(TicketUtils.TicketItemFormat(it.userName, it.userCardId, it.image, it.raw))
+    override fun onItemPager(ticketType: QRUtil.TicketType): TicketListPager {
+        return object : TicketListPager(ticketType = ticketType) {
+            override fun onDBImage(rawData: String): Bitmap {
+                return dbUtil.getUser(rawData)!!.image
+            }
+
+            override fun onDBOutline(ticketType: QRUtil.TicketType): List<TicketUtils.TicketOutlineFormat> {
+                val userList = mutableListOf<TicketUtils.TicketOutlineFormat>()
+                dbUtil.getUserList().forEach {
+                    userList.add(TicketUtils.TicketOutlineFormat(it.userName, it.userCardId, it.raw))
+                }
+                return userList.toList()
+
+            }
+
         }
-        return userList.toList()
+//        val userList = mutableListOf<TicketUtils.TicketItemFormat>()
+//        dbUtil.getUserList().forEach {
+//            userList.add(TicketUtils.TicketItemFormat(it.userName, it.userCardId, it.image, it.raw))
+//        }
+//        return userList.toList()
     }
 
     override fun onDelete(target: List<String>, ticketType: QRUtil.TicketType) {

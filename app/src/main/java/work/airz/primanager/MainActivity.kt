@@ -3,6 +3,8 @@ package work.airz.primanager
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.app.ActivityCompat
@@ -72,26 +74,40 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
 
-    override fun onItemList(ticketType: QRUtil.TicketType): List<TicketUtils.TicketItemFormat> {
-        val userList = mutableListOf<TicketUtils.TicketItemFormat>()
-        return when (ticketType) {
-            QRUtil.TicketType.PRICHAN_FOLLOW -> {
-                dbUtil.getFollowTicketList().forEach {
-                    userList.add(TicketUtils.TicketItemFormat(it.userName, it.memo, it.image, it.raw))
+    override fun onItemPager(ticketType: QRUtil.TicketType): TicketListPager {
+        return object : TicketListPager(ticketType = ticketType) {
+            override fun onDBImage(rawData: String): Bitmap {
+                Log.d("getDBImage","called")
+                return when (ticketType) {
+                    QRUtil.TicketType.PRICHAN_FOLLOW -> {
+                        dbUtil.getFollowTicket(rawData).image
+                    }
+                    QRUtil.TicketType.PRICHAN_COORD -> {
+                        dbUtil.getCoordTicket(rawData).image
+
+                    }
+                    else -> {
+                        return BitmapFactory.decodeResource(resources, R.drawable.ic_qr)
+                    }
                 }
-                userList.toList()
             }
-            QRUtil.TicketType.PRICHAN_COORD -> {
-                dbUtil.getCoordTicketList().forEach {
-                    userList.add(TicketUtils.TicketItemFormat(it.coordName, it.memo, it.image, it.raw))
+
+            override fun onDBOutline(ticketType: QRUtil.TicketType): List<TicketUtils.TicketOutlineFormat> {
+                Log.d("getOutline","called")
+                return when (ticketType) {
+                    QRUtil.TicketType.PRICHAN_FOLLOW -> {
+                        dbUtil.getFollowTicketOutlines().toList()
+                    }
+                    QRUtil.TicketType.PRICHAN_COORD -> {
+                        dbUtil.getCoordTicketOutlines().toList()
+
+                    }
+                    else -> {
+                        return mutableListOf<TicketUtils.TicketOutlineFormat>()
+                    }
                 }
-                userList.toList()
-            }
-            else -> {
-                userList.toList()
             }
         }
-        return userList.toList()
     }
 
     override fun onItemClick(view: View, position: Int, ticketType: QRUtil.TicketType) {
@@ -160,4 +176,5 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         ActivityCompat.requestPermissions(this,
                 arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA, Manifest.permission.INTERNET), REQUEST_PERMISSION)
     }
+
 }
