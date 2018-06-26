@@ -25,7 +25,7 @@ class TicketListFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_ticket_list, container, false)
         ticketType = arguments!!.getSerializable(QRUtil.TICKET_TYPE) as? QRUtil.TicketType ?: return view
         view.ticket_recyclerview.layoutManager = LinearLayoutManager(context)
-        adapter = RecyclarViewAdapter(context, iTicketList, iTicketList.onItemList(ticketType), ticketType)
+        adapter = RecyclarViewAdapter(context, iTicketList, iTicketList.onItemPager(ticketType), ticketType)
         view.ticket_recyclerview.adapter = adapter
         setHasOptionsMenu(true)
         return view
@@ -50,7 +50,7 @@ class TicketListFragment : Fragment() {
         super.onResume()
         Log.d("update,",PriQRPrefsManager(context!!).getIsUpdate().toString())
         if (PriQRPrefsManager(context!!).getIsUpdate()) {
-            adapter.updateData(iTicketList.onItemList(ticketType))
+            adapter.updateData()
             PriQRPrefsManager(context!!).putIsUpdate(false)
         }
     }

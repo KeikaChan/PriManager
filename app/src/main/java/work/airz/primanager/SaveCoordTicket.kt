@@ -224,7 +224,7 @@ class SaveCoordTicket : AppCompatActivity(), View.OnClickListener, View.OnLongCl
 
 
     companion object {
-        open class ImageAsyncTask : AsyncTask<Any, Void, Bitmap>() {
+        class ImageAsyncTask : AsyncTask<Any, Void, Bitmap>() {
             var imageView: ImageView? = null
 
             override fun doInBackground(vararg params: Any): Bitmap? {
