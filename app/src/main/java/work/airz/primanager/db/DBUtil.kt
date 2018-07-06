@@ -71,6 +71,10 @@ class DBUtil(private val context: Context) {
         }
     }
 
+    /**
+     * フォローチケットのリスト取得用
+     * @return listview表示用のリスト
+     */
     fun getFollowTicketOutlines(): List<TicketUtils.TicketOutlineFormat> {
         return database.use {
             select(DBConstants.FOLLOW_TICKET_TABLE, DBConstants.RAW, DBConstants.USER_NAME, DBConstants.MEMO).exec {
@@ -83,7 +87,7 @@ class DBUtil(private val context: Context) {
 
     /**
      * コーデチケットのリスト取得用
-     * @return コーデチケットのリスト
+     * @return listview表示用のリスト
      */
     fun getCoordTicketOutlines(): List<TicketUtils.TicketOutlineFormat> {
         return database.use {
