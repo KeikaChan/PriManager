@@ -37,7 +37,7 @@ class RecyclarViewAdapter(val context: Context?, private val itemListener: Recyc
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                Log.d("onscrolled!", "called")
+//                Log.d("onscrolled!", "called")
                 val totalItemCount = recyclerView.adapter.itemCount
                 val visibleItemCount = recyclerView.childCount
                 val firstVisibleItem = (recyclerView.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
@@ -75,6 +75,7 @@ class RecyclarViewAdapter(val context: Context?, private val itemListener: Recyc
     }
 
     override fun getItemCount(): Int {
+//        Log.d("getItemCount", currentSize.toString())
         return currentSize
     }
 

@@ -55,16 +55,14 @@ abstract class TicketListPager(private val pageSize: Int = 20, private val ticke
         return getCurrentPage()
     }
 
+    /**
+     * 現在のページのデータ
+     */
     fun getCurrentPage(): List<TicketUtils.TicketItemFormat>? {
         var pagedList = getPagedList(page)
         return if (pagedList.isNotEmpty()) pagedList else null
     }
 
-    fun getPreviousPage(): List<TicketUtils.TicketItemFormat>? {
-        val targetPage = if (page - 1 <= 0) 0 else page - 1
-        var pagedList = getPagedList(targetPage)
-        return if (pagedList.isNotEmpty()) pagedList else null
-    }
 
     private fun getPageNum(pageNum: Int): List<TicketUtils.TicketItemFormat> {
         val startIndex = pageNum * pageSize
@@ -73,7 +71,7 @@ abstract class TicketListPager(private val pageSize: Int = 20, private val ticke
     }
 
     private fun getPagedList(pageNum: Int): List<TicketUtils.TicketItemFormat> {
-        Log.d("getPagedList", "pagenum ${pageNum}")
+        Log.d("getPagedList", "pagenum ${pageNum} outline size ${outlineData.size}")
         val startIndex = 0
         val endIndex = if ((pageNum + 1) * pageSize > outlineData.size) outlineData.size - 1 else (pageNum + 1) * pageSize - 1
         return getList(startIndex, endIndex)
@@ -87,13 +85,14 @@ abstract class TicketListPager(private val pageSize: Int = 20, private val ticke
      * 指定されたサイズのリストを取得する
      */
     private fun getList(startIndex: Int, endIndex: Int): List<TicketUtils.TicketItemFormat> {
-        Log.d("getList", "start ${startIndex} to end ${endIndex}")
         var resultList = mutableListOf<TicketUtils.TicketItemFormat>()
         for (index in startIndex..endIndex) {
             var target = outlineData[index]
 
             resultList.add(TicketUtils.TicketItemFormat(target.title, target.description,Bitmap.createScaledBitmap( onDBImage(target.raw),75,75,false), target.raw))
         }
+
+        Log.d("getList", "start ${startIndex} to end ${endIndex} result size ${resultList.size.toString()}")
         return resultList.toList()
     }
 
