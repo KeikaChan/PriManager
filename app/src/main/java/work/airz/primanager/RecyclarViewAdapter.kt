@@ -132,8 +132,10 @@ class RecyclarViewAdapter(val context: Context?, private val itemListener: Recyc
                 Log.d("apply update list", "called")
                 var oldList = recyclerViewAdapter!!.pagedList!!.toList() //tolistでコピー
                 recyclerViewAdapter!!.pagedList = result
-                DiffUtil.calculateDiff(RecyclerDiffCallback(oldList, result), false).dispatchUpdatesTo(recyclerViewAdapter)
                 recyclerViewAdapter!!.currentSize = recyclerViewAdapter?.itemPager!!.getPagedItemSize() //ページ数を遅延更新にしないとバインドでコケる
+
+                DiffUtil.calculateDiff(RecyclerDiffCallback(oldList, result), false).dispatchUpdatesTo(recyclerViewAdapter)
+
             }
         }
     }
