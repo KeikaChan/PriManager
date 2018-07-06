@@ -4,8 +4,9 @@ import android.graphics.Bitmap
 import android.util.Log
 import work.airz.primanager.qr.QRUtil
 
-abstract class TicketListPager(private val pageSize: Int = 25, private val ticketType: QRUtil.TicketType) {
+abstract class TicketListPager(private val pageSize: Int = 20, private val ticketType: QRUtil.TicketType) {
     private var outlineData: List<TicketUtils.TicketOutlineFormat>
+    private var page = 0
 
     init {
         if (pageSize <= 1) throw IllegalArgumentException("page size must be natural number.")
@@ -25,18 +26,53 @@ abstract class TicketListPager(private val pageSize: Int = 25, private val ticke
      */
     abstract fun onDBImage(rawData: String): Bitmap
 
+
+    /**
+     * ページ数取得
+     * ページングしたアイテム数を取得する場合は
+     * getPagedSizeを使うこと!!
+     */
+    fun getPageNum(): Int {
+        return page
+    }
+
+    /**
+     * ページ数のリセット
+     */
+    fun resetCursor() {
+        page = 0
+    }
+
     fun refreshOutline() {
         Log.d("refresh", "refresh called!!")
         outlineData = onDBOutline(ticketType)
     }
 
-    fun getPage(pageNum: Int): List<TicketUtils.TicketItemFormat> {
+    fun next(): List<TicketUtils.TicketItemFormat>? {
+        if (page * pageSize > outlineData.size) return null
+        page++
+        Log.d("increment Page","page is ${page}")
+        return getCurrentPage()
+    }
+
+    fun getCurrentPage(): List<TicketUtils.TicketItemFormat>? {
+        var pagedList = getPagedList(page)
+        return if (pagedList.isNotEmpty()) pagedList else null
+    }
+
+    fun getPreviousPage(): List<TicketUtils.TicketItemFormat>? {
+        val targetPage = if (page - 1 <= 0) 0 else page - 1
+        var pagedList = getPagedList(targetPage)
+        return if (pagedList.isNotEmpty()) pagedList else null
+    }
+
+    private fun getPageNum(pageNum: Int): List<TicketUtils.TicketItemFormat> {
         val startIndex = pageNum * pageSize
         val endIndex = if ((pageNum + 1) * pageSize > outlineData.size) outlineData.size - 1 else (pageNum + 1) * pageSize - 1
         return getList(startIndex, endIndex)
     }
 
-    fun getPagedList(pageNum: Int): List<TicketUtils.TicketItemFormat> {
+    private fun getPagedList(pageNum: Int): List<TicketUtils.TicketItemFormat> {
         Log.d("getPagedList", "pagenum ${pageNum}")
         val startIndex = 0
         val endIndex = if ((pageNum + 1) * pageSize > outlineData.size) outlineData.size - 1 else (pageNum + 1) * pageSize - 1
@@ -56,13 +92,16 @@ abstract class TicketListPager(private val pageSize: Int = 25, private val ticke
         for (index in startIndex..endIndex) {
             var target = outlineData[index]
 
-            resultList.add(TicketUtils.TicketItemFormat(target.title, target.description, onDBImage(target.raw), target.raw))
+            resultList.add(TicketUtils.TicketItemFormat(target.title, target.description,Bitmap.createScaledBitmap( onDBImage(target.raw),75,75,false), target.raw))
         }
         return resultList.toList()
     }
 
-    fun getPagedSize(pageNum: Int): Int {
-        return if ((pageNum + 1) * pageSize > outlineData.size) outlineData.size else (pageNum + 1) * pageSize
+    /**
+     * ページング済みのアイテム数を返す。
+     */
+    fun getPagedItemSize(): Int {
+        return if ((page + 1) * pageSize > outlineData.size) outlineData.size else (page + 1) * pageSize
     }
 
     fun getOutlineSize(): Int = outlineData.size

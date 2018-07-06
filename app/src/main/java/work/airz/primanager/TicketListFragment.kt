@@ -48,9 +48,9 @@ class TicketListFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        Log.d("update,",PriQRPrefsManager(context!!).getIsUpdate().toString())
+        Log.d("update,", PriQRPrefsManager(context!!).getIsUpdate().toString())
         if (PriQRPrefsManager(context!!).getIsUpdate()) {
-            adapter.updateData()
+            adapter.updateData(true)
             PriQRPrefsManager(context!!).putIsUpdate(false)
         }
     }
