@@ -150,13 +150,13 @@ class QRActivity : AppCompatActivity() {
      */
     private fun duplicateDataAlert(rawData: ByteArray, qrFormat: QRUtil.QRFormat, type: QRUtil.TicketType) {
         AlertDialog.Builder(this).apply {
-            setTitle("既にデータが存在します")
+            setTitle(resources.getString(R.string.data_already_exists))
             setCancelable(false)
-            setMessage("データを編集しますか？")
-            setPositiveButton("はい") { _, _ ->
+            setMessage(resources.getString(R.string.edit_question))
+            setPositiveButton(resources.getString(R.string.yes)) { _, _ ->
                 intentAdapter(rawData, qrFormat, type, true)
             }
-            setNegativeButton("いいえ") { dialog, _ ->
+            setNegativeButton(resources.getString(R.string.no)) { dialog, _ ->
                 dialog.dismiss()
                 qrReaderView.resume()
             }
@@ -168,19 +168,19 @@ class QRActivity : AppCompatActivity() {
      * フォロー済みのときのアラート
      */
     private fun followedAlert(rawData: ByteArray, qrFormat: QRUtil.QRFormat, followdList: List<User>, type: QRUtil.TicketType, isDuplicate: Boolean) {
-        val head = if (!isDuplicate) "このフォロチケは登録されていませんが、読み取ったユーザは以下のユーザでフォローしています。" else "以下のユーザでフォローしています。"
-        val strb = StringBuilder("${head}編集しますか？\n")
+        val head = if (!isDuplicate) resources.getString(R.string.already_followed_but_not_registered_below) else resources.getString(R.string.already_followed_below)
+        val strb = StringBuilder("${head}${resources.getString(R.string.proceed_question)}\n")
 
         followdList.forEach { strb.append("${it.userName}\n") }
         AlertDialog.Builder(this).apply {
-            setTitle("既にフォローされています")
+            setTitle(resources.getString(R.string.already_followed))
             setCancelable(false)
             setMessage(strb.toString())
-            setPositiveButton("進む") { _, _ ->
+            setPositiveButton(resources.getString(R.string.goahead)) { _, _ ->
                 intentAdapter(rawData, qrFormat, type, isDuplicate)
                 finish()
             }
-            setNegativeButton("戻る") { dialog, _ ->
+            setNegativeButton(R.string.back) { dialog, _ ->
                 dialog.dismiss()
                 qrReaderView.resume()
             }

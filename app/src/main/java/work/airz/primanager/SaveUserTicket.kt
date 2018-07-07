@@ -50,7 +50,7 @@ class SaveUserTicket : AppCompatActivity(), View.OnClickListener, View.OnLongCli
         card_id.setText(user.userCardId)
         thumbnail.setImageBitmap(user.image)
         display_qr.visibility = View.VISIBLE
-        Toast.makeText(applicationContext, "データを読み込みました", Toast.LENGTH_SHORT).show()
+        Toast.makeText(applicationContext, resources.getString(R.string.data_loaded), Toast.LENGTH_SHORT).show()
     }
 
     override fun onClick(v: View) {
@@ -120,6 +120,6 @@ class SaveUserTicket : AppCompatActivity(), View.OnClickListener, View.OnLongCli
                 dbUtil.getUserHashString(QRUtil.byteToString(rawData)))
         dbUtil.addUser(user)
         PriQRPrefsManager(applicationContext).putIsUpdate(true)
-        Toast.makeText(applicationContext, "保存完了♪", Toast.LENGTH_LONG).show()
+        Toast.makeText(applicationContext, resources.getString(R.string.data_saved), Toast.LENGTH_LONG).show()
     }
 }
