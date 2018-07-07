@@ -54,13 +54,13 @@
                 android:id="@+id/titleText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="タイトル" />
+                android:text="@string/title" />
 
             <TextView
                 android:id="@+id/descriptionText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="詳細" />
+                android:text="@string/detail" />
 
             <TextView
                 android:id="@+id/raw_data"
