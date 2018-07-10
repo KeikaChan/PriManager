@@ -114,13 +114,13 @@ class QRActivity : AppCompatActivity() {
      */
     private fun saveAlert(rawData: ByteArray, qrFormat: QRUtil.QRFormat, type: QRUtil.TicketType) {
         AlertDialog.Builder(this).apply {
-            setTitle("新データ")
+            setTitle(getString(R.string.new_data))
             setCancelable(false)
-            setMessage("まだ保存されていない物のようです。保存しますか？")
-            setPositiveButton("はい") { _, _ ->
+            setMessage("${getString(R.string.not_saved_data)}${getString(R.string.question_save)}")
+            setPositiveButton(getString(R.string.yes)) { _, _ ->
                 intentAdapter(rawData, qrFormat, type, false)
             }
-            setNegativeButton("いいえ") { dialog, _ ->
+            setNegativeButton(getString(R.string.no)) { dialog, _ ->
                 dialog.dismiss()
                 qrReaderView.resume()
             }
@@ -132,13 +132,13 @@ class QRActivity : AppCompatActivity() {
      */
     private fun othersDataAlert(rawData: ByteArray, qrFormat: QRUtil.QRFormat, type: QRUtil.TicketType) {
         AlertDialog.Builder(this).apply {
-            setTitle("未知のデータ形式")
+            setTitle(getString(R.string.unknown_data))
             setCancelable(false)
-            setMessage("コーデ保存に飛びます。よろしいですか？")
-            setPositiveButton("はい") { _, _ ->
+            setMessage("${getString(R.string.jump_to_coord)}${getString(R.string.question_comfirm)}")
+            setPositiveButton(getString(R.string.yes)) { _, _ ->
                 intentAdapter(rawData, qrFormat, type, false)
             }
-            setNegativeButton("いいえ") { dialog, _ ->
+            setNegativeButton(getString(R.string.no)) { dialog, _ ->
                 dialog.dismiss()
                 qrReaderView.resume()
             }

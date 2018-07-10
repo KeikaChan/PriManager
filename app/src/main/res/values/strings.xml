@@ -108,4 +108,11 @@
     <string name="save_file_name">保存名(拡張子抜き/空白でもOK)</string>
     <string name="title">タイトル</string>
     <string name="detail">詳細</string>
+    <string name="new_data">新データ</string>
+    <string name="not_saved_data">まだ保存されていないデータです。</string>
+    <string name="question_save">保存しますか？</string>
+    <string name="unknown_data">未知のデータ形式</string>
+    <string name="jump_to_coord">コーデ保存に移動します。</string>
+    <string name="question_comfirm">よろしいですか？</string>
+
 </resources>
