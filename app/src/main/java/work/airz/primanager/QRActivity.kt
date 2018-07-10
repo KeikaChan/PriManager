@@ -150,13 +150,13 @@ class QRActivity : AppCompatActivity() {
      */
     private fun duplicateDataAlert(rawData: ByteArray, qrFormat: QRUtil.QRFormat, type: QRUtil.TicketType) {
         AlertDialog.Builder(this).apply {
-            setTitle(resources.getString(R.string.data_already_exists))
+            setTitle(getString(R.string.data_already_exists))
             setCancelable(false)
-            setMessage(resources.getString(R.string.edit_question))
-            setPositiveButton(resources.getString(R.string.yes)) { _, _ ->
+            setMessage(getString(R.string.edit_question))
+            setPositiveButton(getString(R.string.yes)) { _, _ ->
                 intentAdapter(rawData, qrFormat, type, true)
             }
-            setNegativeButton(resources.getString(R.string.no)) { dialog, _ ->
+            setNegativeButton(getString(R.string.no)) { dialog, _ ->
                 dialog.dismiss()
                 qrReaderView.resume()
             }
@@ -168,15 +168,15 @@ class QRActivity : AppCompatActivity() {
      * フォロー済みのときのアラート
      */
     private fun followedAlert(rawData: ByteArray, qrFormat: QRUtil.QRFormat, followdList: List<User>, type: QRUtil.TicketType, isDuplicate: Boolean) {
-        val head = if (!isDuplicate) resources.getString(R.string.already_followed_but_not_registered_below) else resources.getString(R.string.already_followed_below)
-        val strb = StringBuilder("${head}${resources.getString(R.string.proceed_question)}\n")
+        val head = if (!isDuplicate) getString(R.string.already_followed_but_not_registered_below) else getString(R.string.already_followed_below)
+        val strb = StringBuilder("${head}${getString(R.string.proceed_question)}\n")
 
         followdList.forEach { strb.append("${it.userName}\n") }
         AlertDialog.Builder(this).apply {
-            setTitle(resources.getString(R.string.already_followed))
+            setTitle(getString(R.string.already_followed))
             setCancelable(false)
             setMessage(strb.toString())
-            setPositiveButton(resources.getString(R.string.goahead)) { _, _ ->
+            setPositiveButton(getString(R.string.goahead)) { _, _ ->
                 intentAdapter(rawData, qrFormat, type, isDuplicate)
                 finish()
             }

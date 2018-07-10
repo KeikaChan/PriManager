@@ -51,7 +51,7 @@ abstract class TicketListPager(private val pageSize: Int = 20, private val ticke
     fun next(): List<TicketUtils.TicketItemFormat>? {
         if (page * pageSize > outlineData.size) return null
         page++
-        Log.d("increment Page","page is ${page}")
+        Log.d("increment Page", "page is ${page}")
         return getCurrentPage()
     }
 
@@ -89,7 +89,7 @@ abstract class TicketListPager(private val pageSize: Int = 20, private val ticke
         for (index in startIndex..endIndex) {
             var target = outlineData[index]
 
-            resultList.add(TicketUtils.TicketItemFormat(target.title, target.description,Bitmap.createScaledBitmap( onDBImage(target.raw),75,75,false), target.raw))
+            resultList.add(TicketUtils.TicketItemFormat(target.title, target.description, Bitmap.createScaledBitmap(onDBImage(target.raw), 75, 75, false), target.raw))
         }
 
         Log.d("getList", "start ${startIndex} to end ${endIndex} result size ${resultList.size.toString()}")

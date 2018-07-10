@@ -66,7 +66,7 @@ class SaveFollowTicket : AppCompatActivity(), View.OnClickListener, View.OnLongC
         thumbnail.setImageBitmap(followTicket.image)
         memo.setText(followTicket.memo)
         display_qr.visibility = View.VISIBLE
-        Toast.makeText(applicationContext, resources.getString(R.string.data_loaded), Toast.LENGTH_SHORT).show()
+        Toast.makeText(applicationContext, getString(R.string.data_loaded), Toast.LENGTH_SHORT).show()
     }
 
     override fun onClick(v: View) {
@@ -94,11 +94,11 @@ class SaveFollowTicket : AppCompatActivity(), View.OnClickListener, View.OnLongC
                 userList.forEach { userListString.add(it.userName) }
                 userList.forEach { userFollowList.add(dbUtil.isFollowed(it, targetId)) }
                 AlertDialog.Builder(this).apply {
-                    setTitle(resources.getString(R.string.select_follow_account))
+                    setTitle(getString(R.string.select_follow_account))
                     setMultiChoiceItems(userListString.toTypedArray(), userFollowList.toBooleanArray()) { _, which, isChecked ->
                         userFollowList[which] = isChecked
                     }
-                    setPositiveButton(resources.getString(R.string.save)) { dialog, id ->
+                    setPositiveButton(getString(R.string.save)) { dialog, id ->
                         userFollowList.withIndex().forEach {
                             if (it.value) {
                                 dbUtil.followUser(userList[it.index], DBFormat.UserFollow(targetId, "", "", ""))
@@ -108,7 +108,7 @@ class SaveFollowTicket : AppCompatActivity(), View.OnClickListener, View.OnLongC
                         }
                         dialog.dismiss()
                     }
-                    setNegativeButton(resources.getString(R.string.cancel)) { dialog, which ->
+                    setNegativeButton(getString(R.string.cancel)) { dialog, which ->
                         dialog.dismiss()
                     }
 
@@ -182,6 +182,6 @@ class SaveFollowTicket : AppCompatActivity(), View.OnClickListener, View.OnLongC
                 memo.text.toString())
         dbUtil.addFollowTicketData(followTicket)
         PriQRPrefsManager(applicationContext).putIsUpdate(true)
-        Toast.makeText(applicationContext, resources.getString(R.string.data_saved), Toast.LENGTH_LONG).show()
+        Toast.makeText(applicationContext, getString(R.string.data_saved), Toast.LENGTH_LONG).show()
     }
 }

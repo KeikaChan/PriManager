@@ -229,10 +229,10 @@ class QRUtil {
             var builder = AlertDialog.Builder(context)
             builder.setView(dialogRoot)
             builder.setCancelable(false)
-            builder.setNegativeButton(context.resources.getString(R.string.cancel)) { dialogInterface, _ ->
+            builder.setNegativeButton(context.getString(R.string.cancel)) { dialogInterface, _ ->
                 dialogInterface.dismiss()
             }
-            builder.setPositiveButton(context.resources.getString(R.string.save)) { _, _ ->
+            builder.setPositiveButton(context.getString(R.string.save)) { _, _ ->
                 val outDir = File(Environment.getExternalStorageDirectory().absolutePath, childFolderName)
                 if (!outDir.exists()) outDir.mkdirs()
 
