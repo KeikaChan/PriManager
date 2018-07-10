@@ -85,4 +85,34 @@
         <item>フォロチケ</item>
         <item>コーデチケ</item>
     </string-array>
+    <string name="data_loaded">データを読み込みました</string>
+    <string name="prichan">プリチャン</string>
+    <string name="data_saved">保存完了♪</string>
+    <string name="select_follow_account">どのアカウントでフォローする？</string>
+    <string name="save">保存</string>
+    <string name="cancel">キャンセル　　</string>
+    <string name="destroy">破棄</string>
+    <string name="continuous_capture">続けて撮る</string>
+    <string name="already_followed">既にフォローされています</string>
+    <string name="goahead">進む</string>
+    <string name="back">戻る</string>
+    <string name="already_followed_but_not_registered_below">このフォロチケは登録されていませんが、読み取ったフォロチケは以下のユーザでフォローされています。</string>
+    <string name="already_followed_below">以下のユーザでフォローしています。</string>
+    <string name="proceed_question">続けますか？</string>
+    <string name="data_already_exists">既にデータが存在します。</string>
+    <string name="edit_question">データを編集しますか？</string>
+    <string name="yes">はい</string>
+    <string name="no">いいえ</string>
+    <string name="view_qr">QR表示</string>
+    <string name="save_or_update">保存/更新</string>
+    <string name="save_file_name">保存名(拡張子抜き/空白でもOK)</string>
+    <string name="title">タイトル</string>
+    <string name="detail">詳細</string>
+    <string name="new_data">新データ</string>
+    <string name="not_saved_data">まだ保存されていないデータです。</string>
+    <string name="question_save">保存しますか？</string>
+    <string name="unknown_data">未知のデータ形式</string>
+    <string name="jump_to_coord">コーデ保存に移動します。</string>
+    <string name="question_comfirm">よろしいですか？</string>
+
 </resources>

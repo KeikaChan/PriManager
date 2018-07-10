@@ -81,7 +81,7 @@ class SaveCoordTicket : AppCompatActivity(), View.OnClickListener, View.OnLongCl
         brand.setText(coordTicket.brand)
         arcade_series.setText(coordTicket.arcadeSeries)
         memo.setText(coordTicket.memo)
-        Toast.makeText(applicationContext, "データを読み込みました", Toast.LENGTH_SHORT).show()
+        Toast.makeText(applicationContext, getString(R.string.data_loaded), Toast.LENGTH_SHORT).show()
     }
 
 
@@ -111,7 +111,7 @@ class SaveCoordTicket : AppCompatActivity(), View.OnClickListener, View.OnLongCl
                     genre.setText(detail.genre)
                     like.setText(detail.like)
                     brand.setText(detail.brand)
-                    arcade_series.setText("プリチャン")
+                    arcade_series.setText(getString(R.string.prichan))
 
                 }
             }
@@ -183,7 +183,7 @@ class SaveCoordTicket : AppCompatActivity(), View.OnClickListener, View.OnLongCl
                 memo.text.toString())
         dbUtil.addCoordTicketData(coordTicket)
         PriQRPrefsManager(applicationContext).putIsUpdate(true)
-        Toast.makeText(applicationContext, "保存完了♪", Toast.LENGTH_LONG).show()
+        Toast.makeText(applicationContext, getString(R.string.data_saved), Toast.LENGTH_LONG).show()
     }
 
     private fun getPrichanCoordData(): HashMap<String, CoordDetail> {

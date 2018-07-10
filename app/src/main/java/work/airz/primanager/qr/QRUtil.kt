@@ -229,10 +229,10 @@ class QRUtil {
             var builder = AlertDialog.Builder(context)
             builder.setView(dialogRoot)
             builder.setCancelable(false)
-            builder.setNegativeButton("Cancel") { dialogInterface, _ ->
+            builder.setNegativeButton(context.getString(R.string.cancel)) { dialogInterface, _ ->
                 dialogInterface.dismiss()
             }
-            builder.setPositiveButton("Save") { _, _ ->
+            builder.setPositiveButton(context.getString(R.string.save)) { _, _ ->
                 val outDir = File(Environment.getExternalStorageDirectory().absolutePath, childFolderName)
                 if (!outDir.exists()) outDir.mkdirs()
 
@@ -249,12 +249,12 @@ class QRUtil {
                     FileOutputStream(File(outDir.absolutePath, "${outputName}-${count}.png")).use {
                         imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, it)
                     }
-                    Toast.makeText(context, "${File(outDir.absolutePath, "${outputName}-${count}.png").absolutePath}に保存", Toast.LENGTH_LONG)
+                    Toast.makeText(context, "save to ${File(outDir.absolutePath, "${outputName}-${count}.png").absolutePath}", Toast.LENGTH_LONG)
                 } else {
                     FileOutputStream(File(outDir.absolutePath, "${outputName}.png")).use {
                         imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, it)
                     }
-                    Toast.makeText(context, "${File(outDir.absolutePath, "${outputName}.png").absolutePath}に保存", Toast.LENGTH_LONG)
+                    Toast.makeText(context, "save to ${File(outDir.absolutePath, "${outputName}.png").absolutePath}", Toast.LENGTH_LONG)
 
                 }
             }
